@@ -24,4 +24,5 @@ public class HoaDon implements Serializable {
 	private NhanVien nhanVien;
 	private KhachHang khachHang;
 	private LocalDateTime thoiGianTao;
+	
 }
