@@ -1,4 +1,4 @@
-package _00_Init;
+package _00_Initiate;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
