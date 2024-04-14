@@ -44,10 +44,10 @@ public class QuanAo implements Serializable{
 	private int soLuongTrongKho;
 	
 	@Column(name = "NhaSanXuat")
-	private String nhaSanXuat;
+	private NhaSanXuat nhaSanXuat;
 	
 	@Column(name = "DanhMuc")
-	private String danhMuc;
+	private DanhMuc danhMuc;
 	
 	@Column(name = "GioiTinh")
 	private String gioiTinh;
@@ -59,7 +59,7 @@ public class QuanAo implements Serializable{
 	private String kichThuoc;
 	
 	@Column(name = "ChatLieu")
-	private String chatLieu;
+	private ChatLieu chatLieu;
 	
 	@Column(name = "HinhAnh")
 	private ImageIcon hinhAnh;
