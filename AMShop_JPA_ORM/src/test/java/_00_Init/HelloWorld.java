@@ -3,7 +3,9 @@ package _00_Init;
 public class HelloWorld {
 	
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
+		HelloWorldObject obj = new HelloWorldObject("Hello World!");
+		System.out.println(obj);
+		
 	}
 	
 }
