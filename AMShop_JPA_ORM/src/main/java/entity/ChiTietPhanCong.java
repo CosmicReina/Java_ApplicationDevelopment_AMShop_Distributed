@@ -3,6 +3,10 @@ package entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,13 +19,24 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 
+@Entity
+@Table(name = "ChiTietPhanCong")
+
 public class ChiTietPhanCong implements Serializable {
 	
 	private static final long serialVersionUID = 4899708714148214926L;
 	
+	
+	@Column(name = "LichLamViec")
 	private LichLamViec lichLamViec;
+	
+	@Column(name = "NhanVien")
 	private NhanVien nhanVien;
+	
+	@Column(name = "ThoiGianVaoCa")
 	private LocalDateTime thoiGianVaoCa;
+	
+	@Column(name = "ThoiGianRaCa")
 	private LocalDateTime thoiGianRaCa;
 	
 }
