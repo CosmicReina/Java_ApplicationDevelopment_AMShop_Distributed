@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,7 +21,7 @@ public class CaLamViec implements Serializable {
 	
 	private String maCaLamViec;
 	private String tenCaLamViec;
-	private String diaChi;
-	private String soDienThoai;
+	private LocalTime thoiGianBatDau;
+	private LocalTime thoiGianKetThuc;
 	
 }
