@@ -24,4 +24,5 @@ public class DonDatHang implements Serializable {
 	private KhachHang khachHang;
 	private LocalDateTime thoiGianTao;
 	private boolean trangThaiThanhToan;
+	
 }
