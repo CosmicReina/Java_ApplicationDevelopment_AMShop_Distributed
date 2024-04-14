@@ -1,4 +1,4 @@
-package _00_Init;
+package _00_Initiate;
 
 public class HelloWorld {
 	

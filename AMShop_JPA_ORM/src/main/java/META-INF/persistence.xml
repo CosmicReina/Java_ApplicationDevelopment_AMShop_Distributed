@@ -11,7 +11,7 @@
 			<property name="jakarta.persistence.jdbc.url"
 				value="
 				jdbc:sqlserver://localhost:1433;
-				databaseName=AMShop;
+				databaseName=AMShop_JPA_ORM;
 				encrypt=true;
 				trustServerCertificate=true;" />
 			<property name="jakarta.persistence.jdbc.user" value="sa" />
