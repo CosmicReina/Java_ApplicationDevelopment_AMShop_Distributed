@@ -13,14 +13,15 @@ public class ServiceMessage extends UnicastRemoteObject implements IMessage {
 	private EntityManager entityManager;
 	
 	public ServiceMessage() throws RemoteException {
-		entityManager = MSSQLConnection.getEntityManager();
+//		entityManager = MSSQLConnection.getEntityManager();
 	}
 
 	@Override
 	public String sendHelloMessage() throws RemoteException {
-		return entityManager.createNativeQuery("SELECT 'Hello, Client!'")
-				.getSingleResult()
-				.toString();
+//		return entityManager.createNativeQuery("SELECT 'Hello, Client!'")
+//				.getSingleResult()
+//				.toString();
+		return "Hello, Client!";
 	}
 	
 	
