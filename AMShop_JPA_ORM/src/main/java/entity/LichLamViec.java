@@ -22,4 +22,5 @@ public class LichLamViec implements Serializable {
 	private String maCaLamViec;
 	private LocalDate ngayLamViec;
 	private CaLamViec caLamViec;
+	
 }
