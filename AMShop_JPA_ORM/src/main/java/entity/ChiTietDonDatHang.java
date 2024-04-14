@@ -21,4 +21,5 @@ public class ChiTietDonDatHang implements Serializable {
 	private DonDatHang donDatHang;
 	private QuanAo quanAo;
 	private int soLuong;
+	
 }
