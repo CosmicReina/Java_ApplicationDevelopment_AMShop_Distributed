@@ -23,4 +23,5 @@ public class ChiTietPhanCong implements Serializable {
 	private NhanVien nhanVien;
 	private LocalDateTime thoiGianVaoCa;
 	private LocalDateTime thoiGianRaCa;
+	
 }
