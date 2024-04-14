@@ -23,4 +23,5 @@ public class KhachHang implements Serializable{
     private String soDienThoai;
     private String diaChi;
     private String nhomKhachHang;
+    
 }
