@@ -32,4 +32,5 @@ public class NhanVien implements Serializable {
     private double luong;
     private String tenDangNhap;
     private String matKhau;
+    
 }
