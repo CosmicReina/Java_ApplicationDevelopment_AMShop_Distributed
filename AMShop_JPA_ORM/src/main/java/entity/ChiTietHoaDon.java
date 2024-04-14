@@ -22,4 +22,5 @@ public class ChiTietHoaDon implements Serializable{
 	private QuanAo quanAo;
 	private int soLuong;
 	private double donGia;
+	
 }
