@@ -3,7 +3,6 @@
 	<name>AMShop_Client</name>
 	<comment></comment>
 	<projects>
-		<project>AMShop_JPA_ORM</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
