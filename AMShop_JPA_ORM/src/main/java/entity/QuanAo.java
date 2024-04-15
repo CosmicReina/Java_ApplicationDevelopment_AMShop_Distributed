@@ -27,7 +27,6 @@ public class QuanAo implements Serializable{
 	
 	private static final long serialVersionUID = 4899708714148214926L;
 	
-	
 	@Column(name = "MaQuanAo")
 	private String maQuanAo;
 	
@@ -47,7 +46,7 @@ public class QuanAo implements Serializable{
 	private NhaSanXuat nhaSanXuat;
 	
 	@Column(name = "DanhMuc")
-	private DanhMuc danhMuc;
+	private String danhMuc;
 	
 	@Column(name = "GioiTinh")
 	private String gioiTinh;
@@ -59,7 +58,7 @@ public class QuanAo implements Serializable{
 	private String kichThuoc;
 	
 	@Column(name = "ChatLieu")
-	private ChatLieu chatLieu;
+	private String chatLieu;
 	
 	@Column(name = "HinhAnh")
 	private ImageIcon hinhAnh;
