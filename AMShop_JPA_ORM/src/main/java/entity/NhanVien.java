@@ -52,7 +52,7 @@ public class NhanVien implements Serializable {
 	@Column(name = "NgaySinh", columnDefinition = "date", nullable = false)
 	private LocalDate ngaySinh;
 
-	@Column(name = "NgayBatDayLam", columnDefinition = "date", nullable = false)
+	@Column(name = "NgayBatDauLam", columnDefinition = "date", nullable = false)
 	private LocalDate ngayBatDauLam;
 
 	@Column(name = "NgayKetThucLam", columnDefinition = "date")
