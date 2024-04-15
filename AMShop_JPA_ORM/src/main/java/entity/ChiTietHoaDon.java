@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -21,21 +25,24 @@ import lombok.ToString;
 @Entity
 @Table(name = "ChiTietHoaDon")
 
-public class ChiTietHoaDon implements Serializable{
+public class ChiTietHoaDon implements Serializable {
 
 	private static final long serialVersionUID = 4899708714148214926L;
-	
-	
-	@Column(name = "HoaDon")
+
+	@Id
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MaHoaDon")
 	private HoaDon hoaDon;
-	
-	@Column(name = "QuanAo")
+
+	@Id
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MaQuanAo")
 	private QuanAo quanAo;
-	
-	@Column(name = "SoLuong")
+
+	@Column(name = "SoLuong", columnDefinition = "int", nullable = false)
 	private int soLuong;
-	
-	@Column(name = "DonGia")
+
+	@Column(name = "DonGia", columnDefinition = "decimal", nullable = false)
 	private double donGia;
-	
+
 }

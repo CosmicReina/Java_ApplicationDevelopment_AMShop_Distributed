@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -23,23 +27,29 @@ import lombok.ToString;
 @Table(name = "HoaDon")
 
 public class HoaDon implements Serializable {
-	
+
 	private static final long serialVersionUID = 4899708714148214926L;
-	
-	
+
+	@Id
 	@Column(name = "MaHoaDon")
 	private String maHoaDon;
-	
-	@Column(name = "CuaHang")
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MaCuaHang")
 	private CuaHang cuaHang;
-	
-	@Column(name = "NhanVien")
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MaNhanVien")
 	private NhanVien nhanVien;
-	
-	@Column(name = "KhachHang")
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MaKhachHang")
 	private KhachHang khachHang;
-	
-	@Column(name = "ThoiGianTao")
+
+	@Column(name = "TienKhachDua", columnDefinition = "decimal", nullable = false)
+	private double tienKhachDua;
+
+	@Column(name = "ThoiGianTao", columnDefinition = "datetime", nullable = false)
 	private LocalDateTime thoiGianTao;
-	
+
 }

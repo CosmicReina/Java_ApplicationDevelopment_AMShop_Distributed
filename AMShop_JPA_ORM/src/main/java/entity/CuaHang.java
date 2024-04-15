@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -20,22 +21,21 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "CuaHang")
-
 public class CuaHang implements Serializable {
-	
+
 	private static final long serialVersionUID = 4899708714148214926L;
-	
-	
-	@Column(name = "MaCuaHang")
+
+	@Id
+	@Column(name = "MaCuaHang", columnDefinition = "nvarchar(16)", nullable = false)
 	private String maCuaHang;
-	
-	@Column(name = "TenCuaHang")
+
+	@Column(name = "TenCuaHang", columnDefinition = "nvarchar(64)", nullable = false)
 	private String tenCuaHang;
-	
-	@Column(name = "DiaChi")
-	private String diaChi;
-	
-	@Column(name = "SoDienThoai")
+
+	@Column(name = "SoDienThoai", columnDefinition = "nvarchar(10)", nullable = false)
 	private String soDienThoai;
+
+	@Column(name = "DiaChi", columnDefinition = "nvarchar(128)", nullable = false)
+	private String diaChi;
 
 }

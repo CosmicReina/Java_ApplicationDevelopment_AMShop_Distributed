@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -21,49 +23,46 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "NhanVien")
-
 public class NhanVien implements Serializable {
-	
+
 	private static final long serialVersionUID = 4899708714148214926L;
-	
-	
-	@Column(name = "MaNhanVien")
+
+	@Id
+	@Column(name = "MaNhanVien", columnDefinition = "nvarchar(10)", nullable = false)
 	private String maNhanVien;
-	
-	@Column(name = "HoTen")
-    private String hoTen;
-	
-	@Column(name = "SoDienThoai")
-    private String soDienThoai;
-	
-	@Column(name = "DiaChi")
-    private String diaChi;
-	
-	@Column(name = "ChucVu")
-    private String chucVu;
-	
-	@Column(name = "NgaySinh")
-    private LocalDate ngaySinh;
-	
-	@Column(name = "CanCuocCongDan")
-    private String canCuocCongDan;
-	
-	@Column(name = "GioiTinh")
-    private String gioiTinh;
-	
-	@Column(name = "NgayBatDayLam")
-    private LocalDate ngayBatDauLam;
-	
-	@Column(name = "NgayKetThucLam")
-    private LocalDate ngayKetThucLam;
-	
-	@Column(name = "Luong")
-    private double luong;
-	
-	@Column(name = "TenDangNhap")
-    private String tenDangNhap;
-	
-	@Column(name = "MatKhau")
-    private String matKhau;
-    
+
+	@Column(name = "HoTen", columnDefinition = "nvarchar(64)", nullable = false)
+	private String hoTen;
+
+	@Column(name = "SoDienThoai", columnDefinition = "nvarchar(10)", nullable = false)
+	private String soDienThoai;
+
+	@Column(name = "DiaChi", columnDefinition = "nvarchar(128)", nullable = false)
+	private String diaChi;
+
+	@Column(name = "ChucVu", columnDefinition = "nvarchar(32)", nullable = false)
+	private String chucVu;
+
+	@Column(name = "CanCuocCongDan", columnDefinition = "nvarchar(12)", nullable = false)
+	private String canCuocCongDan;
+
+	@Column(name = "GioiTinh", columnDefinition = "nvarchar(8)", nullable = false)
+	private String gioiTinh;
+
+	@Column(name = "NgaySinh", columnDefinition = "date", nullable = false)
+	private LocalDate ngaySinh;
+
+	@Column(name = "NgayBatDayLam", columnDefinition = "date", nullable = false)
+	private LocalDate ngayBatDauLam;
+
+	@Column(name = "NgayKetThucLam", columnDefinition = "date")
+	private LocalDate ngayKetThucLam;
+
+	@Column(name = "Luong", columnDefinition = "decimal", nullable = false)
+	private double luong;
+
+	@ToString.Exclude
+	@OneToOne(mappedBy = "nhanVien")
+	private TaiKhoan taiKhoan;
+
 }
