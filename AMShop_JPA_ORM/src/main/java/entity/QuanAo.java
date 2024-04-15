@@ -48,7 +48,7 @@ public class QuanAo implements Serializable{
 	private int soLuongTrongKho;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "NhaSanXuat", nullable = false)
+	@JoinColumn(name = "MaNhaSanXuat", nullable = false)
 	private NhaSanXuat nhaSanXuat;
 	
 	@Column(name = "DanhMuc", columnDefinition = "nvarchar(16)", nullable = false)

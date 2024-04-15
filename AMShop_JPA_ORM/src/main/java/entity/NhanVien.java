@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -61,8 +60,7 @@ public class NhanVien implements Serializable {
 	@Column(name = "Luong", columnDefinition = "decimal", nullable = false)
 	private double luong;
 
-	@ToString.Exclude
-	@OneToOne(mappedBy = "nhanVien")
-	private TaiKhoan taiKhoan;
+	@Column(name = "MatKhau", columnDefinition = "nvarchar(32)", nullable = false)
+	private String matKhau;
 
 }
