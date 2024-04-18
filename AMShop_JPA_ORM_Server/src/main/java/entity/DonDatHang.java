@@ -3,7 +3,12 @@ package entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,10 +28,24 @@ public class DonDatHang implements Serializable {
 
 	private static final long serialVersionUID = 3810553860496793695L;
 
+	@Id
+	@Column(name = "MaDonDatHang", columnDefinition = "nvarchar(12)", nullable = false)
 	private String maDonDatHang;
+	
+	@ToString.Exclude
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MaNhanVien")
 	private NhanVien nhanVien;
+	
+	@ToString.Exclude
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MaKhachHang")
 	private KhachHang khachHang;
+	
+	@Column(name = "ThoiGianTao", columnDefinition = "datetime", nullable = false)
 	private LocalDateTime thoiGianTao;
+	
+	@Column(name = "TrangThaiThanhToan", columnDefinition = "bit", nullable = false)
 	private boolean trangThaiThanhToan;
 
 }
