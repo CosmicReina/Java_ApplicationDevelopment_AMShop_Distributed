@@ -39,10 +39,15 @@ class JTC_QuanAo {
 	@Test
 	@Order(1)
 	void getAllQuanAo() throws InterruptedException {
+		System.err.println("getAllQuanAo");
+		
+		System.err.println("query");
 		List<QuanAo> list = DAO_QuanAo.getAllQuanAo();
-		for (QuanAo qa : list) {
-			System.out.println(qa);
-		}
+		
+		System.err.println("result");
+		list.forEach(System.out::println);
+		
+		System.out.println("\n\n");
 	}
 
 }

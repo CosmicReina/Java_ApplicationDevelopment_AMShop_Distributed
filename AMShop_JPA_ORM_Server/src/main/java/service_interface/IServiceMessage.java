@@ -1,5 +1,10 @@
 package service_interface;
 
-public interface IServiceMessage {
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface IServiceMessage extends Remote {
+	
+	public String sendHello() throws RemoteException;
 
 }
