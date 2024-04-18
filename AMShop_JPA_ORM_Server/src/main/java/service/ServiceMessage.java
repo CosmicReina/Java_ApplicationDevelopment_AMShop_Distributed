@@ -12,7 +12,7 @@ public class ServiceMessage extends UnicastRemoteObject implements IServiceMessa
 
 	private static final long serialVersionUID = -2427389336855226372L;
 
-	protected ServiceMessage() throws RemoteException {
+	public ServiceMessage() throws RemoteException {
 		super();
 	}
 
