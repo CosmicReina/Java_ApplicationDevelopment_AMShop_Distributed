@@ -8,6 +8,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,6 +25,9 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "QuanAo")
+@NamedQueries({
+	@NamedQuery(name = "QuanAo.getAllQuanAo", query = "SELECT qa FROM QuanAo qa")
+})
 public class QuanAo implements Serializable {
 	
 	private static final long serialVersionUID = 1874477133728963880L;
@@ -63,6 +68,7 @@ public class QuanAo implements Serializable {
 	@Column(name = "ChatLieu", columnDefinition = "nvarchar(32)", nullable = false)
 	private String chatLieu;
 	
+	@ToString.Exclude
 	@Column(name = "HinhAnh", columnDefinition = "varbinary(MAX)")
 	private byte[] hinhAnh;
 	
