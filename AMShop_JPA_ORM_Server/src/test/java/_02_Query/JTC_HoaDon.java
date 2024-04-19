@@ -1,5 +1,6 @@
 package _02_Query;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.testing.junit4.CustomParameterized.Order;
@@ -12,11 +13,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import connection.ConnectionMSSQL;
-import dao.DAO_QuanAo;
-import entity.QuanAo;
+import dao.DAO_HoaDon;
+import entity.HoaDon;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class JTC_QuanAo {
+class JTC_HoaDon {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -35,47 +36,61 @@ class JTC_QuanAo {
 	@AfterEach
 	void tearDown() throws Exception {
 	}
-
+	
 	@Test
 	@Order(1)
-	void getAllQuanAo() throws InterruptedException {
-		System.err.println("getAllQuanAo");
+	void getAllHoaDon() throws InterruptedException{
+		System.err.println("getAllHoaDon()");
 		
 		System.err.println("query");
-		List<QuanAo> list = DAO_QuanAo.getAllQuanAo();
+		List<HoaDon> list = DAO_HoaDon.getAllHoaDon();
 		
 		System.err.println("result");
 		list.forEach(System.out::println);
 		
-		System.out.println("\n\n");
+		System.out.println("\n");
 	}
 	
 	@Test
 	@Order(2)
-	void getQuanAoTheoMaQuanAo() throws InterruptedException{
-		System.err.println("getQuanAoTheoMaQuanAo");
+	void getAllHoaDonTrongKhoangNgay() throws InterruptedException {
+		System.err.println("getAllHoaDonTrongKhoangNgay()");
 		
 		System.err.println("query");
-		QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo("QA000001");
+		List<HoaDon> list_day = DAO_HoaDon.getAllHoaDonTrongKhoangNgay(LocalDateTime.of(2023, 12, 01, 0, 0), LocalDateTime.of(2023, 12, 30, 0, 0));
 		
 		System.err.println("result");
-		System.out.println(quanAo);
+		list_day.forEach(System.out::println);
 		
 		System.out.println("\n");
 	}
 	
 	@Test
 	@Order(3)
-	void getQuanAoCuoi() throws InterruptedException{
-		System.err.println("getQuanAoCuoi");
+	void getHoaDonTheoMaHoaDon() throws InterruptedException {
+		System.err.println("getHoaDonTheoMaHoaDon()");
 		
 		System.err.println("query");
-		QuanAo quanAoCuoi = DAO_QuanAo.getQuanAoCuoi("QA0000%");
+		HoaDon hoaDon = DAO_HoaDon.getHoaDonTheoMaHoaDon("HD2312090001");
 		
 		System.err.println("result");
-		System.out.println(quanAoCuoi);
-		
+		System.out.println(hoaDon);
+
 		System.out.println("\n");
 	}
+	
+	@Test
+	@Order(4)
+	void getHoaDonCuoi() throws InterruptedException{
+		System.err.println("getHoaDonCuoi()");
+		
+		System.err.println("query");
+		HoaDon hoaDonCuoi = DAO_HoaDon.getHoaDonCuoi("HD23121400%");
+		
+		System.err.println("result");
+		System.out.println(hoaDonCuoi);
 
+		System.out.println("\n");
+	}
+	
 }

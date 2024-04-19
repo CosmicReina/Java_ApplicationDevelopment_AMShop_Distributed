@@ -27,7 +27,9 @@ import lombok.ToString;
 @Entity
 @Table(name = "QuanAo")
 @NamedQueries({
-	@NamedQuery(name = "QuanAo.getAllQuanAo", query = "SELECT qa FROM QuanAo qa")
+	@NamedQuery(name = "QuanAo.getAllQuanAo", query = "SELECT qa FROM QuanAo qa"),
+	@NamedQuery(name = "QuanAo.getQuanAoTheoMaQuanAo", query = "SELECT qa FROM QuanAo qa WHERE qa.maQuanAo = :maQuanAo"),
+	@NamedQuery(name = "QuanAo.getQuanAoCuoi", query = "SELECT qa FROM QuanAo qa WHERE qa.maQuanAo = (SELECT MAX(qa.maQuanAo) FROM QuanAo qa WHERE qa.maQuanAo LIKE :prefix ) ORDER BY qa.maQuanAo DESC")
 })
 public class QuanAo implements Serializable {
 	

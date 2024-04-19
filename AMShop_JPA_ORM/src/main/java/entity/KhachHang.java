@@ -25,7 +25,10 @@ import lombok.ToString;
 @Table(name = "KhachHang")
 @NamedQueries({
 		@NamedQuery(name = "KhachHang.getAllKhachHang", query = "SELECT kh FROM KhachHang kh"),
-		@NamedQuery(name = "KhachHang.getKhachHangTheoMaKhachHang", query = "SELECT kh FROM KhachHang kh WHERE kh.maKhachHang = :maKhachHang")})
+		@NamedQuery(name = "KhachHang.getKhachHangTheoMaKhachHang", query = "SELECT kh FROM KhachHang kh WHERE kh.maKhachHang = :maKhachHang"),
+		@NamedQuery(name = "KhachHang.getKhachHangTheoSoDienThoai", query = "SELECT kh FROM KhachHang kh WHERE kh.soDienThoai = :soDienThoai"),
+		@NamedQuery(name = "KhachHang.getKhachHangCuoi", query = "SELECT kh FROM KhachHang kh WHERE kh.maKhachHang = (SELECT MAX(kh.maKhachHang) FROM KhachHang kh WHERE kh.maKhachHang LIKE :prefix) ORDER BY kh.maKhachHang")
+})
 public class KhachHang implements Serializable {
 
 	private static final long serialVersionUID = 4899708714148214926L;

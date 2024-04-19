@@ -9,6 +9,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -25,6 +27,11 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "DonDatHang")
+@NamedQueries({
+	@NamedQuery(name = "DonDatHang.getAllDonDatHang", query = "SELECT ddh FROM DonDatHang ddh"),
+	@NamedQuery(name = "DonDatHang.getDonDatHangTheoMaDonDatHang", query = "SELECT ddh FROM DonDatHang ddh WHERE ddh.maDonDatHang =:maDonDatHang"),
+	@NamedQuery(name = "DonDatHang.getDonDatHangCuoi", query = "SELECT ddh FROM DonDatHang ddh WHERE ddh.maDonDatHang = (SELECT MAX(ddh.maDonDatHang) FROM DonDatHang ddh WHERE ddh.maDonDatHang LIKE :prefix) ORDER BY ddh.maDonDatHang DESC")
+})
 public class DonDatHang implements Serializable {
 
 	private static final long serialVersionUID = 4899708714148214926L;

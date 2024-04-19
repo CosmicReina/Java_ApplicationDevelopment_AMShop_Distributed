@@ -2,13 +2,13 @@ package dao;
 
 import java.util.List;
 
-import connect.MSSQLConnection;
+import connection.ConnectionMSSQL;
 import entity.KhachHang;
 import jakarta.persistence.EntityManager;
 
 public class DAO_KhachHang {
 
-	private static EntityManager entityManager = MSSQLConnection.getEntityManager();
+	private static EntityManager entityManager = ConnectionMSSQL.getEntityManager();
 
 	private DAO_KhachHang() {
 	}

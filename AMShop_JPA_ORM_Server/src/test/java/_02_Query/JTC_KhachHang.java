@@ -12,11 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import connection.ConnectionMSSQL;
-import dao.DAO_QuanAo;
-import entity.QuanAo;
+import dao.DAO_KhachHang;
+import entity.KhachHang;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class JTC_QuanAo {
+class JTC_KhachHang {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -38,42 +38,56 @@ class JTC_QuanAo {
 
 	@Test
 	@Order(1)
-	void getAllQuanAo() throws InterruptedException {
-		System.err.println("getAllQuanAo");
-		
+	void getAllKhachHang() throws InterruptedException{
+		System.err.println("getAllKhachHang()");
+
 		System.err.println("query");
-		List<QuanAo> list = DAO_QuanAo.getAllQuanAo();
-		
+		List<KhachHang> list = DAO_KhachHang.getAllKhachHang();
+
 		System.err.println("result");
 		list.forEach(System.out::println);
-		
-		System.out.println("\n\n");
+
+		System.out.println("\n");
 	}
-	
+
 	@Test
 	@Order(2)
-	void getQuanAoTheoMaQuanAo() throws InterruptedException{
-		System.err.println("getQuanAoTheoMaQuanAo");
-		
+	void getKhachHangTheoMaKhachHang() throws InterruptedException{
+		System.err.println("getKhachHangTheoMaKhachHang()");
+
 		System.err.println("query");
-		QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo("QA000001");
-		
+		KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang("KH23000001");
+
 		System.err.println("result");
-		System.out.println(quanAo);
-		
+		System.out.println(khachHang);
+
 		System.out.println("\n");
 	}
 	
 	@Test
 	@Order(3)
-	void getQuanAoCuoi() throws InterruptedException{
-		System.err.println("getQuanAoCuoi");
+	void getKhachHangTheoSoDienThoai() throws InterruptedException{
+		System.err.println("getKhachHangTheoSoDienThoai()");
 		
 		System.err.println("query");
-		QuanAo quanAoCuoi = DAO_QuanAo.getQuanAoCuoi("QA0000%");
+		KhachHang khachHangSDT = DAO_KhachHang.getKhachHangTheoSoDienThoai("0334999221");
 		
 		System.err.println("result");
-		System.out.println(quanAoCuoi);
+		System.out.println(khachHangSDT);
+		
+		System.out.println("\n");
+	}
+	
+	@Test
+	@Order(4)
+	void getKhachHangCuoi() throws InterruptedException{
+		System.err.println("getKhachHangCuoi()");
+		
+		System.err.println("query");
+		KhachHang khachHangCuoi = DAO_KhachHang.getKhachHangCuoi("KH230000%");
+		
+		System.err.println("result");
+		System.out.println(khachHangCuoi);
 		
 		System.out.println("\n");
 	}

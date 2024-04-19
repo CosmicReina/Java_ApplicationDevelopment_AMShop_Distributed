@@ -11,21 +11,21 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import connection.ConnectionMSSQL;
-import dao.DAO_QuanAo;
-import entity.QuanAo;
+import connect.MSSQLConnection;
+import dao.DAO_DonDatHang;
+import entity.DonDatHang;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class JTC_QuanAo {
-
+public class JTC_Query_DonDatHang {
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		ConnectionMSSQL.open();
+		MSSQLConnection.open();
 	}
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		ConnectionMSSQL.close();
+		MSSQLConnection.close();
 	}
 
 	@BeforeEach
@@ -38,44 +38,43 @@ class JTC_QuanAo {
 
 	@Test
 	@Order(1)
-	void getAllQuanAo() throws InterruptedException {
-		System.err.println("getAllQuanAo");
+	void getAllDonDatHang() {
+		System.err.println("getAllDonDatHang()");
 		
 		System.err.println("query");
-		List<QuanAo> list = DAO_QuanAo.getAllQuanAo();
+		List<DonDatHang> list = DAO_DonDatHang.getAllDonDatHang();
 		
 		System.err.println("result");
 		list.forEach(System.out::println);
 		
-		System.out.println("\n\n");
+		System.out.println("\n");
 	}
 	
 	@Test
 	@Order(2)
-	void getQuanAoTheoMaQuanAo() throws InterruptedException{
-		System.err.println("getQuanAoTheoMaQuanAo");
+	void getDonDatHangTheoMaDonDatHang() {
+		System.err.println("getDonDatHangTheoMaDonDatHang()");
 		
 		System.err.println("query");
-		QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo("QA000001");
+		DonDatHang donDatHang = DAO_DonDatHang.getDonDatHangTheoMaDonDatHang("DD2311150001");
 		
 		System.err.println("result");
-		System.out.println(quanAo);
+		System.out.println(donDatHang);
 		
 		System.out.println("\n");
 	}
 	
 	@Test
 	@Order(3)
-	void getQuanAoCuoi() throws InterruptedException{
-		System.err.println("getQuanAoCuoi");
+	void getMaDonDatHangCuoi() {
+		System.err.println("getDonDatHangCuoi()");
 		
 		System.err.println("query");
-		QuanAo quanAoCuoi = DAO_QuanAo.getQuanAoCuoi("QA0000%");
+		DonDatHang donDatHangCuoi = DAO_DonDatHang.getDonDatHangCuoi("DD23111500%");
 		
 		System.err.println("result");
-		System.out.println(quanAoCuoi);
+		System.out.println(donDatHangCuoi);
 		
 		System.out.println("\n");
 	}
-
 }

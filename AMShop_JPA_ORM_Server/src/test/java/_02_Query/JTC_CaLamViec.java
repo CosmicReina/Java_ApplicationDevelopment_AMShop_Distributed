@@ -12,12 +12,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import connection.ConnectionMSSQL;
-import dao.DAO_QuanAo;
-import entity.QuanAo;
+import dao.DAO_CaLamViec;
+import entity.CaLamViec;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class JTC_QuanAo {
-
+class JTC_CaLamViec {
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		ConnectionMSSQL.open();
@@ -35,47 +35,32 @@ class JTC_QuanAo {
 	@AfterEach
 	void tearDown() throws Exception {
 	}
-
+	
 	@Test
 	@Order(1)
-	void getAllQuanAo() throws InterruptedException {
-		System.err.println("getAllQuanAo");
+	void getAllCaLamViec() throws InterruptedException{
+		System.err.println("getAllCaLamViec()");
 		
 		System.err.println("query");
-		List<QuanAo> list = DAO_QuanAo.getAllQuanAo();
+		List<CaLamViec> list = DAO_CaLamViec.getAllCaLamViec();
 		
 		System.err.println("result");
 		list.forEach(System.out::println);
 		
-		System.out.println("\n\n");
+		System.out.print("\n");
 	}
 	
 	@Test
 	@Order(2)
-	void getQuanAoTheoMaQuanAo() throws InterruptedException{
-		System.err.println("getQuanAoTheoMaQuanAo");
+	void getCaLamViecTheoMaCaLamViec() throws InterruptedException{
+		System.err.println("getCaLamViecTheoMaCaLamViec()");
 		
 		System.err.println("query");
-		QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo("QA000001");
+		CaLamViec caLamViec = DAO_CaLamViec.getCaLamViecTheoMaCaLamViec(1);
 		
 		System.err.println("result");
-		System.out.println(quanAo);
+		System.out.println(caLamViec);
 		
-		System.out.println("\n");
+		System.out.print("\n");
 	}
-	
-	@Test
-	@Order(3)
-	void getQuanAoCuoi() throws InterruptedException{
-		System.err.println("getQuanAoCuoi");
-		
-		System.err.println("query");
-		QuanAo quanAoCuoi = DAO_QuanAo.getQuanAoCuoi("QA0000%");
-		
-		System.err.println("result");
-		System.out.println(quanAoCuoi);
-		
-		System.out.println("\n");
-	}
-
 }
