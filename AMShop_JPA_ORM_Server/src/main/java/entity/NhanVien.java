@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -22,6 +24,14 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "NhanVien")
+@NamedQueries({
+	@NamedQuery(name = "NhanVien.getAllNhanVien", query = "SELECT nv FROM NhanVien nv"),
+	@NamedQuery(name = "NhanVien.getNhanVienTheoMaNhanVien", query = "SELECT nv FROM NhanVien nv WHERE nv.maNhanVien =:maNhanVien"),
+	@NamedQuery(name = "NhanVien.getNhanVienTheoSoDienThoai", query = "SELECT nv FROM NhanVien nv WHERE nv.soDienThoai =:soDienThoai"),
+	@NamedQuery(name = "NhanVien.getNhanVienTheoCanCuocCongDan", query = "SELECT nv FROM NhanVien nv WHERE nv.canCuocCongDan =:canCuocCongDan"),
+	@NamedQuery(name = "NhanVien.getDanhSachNhanVienChuaCoTrongNgayLamViec", query = "SELECT nv FROM NhanVien nv WHERE nv.maNhanVien NOT IN (SELECT ctpc.nhanVien.maNhanVien FROM ChiTietPhanCong ctpc JOIN LichLamViec llv on ctpc.lichLamViec.maLichLamViec = llv.maLichLamViec WHERE llv.ngayLamViec =:ngayLamViec) AND nv.ngayKetThucLam IS NULL"),
+	@NamedQuery(name = "NhanVien.getNhanVienCuoi", query = "SELECT nv FROM NhanVien nv WHERE nv.maNhanVien = (SELECT MAX(nv.maNhanVien) FROM NhanVien nv WHERE nv.maNhanVien LIKE :prefix ) ORDER BY nv.maNhanVien DESC")
+})
 public class NhanVien implements Serializable {
 
 	private static final long serialVersionUID = -105740186557329773L;
