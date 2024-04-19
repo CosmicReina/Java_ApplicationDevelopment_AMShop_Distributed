@@ -18,4 +18,16 @@ public class DAO_QuanAo {
 		return list;
 	}
 	
+	public static QuanAo getQuanAoTheoMaQuanAo(String maQuanAo) {
+		return entityManager.createNamedQuery("QuanAo.getQuanAoTheoMaQuanAo", QuanAo.class)
+				.setParameter("maQuanAo", maQuanAo)
+				.getSingleResult();
+	}
+	
+	public static QuanAo getQuanAoCuoi(String prefix) {
+		return entityManager.createNamedQuery("QuanAo.getQuanAoCuoi", QuanAo.class)
+				.setParameter("prefix", prefix)
+				.getSingleResult();
+	}
+	
 }

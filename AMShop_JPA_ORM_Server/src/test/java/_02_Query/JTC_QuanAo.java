@@ -49,5 +49,33 @@ class JTC_QuanAo {
 		
 		System.out.println("\n\n");
 	}
+	
+	@Test
+	@Order(2)
+	void getQuanAoTheoMaQuanAo() throws InterruptedException{
+		System.err.println("getQuanAoTheoMaQuanAo");
+		
+		System.err.println("query");
+		QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo("QA000001");
+		
+		System.err.println("result");
+		System.out.println(quanAo);
+		
+		System.out.println("\n");
+	}
+	
+	@Test
+	@Order(3)
+	void getQuanAoCuoi() throws InterruptedException{
+		System.err.println("getQuanAoCuoi");
+		
+		System.err.println("query");
+		QuanAo quanAoCuoi = DAO_QuanAo.getQuanAoCuoi("QA0000%");
+		
+		System.err.println("result");
+		System.out.println(quanAoCuoi);
+		
+		System.out.println("\n");
+	}
 
 }
