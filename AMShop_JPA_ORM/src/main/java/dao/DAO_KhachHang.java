@@ -24,5 +24,19 @@ public class DAO_KhachHang {
 				.setParameter("maKhachHang", maKhachHang)
 				.getSingleResult();
 	}
+	
+	public static KhachHang getKhachHangTheoSoDienThoai(String soDienThoai) {
+		return entityManager
+				.createNamedQuery("KhachHang.getKhachHangTheoSoDienThoai", KhachHang.class)
+				.setParameter("soDienThoai", soDienThoai)
+				.getSingleResult();
+	}
+	
+	public static KhachHang getKhachHangCuoi(String prefix) {
+		return entityManager
+				.createNamedQuery("KhachHang.getKhachHangCuoi", KhachHang.class)
+				.setParameter("prefix", prefix)
+				.getSingleResult();
+	}
 
 }

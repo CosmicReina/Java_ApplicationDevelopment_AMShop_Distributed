@@ -63,5 +63,33 @@ class JTC_Query_KhachHang {
 
 		System.out.println("\n");
 	}
+	
+	@Test
+	@Order(3)
+	void getKhachHangTheoSoDienThoai() {
+		System.err.println("getKhachHangTheoSoDienThoai()");
+		
+		System.err.println("query");
+		KhachHang khachHangSDT = DAO_KhachHang.getKhachHangTheoSoDienThoai("0334999221");
+		
+		System.err.println("result");
+		System.out.println(khachHangSDT);
+		
+		System.out.println("\n");
+	}
+	
+	@Test
+	@Order(4)
+	void getKhachHangCuoi() {
+		System.err.println("getKhachHangCuoi()");
+		
+		System.err.println("query");
+		KhachHang khachHangCuoi = DAO_KhachHang.getKhachHangCuoi("KH230000%");
+		
+		System.err.println("result");
+		System.out.println(khachHangCuoi);
+		
+		System.out.println("\n");
+	}
 
 }
