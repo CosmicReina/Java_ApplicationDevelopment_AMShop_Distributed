@@ -38,5 +38,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/AMShop_JPA_ORM_Server"/>
+	<classpathentry kind="lib" path="library/TimingFramework-0.55.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
