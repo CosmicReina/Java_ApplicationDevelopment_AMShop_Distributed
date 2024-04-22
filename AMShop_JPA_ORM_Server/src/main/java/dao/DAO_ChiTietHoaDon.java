@@ -5,6 +5,7 @@ import java.util.List;
 import connection.ConnectionMSSQL;
 import entity.ChiTietHoaDon;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 public class DAO_ChiTietHoaDon {
 	
@@ -25,9 +26,13 @@ public class DAO_ChiTietHoaDon {
 	}
 	
 	public static List<ChiTietHoaDon> getAllChiTietHoaDonTheoMaHoaDon(String maHoaDon){
-		return entityManager.createNamedQuery("ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon", ChiTietHoaDon.class)
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		List<ChiTietHoaDon> list = entityManager.createNamedQuery("ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon", ChiTietHoaDon.class)
 				.setParameter("maHoaDon", maHoaDon)
 				.getResultList();
+		entityTransaction.commit();
+		return list;
 	}
 	
 }

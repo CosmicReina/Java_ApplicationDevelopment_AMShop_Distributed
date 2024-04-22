@@ -39,24 +39,24 @@ class JTC_DonDatHang {
 		System.out.println("\n");
 	}
 	
-//	@Test
-//	void getDonDatHangTheoMaDonDatHang() throws RemoteException{
-//		System.err.println("getDonDatHangTheoMaDonDatHang()");
-//		
-//		IService_DonDatHang service_DonDatHang = ServiceInitiator.getInstance().getServiceDonDatHang();
-//		System.out.println(service_DonDatHang.getDonDatHangTheoMaDonDatHang("DD2311150001"));
-//		
-//		System.out.println("\n");
-//	}
+	@Test
+	void getDonDatHangTheoMaDonDatHang() throws RemoteException{
+		System.err.println("getDonDatHangTheoMaDonDatHang()");
+		
+		IService_DonDatHang service_DonDatHang = ServiceInitiator.getInstance().getServiceDonDatHang();
+		System.out.println(service_DonDatHang.getDonDatHangTheoMaDonDatHang("DD2311150001"));
+		
+		System.out.println("\n");
+	}
 	
-//	@Test
-//	void getMaDonDatHangCuoi() throws RemoteException{
-//		System.err.println("getDonDatHangCuoi()");
-//		
-//		IService_DonDatHang service_DonDatHang = ServiceInitiator.getInstance().getServiceDonDatHang();
-//		System.out.println(service_DonDatHang.getDonDatHangCuoi("DD23111500%"));
-//		
-//		System.out.println("\n");
-//	}
+	@Test
+	void getMaDonDatHangCuoi() throws RemoteException{
+		System.err.println("getDonDatHangCuoi()");
+		
+		IService_DonDatHang service_DonDatHang = ServiceInitiator.getInstance().getServiceDonDatHang();
+		System.out.println(service_DonDatHang.getDonDatHangCuoi("DD23111500%"));
+		
+		System.out.println("\n");
+	}
 
 }

@@ -41,26 +41,37 @@ class JTC_HoaDon {
 		System.out.println("\n");
 	}
 
-//	@Test
-//	void getAllHoaDonTrongKhoangNgay() throws RemoteException{
-//		
-//		System.err.println("getAllHoaDonTrongKhoangNgay()");
-//		
-//		IService_HoaDon service_HoaDon = ServiceInitiator.getInstance().getServiceHoaDon();
-//		service_HoaDon.getAllHoaDonTrongKhoangNgay(LocalDateTime.of(2023, 12, 01, 0, 0), LocalDateTime.of(2023, 12, 30, 0, 0)).forEach(System.out::println);
-//		
-//		System.out.println("\n");
-//	}
+	@Test
+	void getAllHoaDonTrongKhoangNgay() throws RemoteException{
+		
+		System.err.println("getAllHoaDonTrongKhoangNgay()");
+		
+		IService_HoaDon service_HoaDon = ServiceInitiator.getInstance().getServiceHoaDon();
+		service_HoaDon.getAllHoaDonTrongKhoangNgay(LocalDateTime.of(2023, 12, 01, 0, 0), LocalDateTime.of(2023, 12, 30, 0, 0)).forEach(System.out::println);
+		
+		System.out.println("\n");
+	}
 	
-//	@Test
-//	void getHoaDonTheoMaHoaDon() throws RemoteException{
-//		
-//		System.err.println("getHoaDonTheoMaHoaDon()");
-//		
-//		IService_HoaDon service_HoaDon = ServiceInitiator.getInstance().getServiceHoaDon();
-//		System.out.println(service_HoaDon.getHoaDonTheoMaHoaDon("HD2312090001"));
-//		
-//		System.out.println("\n");
-//	}
+	@Test
+	void getHoaDonTheoMaHoaDon() throws RemoteException{
+		
+		System.err.println("getHoaDonTheoMaHoaDon()");
+		
+		IService_HoaDon service_HoaDon = ServiceInitiator.getInstance().getServiceHoaDon();
+		System.out.println(service_HoaDon.getHoaDonTheoMaHoaDon("HD2312090001"));
+		
+		System.out.println("\n");
+	}
+	
+	@Test
+	void getHoaDonCuoi() throws RemoteException{
+		
+		System.err.println("getHoaDonCuoi()");
+		
+		IService_HoaDon service_HoaDon = ServiceInitiator.getInstance().getServiceHoaDon();
+		System.out.println(service_HoaDon.getHoaDonCuoi("HD23121400%"));
+		
+		System.out.println("\n");
+	}
 	
 }
