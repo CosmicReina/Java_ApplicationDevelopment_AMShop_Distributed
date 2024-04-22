@@ -1,12 +1,11 @@
 package gui_old;
 
-import dao_old.DAO_ChucVu;
-import dao_old.DAO_NhanVien;
 import data.FormatDouble;
 import data.FormatLocalDate;
 import data.KhoiTaoMa;
 import data.UtilityJTextField;
-import entity_old.NhanVien;
+import entity.NhanVien;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -32,243 +31,27 @@ public class GUI_CapNhatNhanVien extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        updateTable(DAO_NhanVien.getAllNhanVien());
         
-        txtTenDangNhap.setText(KhoiTaoMa.generateMaNhanVien());
-        txtMaNhanVien.setText(KhoiTaoMa.generateMaNhanVien());
-        
-        ArrayList<String> listChucVu = DAO_ChucVu.getAllChucVu();
-        for(String thisChucVu : listChucVu)
-            cmbChucVu.addItem(thisChucVu);
-        
-        tblTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        UtilityJTextField.addPlaceHolderStyle(txtHoTen);
-        UtilityJTextField.addPlaceHolderStyle(txtCCCD);
-        UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
-        UtilityJTextField.addPlaceHolderStyle(txtNgaySinh);
-        UtilityJTextField.addPlaceHolderStyle(txtLuong);
-        UtilityJTextField.addPlaceHolderStyle(txtDiaChi);
     }
     
     private void updateTable(ArrayList<NhanVien> list){
-        DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
-        model.getDataVector().removeAllElements();
-        tblTable.revalidate();
-        tblTable.repaint();
-        for(NhanVien thisNhanVien : list){
-            model.addRow(new Object[]{
-                thisNhanVien.getMaNhanVien(),
-                thisNhanVien.getHoTen(),
-                thisNhanVien.getCanCuocCongDan(),
-                thisNhanVien.getSoDienThoai(),
-                FormatLocalDate.fromLocalDate(thisNhanVien.getNgaySinh()),
-                thisNhanVien.getGioiTinh(),
-                thisNhanVien.getChucVu(),
-                FormatDouble.toMoney(thisNhanVien.getLuong())
-            });
-        }
+        
     }
     
     private void capNhatNhanVien(){
-        if(tblTable.getSelectedRow() < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn Nhân Viên.");
-            return;
-        }
         
-        String error = "";
-        
-        String maNhanVien = txtMaNhanVien.getText();
-        String hoTen = txtHoTen.getText();
-        String canCuocCongDan = txtCCCD.getText();
-        String soDienThoai = txtSoDienThoai.getText();
-        String ngaySinhString = txtNgaySinh.getText();
-        String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
-        String chucVu = cmbChucVu.getSelectedItem().toString();
-        String luongString = txtLuong.getText();
-        String diaChi = txtDiaChi.getText();
-        String tenDangNhap = txtTenDangNhap.getText();
-        String matKhau = new String(txtMauKhau.getPassword());
-        LocalDate ngayBatDauLam = LocalDate.now();
-        LocalDate ngayKetThucLam = null;
-        
-        NhanVien nhanVienCapNhat = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
-        
-        if(hoTen.equals("Họ Tên")) //Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Họ Tên.";
-        else
-            if(!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$")) //Kiểm tra Biểu thức chính quy
-                error += "\n- Vui lòng nhập Họ Tên hợp lệ.";
-        
-        if(canCuocCongDan.equals("Căn Cước Công Dân")) // Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Căn Cước Công Dân.";
-        else
-            if(!canCuocCongDan.matches("[0-9]{12}")) // Kiểm tra biểu thức chính quy
-                error += "\n- Vui lòng nhập Căn Cước Công Dân hợp lệ.";
-            else
-                if(!nhanVienCapNhat.getCanCuocCongDan().equals(canCuocCongDan))
-                    if(DAO_NhanVien.getNhanVienTheoCanCuocCongDan(canCuocCongDan) != null) // Kiểm tra đã tồn tại
-                        error += "\n- Số Căn Cước Công Dân đã tồn tại.";
-            
-        if(soDienThoai.equals("Số Điện Thoại")) // Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Số Điện Thoại.";
-        else
-            if(!soDienThoai.matches("0{1}[0-9]{9}")) // Kiểm tra biểu thức chính quy
-                error += "\n- Vui lòng nhập Số Điện Thoại hợp lệ.";
-            else
-                if(!nhanVienCapNhat.getSoDienThoai().equals(soDienThoai))
-                    if(DAO_NhanVien.getNhanVienTheoSoDienThoai(soDienThoai) != null) // Kiểm tra đã tồn tại
-                        error += "\n- Số Điện Thoại đã tồn tại";
-        
-        LocalDate ngaySinh = null;
-        if(ngaySinhString.equals("Ngày Sinh (DD/MM/YYYY)")) // Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Ngày Sinh.";
-        else
-            try{
-                ngaySinh = FormatLocalDate.toLocalDate(ngaySinhString); // Kiểm tra chuyển đổi
-                if(LocalDate.now().getYear() - ngaySinh.getYear() < 18)
-                    error += "\n- Ngày Sinh phải có năm sinh lớn hơn hoặc bằng 18.";
-            }
-            catch(Exception e){
-                error += "\n- Vui lòng nhập Ngày Sinh hợp lệ.";
-            }
-        
-        if(gioiTinh.equals("Giới Tính")) // Kiểm tra chọn
-            error += "\n- Vui lòng chọn Giới Tính.";
-        
-        if(chucVu.equals("Chức Vụ")) // Kiểm tra chọn
-            error += "\n- Vui lòng chọn Chức Vụ.";
-        
-        double luong = 0;
-        if(luongString.equals("Mức Lương")) // Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Mức Lương";
-        else
-            try{
-                luong = Double.parseDouble(luongString); // Kiểm tra chuyển đổi
-                if(luong <= 0)
-                    error += "\n- Vui lòng nhập Mức Lương lớn hơn 0";
-            }
-            catch(NumberFormatException e){
-                error += "\n- Vui lòng nhập Mức Lương hợp lệ.";
-            }
-        
-        if(diaChi.equals("Địa Chỉ")) // Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Địa Chỉ.";
-        
-        if(matKhau.equals("")) // Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Mật Khẩu.";
-        
-        if(nhanVienCapNhat.getNgayKetThucLam() == null && chkNghiLam.isSelected())
-            ngayKetThucLam = LocalDate.now();
-        if(nhanVienCapNhat.getNgayKetThucLam() != null && !chkNghiLam.isSelected())
-            ngayKetThucLam = null;
-        
-        if(error.equals("")){
-            NhanVien nhanVien = new NhanVien(maNhanVien, hoTen, soDienThoai, diaChi, chucVu, ngaySinh, canCuocCongDan, gioiTinh, ngayBatDauLam, ngayKetThucLam, luong, tenDangNhap, matKhau);
-            if(DAO_NhanVien.updateNhanVien(nhanVien) == true){
-                JOptionPane.showMessageDialog(null, "Cập Nhật Nhân Viên thành công.");
-                GUI_Main.getInstance().showPanel(newInstance());
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Cập Nhật Nhân Viên thất bại.");
-            }
-        }
-        else{
-            String throwMessage = "Lỗi nhập liệu: " + error;
-            JOptionPane.showMessageDialog(null, throwMessage);
-        }
     }
 
     private void timKiemTheoMa(){
-        String maNhanVien = JOptionPane.showInputDialog(null, "Nhập Mã Nhân Viên", "Tìm Kiếm Nhân Viên", JOptionPane.YES_NO_CANCEL_OPTION);
-        if(maNhanVien == null || maNhanVien.equals("")) return;
-        ArrayList<NhanVien> list = DAO_NhanVien.getAllNhanVien();
-        ArrayList<NhanVien> listRemove = new ArrayList<>();
-        for(NhanVien thisNhanVien : list){
-            if(!thisNhanVien.getMaNhanVien().equals(maNhanVien))
-                listRemove.add(thisNhanVien);
-        }
-        list.removeAll(listRemove);
-        updateTable(list);
+        
     }
     
     private void timKiemTheoThongTin(){
-        String hoTen = txtHoTen.getText();
-        String canCuocCongDan = txtCCCD.getText();
-        String soDienThoai = txtSoDienThoai.getText();
-        String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
-        String chucVu = cmbChucVu.getSelectedItem().toString();
         
-        ArrayList<NhanVien> list = DAO_NhanVien.getAllNhanVien();
-        ArrayList<NhanVien> listRemove = new ArrayList<>();
-        
-        if(!hoTen.equals("Họ Tên")){
-            for(int i = 0; i < list.size(); i ++){
-                NhanVien thisNhanVien = list.get(i);
-                if(!thisNhanVien.getHoTen().toLowerCase().contains(hoTen.toLowerCase()))
-                    listRemove.add(thisNhanVien);
-            }
-        }
-        if(!canCuocCongDan.equals("Căn Cước Công Dân")){
-            for(int i = 0; i < list.size(); i ++){
-                NhanVien thisNhanVien = list.get(i);
-                if(!thisNhanVien.getCanCuocCongDan().equals(canCuocCongDan))
-                    listRemove.add(thisNhanVien);
-            }
-        }
-        if(!soDienThoai.equals("Số Điện Thoại")){
-            for(int i = 0; i < list.size(); i ++){
-                NhanVien thisNhanVien = list.get(i);
-                if(!thisNhanVien.getSoDienThoai().equals(soDienThoai))
-                    listRemove.add(thisNhanVien);
-            }
-        }
-        if(!gioiTinh.equals("Giới Tính")){
-            for(int i = 0; i < list.size(); i ++){
-                NhanVien thisNhanVien = list.get(i);
-                if(!thisNhanVien.getGioiTinh().equals(gioiTinh))
-                    listRemove.add(thisNhanVien);
-            }
-        }
-        if(!chucVu.equals("Chức Vụ")){
-            for(int i = 0; i < list.size(); i ++){
-                NhanVien thisNhanVien = list.get(i);
-                if(!thisNhanVien.getChucVu().equals(chucVu))
-                    listRemove.add(thisNhanVien);
-            }
-        }
-        
-        list.removeAll(listRemove);
-        updateTable(list);
     }
     
     private void updateField(){
-        int i = tblTable.getSelectedRow();
-            String maNhanVien = tblTable.getValueAt(i, 0).toString();
-            NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
-            
-            txtMaNhanVien.setText(nhanVien.getMaNhanVien());
-            txtHoTen.setText(nhanVien.getHoTen());
-            txtCCCD.setText(nhanVien.getCanCuocCongDan());
-            txtSoDienThoai.setText(nhanVien.getSoDienThoai());
-            txtNgaySinh.setText(FormatLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
-            cmbGioiTinh.setSelectedItem(nhanVien.getGioiTinh());
-            cmbChucVu.setSelectedItem(nhanVien.getChucVu());
-            txtLuong.setText(String.format("%.0f", nhanVien.getLuong()));
-            txtDiaChi.setText(nhanVien.getDiaChi());
-            txtTenDangNhap.setText(nhanVien.getTenDangNhap());
-            txtMauKhau.setText(nhanVien.getMatKhau());
-            if(nhanVien.getNgayKetThucLam() == null)
-                chkNghiLam.setSelected(false);
-            else
-                chkNghiLam.setSelected(true);
-            
-            UtilityJTextField.addPlaceHolderStyle(txtHoTen);
-            UtilityJTextField.addPlaceHolderStyle(txtCCCD);
-            UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
-            UtilityJTextField.addPlaceHolderStyle(txtNgaySinh);
-            UtilityJTextField.addPlaceHolderStyle(txtLuong);
-            UtilityJTextField.addPlaceHolderStyle(txtDiaChi);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -580,87 +363,70 @@ public class GUI_CapNhatNhanVien extends javax.swing.JPanel {
 
     private void txtHoTenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoTenFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtHoTen, "Họ Tên");
     }//GEN-LAST:event_txtHoTenFocusGained
 
     private void txtHoTenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoTenFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtHoTen, "Họ Tên");
     }//GEN-LAST:event_txtHoTenFocusLost
 
     private void txtCCCDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCCCDFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtCCCD, "Căn Cước Công Dân");
     }//GEN-LAST:event_txtCCCDFocusGained
 
     private void txtCCCDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCCCDFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtCCCD, "Căn Cước Công Dân");
     }//GEN-LAST:event_txtCCCDFocusLost
 
     private void txtSoDienThoaiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtSoDienThoai, "Số Điện Thoại");
     }//GEN-LAST:event_txtSoDienThoaiFocusGained
 
     private void txtSoDienThoaiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtSoDienThoai, "Số Điện Thoại");
     }//GEN-LAST:event_txtSoDienThoaiFocusLost
 
     private void txtNgaySinhFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNgaySinhFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtNgaySinh, "Ngày Sinh (DD/MM/YYYY)");
     }//GEN-LAST:event_txtNgaySinhFocusGained
 
     private void txtNgaySinhFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNgaySinhFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtNgaySinh, "Ngày Sinh (DD/MM/YYYY)");
     }//GEN-LAST:event_txtNgaySinhFocusLost
 
     private void txtLuongFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLuongFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtLuong, "Mức Lương / Giờ");
     }//GEN-LAST:event_txtLuongFocusGained
 
     private void txtLuongFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLuongFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtLuong, "Mức Lương / Giờ");
     }//GEN-LAST:event_txtLuongFocusLost
 
     private void txtDiaChiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDiaChiFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtDiaChi, "Địa Chỉ");
     }//GEN-LAST:event_txtDiaChiFocusGained
 
     private void txtDiaChiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDiaChiFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtDiaChi, "Địa Chỉ");
     }//GEN-LAST:event_txtDiaChiFocusLost
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         // TODO add your handling code here:
-        capNhatNhanVien();
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-        GUI_Main.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnTimKiemTheoMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemTheoMaActionPerformed
         // TODO add your handling code here:
-        timKiemTheoMa();
     }//GEN-LAST:event_btnTimKiemTheoMaActionPerformed
 
     private void btnTimKiemTheoThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemTheoThongTinActionPerformed
         // TODO add your handling code here:
-        timKiemTheoThongTin();
     }//GEN-LAST:event_btnTimKiemTheoThongTinActionPerformed
 
     private void tblTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTableMouseClicked
         // TODO add your handling code here:
-        updateField();
     }//GEN-LAST:event_tblTableMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
