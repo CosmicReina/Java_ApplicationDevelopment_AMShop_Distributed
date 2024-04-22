@@ -1,31 +1,13 @@
 package gui_old;
 
-import dao_old.DAO_ChatLieu;
-import dao_old.DAO_ChiTietDonDatHang;
-import dao_old.DAO_ChiTietHoaDon;
-import dao_old.DAO_CuaHang;
-import dao_old.DAO_DanhMuc;
-import dao_old.DAO_DonDatHang;
-import dao_old.DAO_GioiTinh;
-import dao_old.DAO_HoaDon;
-import dao_old.DAO_KhachHang;
-import dao_old.DAO_KichThuoc;
-import dao_old.DAO_MauSac;
-import dao_old.DAO_NhaSanXuat;
-import dao_old.DAO_NhanVien;
-import dao_old.DAO_QuanAo;
+
 import data.FormatDouble;
 import data.InHoaDon;
 import data.KhoiTaoMa;
 import data.UtilityJTextField;
-import entity_old.ChiTietDonDatHang;
-import entity_old.ChiTietHoaDon;
-import entity_old.CuaHang;
-import entity_old.DonDatHang;
-import entity_old.HoaDon;
-import entity_old.KhachHang;
-import entity_old.NhanVien;
-import entity_old.QuanAo;
+import entity.ChiTietHoaDon;
+import entity.QuanAo;
+
 import java.awt.Color;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -61,462 +43,51 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        capNhatTblQuanAo(DAO_QuanAo.getAllQuanAo());
         
-        UtilityJTextField.addPlaceHolderStyle(txtMaQuanAo);
-        UtilityJTextField.addPlaceHolderStyle(txtTenQuanAo);
-        UtilityJTextField.addPlaceHolderStyle(txtSoLuong);
-        UtilityJTextField.addPlaceHolderStyle(txtHoTen);
-        UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
-        UtilityJTextField.addPlaceHolderStyle(txtDiaChi);
-        
-        ArrayList<String> listNhaSanXuat = DAO_NhaSanXuat.getAllNhaSanXuat();
-        ArrayList<String> listDanhMuc = DAO_DanhMuc.getAllDanhMuc();
-        ArrayList<String> listGioiTinh = DAO_GioiTinh.getAllGioiTinh();
-        ArrayList<String> listMauSac = DAO_MauSac.getAllMauSac();
-        ArrayList<String> listKichThuoc = DAO_KichThuoc.getAllKichThuoc();
-        ArrayList<String> listChatLieu = DAO_ChatLieu.getAllChatLieu();
-        
-        for(String thisNhaSanXuat : listNhaSanXuat) cmbNhaSanXuat.addItem(thisNhaSanXuat);
-        for(String thisDanhMuc : listDanhMuc) cmbDanhMuc.addItem(thisDanhMuc);
-        for(String thisGioiTinh : listGioiTinh) cmbGioiTinh.addItem(thisGioiTinh);
-        for(String thisMauSac : listMauSac) cmbMauSac.addItem(thisMauSac);
-        for(String thisKichThuoc : listKichThuoc) cmbKichThuoc.addItem(thisKichThuoc);
-        for(String thisChatLieu : listChatLieu) cmbChatLieu.addItem(thisChatLieu);
-        
-        tblQuanAo.fixTable(scrQuanAo);
-        tblDonHang.fixTable(scrDonHang);
-        scrQuanAo.getVerticalScrollBar().setUnitIncrement(40);
-        
-        txtTienDua.getDocument().addDocumentListener(new DocumentListener(){
-            @Override
-            public void insertUpdate(DocumentEvent e) {capNhatTienThua();}
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {capNhatTienThua();}
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {capNhatTienThua();}
-        });
     }
     
     private void capNhatTblQuanAo(ArrayList<QuanAo> list){
-        DefaultTableModel model = (DefaultTableModel) tblQuanAo.getModel();
-        model.getDataVector().removeAllElements();
-        tblQuanAo.revalidate();
-        tblQuanAo.repaint();
-        for(QuanAo thisQuanAo : list){
-            model.addRow(new Object[]{
-                thisQuanAo.getMaQuanAo(),
-                thisQuanAo.getTenQuanAo(),
-                FormatDouble.toMoney(thisQuanAo.getDonGiaBan()),
-                thisQuanAo.getSoLuongTrongKho(),
-                thisQuanAo.getNhaSanXuat(),
-                thisQuanAo.getDanhMuc(),
-                thisQuanAo.getGioiTinh(),
-                thisQuanAo.getMauSac(),
-                thisQuanAo.getKichThuoc(),
-                thisQuanAo.getChatLieu()
-            });
-        }
+        
     }
     
     private void capNhatTblDonHang(ArrayList<ChiTietHoaDon> list){
-        tongTien = 0;
-        DefaultTableModel model = (DefaultTableModel) tblDonHang.getModel();
-        model.getDataVector().removeAllElements();
-        tblDonHang.revalidate();
-        tblDonHang.repaint();
-        for(ChiTietHoaDon thisChiTietHoaDon : list){
-            tongTien += thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
-            model.addRow(new Object[]{
-                thisChiTietHoaDon.getQuanAo().getMaQuanAo(),
-                thisChiTietHoaDon.getQuanAo().getTenQuanAo(),
-                thisChiTietHoaDon.getSoLuong(),
-                FormatDouble.toMoney(thisChiTietHoaDon.getDonGia()),
-                FormatDouble.toMoney(thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia())
-            });
-        }
-        txtTongTien.setText(FormatDouble.toMoney(tongTien));
+       
     }
     
     private void timKiemQuanAo(){
-        ArrayList<QuanAo> list = DAO_QuanAo.getAllQuanAo();
-        ArrayList<QuanAo> listRemove = new ArrayList<>();
         
-        if(!txtMaQuanAo.getText().equals("Mã Quần Áo")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getMaQuanAo().equals(txtMaQuanAo.getText()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!txtTenQuanAo.getText().equals("Tên Quần Áo")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getTenQuanAo().toLowerCase().contains(txtTenQuanAo.getText().toLowerCase()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!cmbNhaSanXuat.getSelectedItem().toString().equals("Nhà Sản Xuất")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getNhaSanXuat().equals(cmbNhaSanXuat.getSelectedItem().toString()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!cmbDanhMuc.getSelectedItem().toString().equals("Danh Mục")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getDanhMuc().equals(cmbDanhMuc.getSelectedItem().toString()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!cmbGioiTinh.getSelectedItem().toString().equals("Giới Tính")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getGioiTinh().equals(cmbGioiTinh.getSelectedItem().toString()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!cmbMauSac.getSelectedItem().toString().equals("Màu Sắc")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getMauSac().equals(cmbMauSac.getSelectedItem().toString()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!cmbKichThuoc.getSelectedItem().toString().equals("Kích Thước")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getKichThuoc().equals(cmbKichThuoc.getSelectedItem().toString()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!cmbChatLieu.getSelectedItem().toString().equals("Chất Liệu")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getChatLieu().equals(cmbChatLieu.getSelectedItem().toString()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        list.removeAll(listRemove);
-        capNhatTblQuanAo(list);
     }
     
     private void lamMoiQuanAo(){
-        txtMaQuanAo.setText("");
-        txtTenQuanAo.setText("");
-        cmbNhaSanXuat.setSelectedItem("Nhà Sản Xuất");
-        cmbDanhMuc.setSelectedItem("Danh Mục");
-        cmbGioiTinh.setSelectedItem("Giới Tính");
-        cmbMauSac.setSelectedItem("Màu Sắc");
-        cmbKichThuoc.setSelectedItem("Kích Thước");
-        cmbChatLieu.setSelectedItem("Chất Liệu");
         
-        UtilityJTextField.focusLost(txtMaQuanAo, "Mã Quần Áo");
-        UtilityJTextField.focusLost(txtTenQuanAo, "Tên Quần Áo");
-        
-        capNhatTblQuanAo(DAO_QuanAo.getAllQuanAo());
     }
     
     private void themQuanAoVaoDonHang(){
-        int i = tblQuanAo.getSelectedRow();
-        if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Quần Áo.");
-            return;
-        }
-            
-        String soLuongString = txtSoLuong.getText();
-        int soLuong;
-        if(soLuongString.equals("Số Lượng"))
-            soLuong = 1;
-        else{
-            try{
-                soLuong = Integer.parseInt(soLuongString);
-            }
-            catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(null, "Vui lòng nhập Số Lượng hợp lệ.");
-                return;
-            }
-        }
         
-        String maQuanAo = tblQuanAo.getValueAt(i, 0).toString();
-        QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
-        
-        ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(null, quanAo, soLuong, quanAo.getDonGiaBan());
-        if(listDonHang.contains(chiTietHoaDon)){
-            ChiTietHoaDon cthd = listDonHang.get(listDonHang.indexOf(chiTietHoaDon));
-            int soLuongNew = cthd.getSoLuong() + chiTietHoaDon.getSoLuong();
-            if(soLuongNew > quanAo.getSoLuongTrongKho()){
-                JOptionPane.showMessageDialog(null, "Số Lượng Nhập vượt quá số lượng trong kho.");
-                return;
-            }
-            else{
-                cthd.setSoLuong(soLuongNew);
-            }
-        }
-        else{
-            if(soLuong > quanAo.getSoLuongTrongKho()){
-                JOptionPane.showMessageDialog(null, "Số Lượng Nhập vượt quá số lượng trong kho.");
-                return;
-            }
-            else{
-                listDonHang.add(chiTietHoaDon);
-            }
-        }
-        tblQuanAo.clearSelection();
-        txtSoLuong.setText("");
-        UtilityJTextField.focusLost(txtSoLuong, "Số Lượng");
-        capNhatTblDonHang(listDonHang);
     }
     
     private void xoaQuanAoKhoiDonHang(){
-        int number = tblDonHang.getSelectedRow();
-        if(number < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng Chọn Quần Áo cần xóa.");
-            return;
-        }
         
-        String maQuanAo = tblDonHang.getValueAt(number, 0).toString();
-        for(int i = 0; i < listDonHang.size(); i++){
-            ChiTietHoaDon thisChiTietHoaDon = listDonHang.get(i);
-            if(thisChiTietHoaDon.getQuanAo().getMaQuanAo().equals(maQuanAo))
-                listDonHang.remove(thisChiTietHoaDon);
-        }
-        
-        DefaultTableModel model = (DefaultTableModel) tblDonHang.getModel();
-        model.removeRow(number);
-        tblDonHang.revalidate();
-        tblDonHang.repaint();
     }
     
     private void timKiemSDT(){
-        String soDienThoai = txtSoDienThoai.getText();
-        KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
-        if(khachHang == null){
-            JOptionPane.showMessageDialog(null, "Không tồn tại Khách Hàng với Số Điện Thoại này.");
-        }
-        else{
-            txtHoTen.setText(khachHang.getHoTen());
-            txtDiaChi.setText(khachHang.getDiaChi());
-            UtilityJTextField.removePlaceHolderStyle(txtHoTen);
-            UtilityJTextField.removePlaceHolderStyle(txtDiaChi);
-        }
+        
     }
     
     private void taoDonDatHang(){
-        String error = "";
         
-        String maDonDatHang = KhoiTaoMa.generateMaDonDatHang();
-        
-        String hoTen = txtHoTen.getText();
-        String soDienThoai = txtSoDienThoai.getText();
-        String diaChi = txtDiaChi.getText();
-        
-        if(listDonHang.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Không có Quần Áo trong đơn hàng.");
-            return;
-        }
-        
-        if(hoTen.equals("Họ Tên")) //Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Họ Tên.";
-        else
-            if(!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$")) //Kiểm tra Biểu thức chính quy
-                error += "\n- Vui lòng nhập Họ Tên hợp lệ.";
-        
-        if(soDienThoai.equals("Số Điện Thoại")) // Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Số Điện Thoại.";
-        else
-            if(!soDienThoai.matches("0{1}[0-9]{9}")) // Kiểm tra biểu thức chính quy
-                error += "\n- Vui lòng nhập Số Điện Thoại hợp lệ.";
-        
-        if(diaChi.equals("Địa Chỉ")) // Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Địa Chỉ.";
-        
-        if(!error.equals("")){
-            String throwMessage = "Lỗi nhập liệu: " + error;
-            JOptionPane.showMessageDialog(null, throwMessage);
-            return;
-        }
-        
-        int prompt = JOptionPane.showConfirmDialog(null, "Xác Nhận Tạo Đơn Đặt Hàng?", "Tạo Đơn Đặt Hàng", JOptionPane.YES_NO_OPTION);
-        if(prompt == JOptionPane.NO_OPTION)
-            return;
-        
-        KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
-        if(khachHang == null){
-            String maKhachHang = KhoiTaoMa.generateMaKhachHang();
-            String nhomKhachHang = "Thường";
-            khachHang = new KhachHang(maKhachHang, hoTen, soDienThoai, diaChi, nhomKhachHang);
-            DAO_KhachHang.createKhachHang(khachHang);
-        }
-
-        NhanVien nhanVien = DAO_NhanVien.nhanVienHienTai;
-        LocalDateTime thoiGianTao = LocalDateTime.now();
-
-        DonDatHang donDatHang = new DonDatHang(maDonDatHang, nhanVien, khachHang, thoiGianTao, false);
-
-        boolean themDonDatHang = DAO_DonDatHang.createDonDatHang(donDatHang);
-
-        for(ChiTietHoaDon thisChiTietHoaDon : listDonHang){
-            ChiTietDonDatHang chiTietDonDatHang = new ChiTietDonDatHang(donDatHang, thisChiTietHoaDon.getQuanAo(), thisChiTietHoaDon.getSoLuong());
-            DAO_ChiTietDonDatHang.createChiTietDonDatHang(chiTietDonDatHang);
-            
-            QuanAo quanAo = thisChiTietHoaDon.getQuanAo();
-            quanAo.setSoLuongTrongKho(quanAo.getSoLuongTrongKho() - thisChiTietHoaDon.getSoLuong());
-            DAO_QuanAo.updateQuanAo(quanAo);
-        }
-        
-        if(themDonDatHang == true){
-            JOptionPane.showMessageDialog(null, "Tạo Đơn Đặt Hàng Thành Công");
-            GUI_Main.getInstance().showPanel(newInstance());
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Tạo Đơn Đặt Hàng Thất Bại");
-        }
     }
     
     private void lapHoaDon(){
-        String error = "";
         
-        String maHoaDon = KhoiTaoMa.generateMaHoaDon();
-        
-        String hoTen = txtHoTen.getText();
-        String soDienThoai = txtSoDienThoai.getText();
-        String diaChi = txtDiaChi.getText();
-        
-        String tienKhachDuaString = txtTienDua.getText();
-        double tienKhachDua = 0;
-        
-        if(listDonHang.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Không có Quần Áo trong đơn hàng.");
-            return;
-        }
-        
-        if(hoTen.equals("Họ Tên")) //Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Họ Tên.";
-        else
-            if(!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$")) //Kiểm tra Biểu thức chính quy
-                error += "\n- Vui lòng nhập Họ Tên hợp lệ.";
-        
-        if(soDienThoai.equals("Số Điện Thoại")) // Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Số Điện Thoại.";
-        else
-            if(!soDienThoai.matches("0{1}[0-9]{9}")) // Kiểm tra biểu thức chính quy
-                error += "\n- Vui lòng nhập Số Điện Thoại hợp lệ.";
-        
-        if(diaChi.equals("Địa Chỉ")) // Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Địa Chỉ.";
-        
-        if(tienKhachDuaString.equals(""))
-            error += "\n- Vui lòng nhập Tiền Khách Đưa.";
-        else{
-            try{
-                tienKhachDua = Double.parseDouble(tienKhachDuaString);
-                if(tienKhachDua < tongTien){
-                    error += "\n- Tiền Khách Đưa phải lớn hơn hoặc bằng Tổng Tiền.";
-                }
-            }
-            catch(NumberFormatException e){
-                error += "\n- Vui lòng nhập Tiền Khách Đưa hợp lệ.";
-            }
-        }
-        
-        if(!error.equals("")){
-            String throwMessage = "Lỗi nhập liệu: " + error;
-            JOptionPane.showMessageDialog(null, throwMessage);
-            return;
-        }
-        
-        int prompt = JOptionPane.showConfirmDialog(null, "Xác Nhận Thanh Toán Cho Đơn Hàng Này?", "Xác Nhận Thanh Toán", JOptionPane.YES_NO_OPTION);
-       if(prompt == JOptionPane.NO_OPTION)
-           return;
-        
-        KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
-        if(khachHang == null){
-            String maKhachHang = KhoiTaoMa.generateMaKhachHang();
-            String nhomKhachHang = "Thường";
-            khachHang = new KhachHang(maKhachHang, hoTen, soDienThoai, diaChi, nhomKhachHang);
-            DAO_KhachHang.createKhachHang(khachHang);
-        }
-
-        CuaHang cuaHang = DAO_CuaHang.getCuaHang();
-        NhanVien nhanVien = DAO_NhanVien.nhanVienHienTai;
-        LocalDateTime thoiGianTao = LocalDateTime.now();
-
-        HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao, tienKhachDua);
-
-        boolean themHoaDon = DAO_HoaDon.createHoaDon(hoaDon);
-
-        for(ChiTietHoaDon thisChiTietHoaDon : listDonHang){
-            thisChiTietHoaDon.setHoaDon(hoaDon);
-            DAO_ChiTietHoaDon.createChiTietHoaDon(thisChiTietHoaDon);
-            
-            QuanAo quanAo = thisChiTietHoaDon.getQuanAo();
-            quanAo.setSoLuongTrongKho(quanAo.getSoLuongTrongKho() - thisChiTietHoaDon.getSoLuong());
-            DAO_QuanAo.updateQuanAo(quanAo);
-        }
-        
-        if(themHoaDon){
-            try {
-                InHoaDon.createAMShopInvoice(maHoaDon);
-                JOptionPane.showMessageDialog(null, "Thanh toán thành công.");
-                
-                KhachHang khachHangDaMua = DAO_KhachHang.getKhachHangTheoMaKhachHang(hoaDon.getKhachHang().getMaKhachHang());
-                if(khachHangDaMua.getNhomKhachHang().equals("Thường")){
-                    double soTienKhachHangDaMua = DAO_KhachHang.getSoTienKhachHangDaThanhToanTheoMaKhachHang(khachHangDaMua.getMaKhachHang());
-                    if(soTienKhachHangDaMua > 10000000){
-                        khachHangDaMua.setNhomKhachHang("Thân Thiết");
-                        DAO_KhachHang.updateKhachHang(khachHangDaMua);
-                    }
-                }
-                
-                GUI_Main.getInstance().showPanel(GUI_ChiTietHoaDon.newInstance());
-                GUI_ChiTietHoaDon.getInstance().showThongTinHoaDon(maHoaDon);
-                GUI_ChiTietHoaDon.getInstance().setPnlBefore(newInstance());
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Gặp Lỗi Khi In Hóa Đơn.");
-            }
-        }
     }
     
     private void capNhatHinhAnh(){
-        int i = tblQuanAo.getSelectedRow();
-        if(i < 0) return;
-        String maQuanAo = tblQuanAo.getValueAt(i, 0).toString();
-        QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
-
-        lblHinhAnh.setText("");
-        lblHinhAnh.setIcon(quanAo.getHinhAnh());
+        
     }
     
     private void capNhatTienThua(){
-        if(listDonHang.isEmpty()){
-            txtTienThua.setText("Đơn hàng trống");
-            txtTienThua.setForeground(Color.RED);
-            return;
-        }
-        String tienDuaString = txtTienDua.getText();
-        double tienDua;
-        try{
-            tienDua = Double.parseDouble(tienDuaString);
-            double tienThua = tienDua - tongTien;
-            txtTienThua.setText(FormatDouble.toMoney(tienThua));
-            txtTienThua.setForeground(Color.BLACK);
-        }
-        catch(NumberFormatException e){
-            txtTienThua.setText("Lỗi nhập tiền");
-            txtTienThua.setForeground(Color.RED);
-        }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -970,102 +541,82 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
 
     private void txtMaQuanAoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaQuanAoFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtMaQuanAo, "Mã Quần Áo");
     }//GEN-LAST:event_txtMaQuanAoFocusGained
 
     private void txtMaQuanAoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaQuanAoFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtMaQuanAo, "Mã Quần Áo");
     }//GEN-LAST:event_txtMaQuanAoFocusLost
 
     private void txtTenQuanAoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenQuanAoFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtTenQuanAo, "Tên Quần Áo");
     }//GEN-LAST:event_txtTenQuanAoFocusGained
 
     private void txtTenQuanAoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenQuanAoFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtTenQuanAo, "Tên Quần Áo");
     }//GEN-LAST:event_txtTenQuanAoFocusLost
 
     private void txtSoLuongFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoLuongFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtSoLuong, "Số Lượng");
     }//GEN-LAST:event_txtSoLuongFocusGained
 
     private void txtSoLuongFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoLuongFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtSoLuong, "Số Lượng");
     }//GEN-LAST:event_txtSoLuongFocusLost
 
     private void txtHoTenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoTenFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtHoTen, "Họ Tên");
     }//GEN-LAST:event_txtHoTenFocusGained
 
     private void txtHoTenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoTenFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtHoTen, "Họ Tên");
     }//GEN-LAST:event_txtHoTenFocusLost
 
     private void txtSoDienThoaiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtSoDienThoai, "Số Điện Thoại");
     }//GEN-LAST:event_txtSoDienThoaiFocusGained
 
     private void txtSoDienThoaiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtSoDienThoai, "Số Điện Thoại");
     }//GEN-LAST:event_txtSoDienThoaiFocusLost
 
     private void txtDiaChiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDiaChiFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtDiaChi, "Địa Chỉ");
     }//GEN-LAST:event_txtDiaChiFocusGained
 
     private void txtDiaChiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDiaChiFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtDiaChi, "Địa Chỉ");
     }//GEN-LAST:event_txtDiaChiFocusLost
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
-        timKiemQuanAo();
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-        lamMoiQuanAo();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        themQuanAoVaoDonHang();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        xoaQuanAoKhoiDonHang();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnTimKiemSDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemSDTActionPerformed
         // TODO add your handling code here:
-        timKiemSDT();
     }//GEN-LAST:event_btnTimKiemSDTActionPerformed
 
     private void btnTaoDonDatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoDonDatHangActionPerformed
         // TODO add your handling code here:
-        taoDonDatHang();
     }//GEN-LAST:event_btnTaoDonDatHangActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-        lapHoaDon();
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void tblQuanAoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuanAoMouseClicked
         // TODO add your handling code here:
-        capNhatHinhAnh();
     }//GEN-LAST:event_tblQuanAoMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
