@@ -5,14 +5,14 @@ import java.rmi.server.UnicastRemoteObject;
 
 import connection.ConnectionMSSQL;
 import jakarta.persistence.EntityManager;
-import service_interface.IServiceMessage;
+import service_interface.IService_Message;
 
-public class ServiceMessage extends UnicastRemoteObject implements IServiceMessage {
+public class Service_Message extends UnicastRemoteObject implements IService_Message {
 	
 
 	private static final long serialVersionUID = -2427389336855226372L;
 
-	public ServiceMessage() throws RemoteException {
+	public Service_Message() throws RemoteException {
 		super();
 	}
 

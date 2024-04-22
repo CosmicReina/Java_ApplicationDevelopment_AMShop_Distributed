@@ -8,7 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import connection.ConnectionMSSQL;
-import service.ServiceMessage;
+import service.Service_Message;
 
 public class Server {
 
@@ -21,7 +21,7 @@ public class Server {
 		try {
 			ConnectionMSSQL.open();
 
-			ServiceMessage serviceMessage = new ServiceMessage();
+			Service_Message serviceMessage = new Service_Message();
 
 			Context context = new InitialContext();
 			
