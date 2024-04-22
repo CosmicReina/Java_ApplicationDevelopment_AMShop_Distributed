@@ -1,8 +1,6 @@
 package gui_old;
 
-import connect_old.ConnectDB;
-import dao_old.DAO_NhanVien;
-import dao_old.DAO_TaiKhoan;
+
 import javax.swing.JOptionPane;
 
 public class GUI_DangNhap extends javax.swing.JFrame {
@@ -23,21 +21,7 @@ public class GUI_DangNhap extends javax.swing.JFrame {
     }
     
     private void kiemTraDangNhap(){
-        String tenDangNhap = txtTenDangNhap.getText();
-        String matKhau = new String(txtMatKhau.getPassword());
-        if(tenDangNhap.isEmpty() || matKhau.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin đăng nhập.");
-            return;
-        }
-        boolean kiemTraDangNhap = DAO_TaiKhoan.kiemTraDangNhap(tenDangNhap, matKhau);
-        if(!kiemTraDangNhap){
-            JOptionPane.showMessageDialog(null, "Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin tài khoản.");
-            return;
-        }
-        JOptionPane.showMessageDialog(null, "Đăng nhập thành công.");
-        DAO_NhanVien.nhanVienHienTai = DAO_NhanVien.getNhanVienTheoMaNhanVien(tenDangNhap);
-        GUI_MainFrame.newInstance().setVisible(true);
-        dispose();
+        
     }
     
     private void moTraCuuChoKhachHang(){
@@ -188,18 +172,15 @@ public class GUI_DangNhap extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        kiemTraDangNhap();
+    	
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
-        ConnectDB.getInstance().disconnectDatabase();
-        dispose();
-        System.exit(0);
+        
     }//GEN-LAST:event_btnThoatActionPerformed
 
     private void btnTraCuuChoKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraCuuChoKhachHangActionPerformed
         // TODO add your handling code here:
-        moTraCuuChoKhachHang();
     }//GEN-LAST:event_btnTraCuuChoKhachHangActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
