@@ -20,6 +20,16 @@ public class Service_ChiTietPhanCong extends UnicastRemoteObject implements ISer
 	public void createChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) throws RemoteException {
 		
 	}
+	
+	@Override
+	public void updateChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) throws RemoteException {
+		
+	}
+
+	@Override
+	public void deleteChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) throws RemoteException {
+		
+	}
 
 	@Override
 	public List<ChiTietPhanCong> getAllChiTietPhanCongTheoMaLichLamViec(String maLichLamViec) throws RemoteException {

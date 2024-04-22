@@ -24,6 +24,28 @@ public class DAO_ChiTietPhanCong {
 		}
 	}
 	
+	public static void updateChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.merge(chiTietPhanCong);
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
+	public static void deleteChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.remove(chiTietPhanCong);
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
 	public static List<ChiTietPhanCong> getAllChiTietPhanCongTheoMaLichLamViec(String maLichLamViec){
 		return entityManager.createNamedQuery("ChiTietPhanCong.getAllChiTietPhanCongTheoMaLichLamViec", ChiTietPhanCong.class)
 				.setParameter("maLichLamViec", maLichLamViec)
