@@ -307,7 +307,7 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         try {
             chiTietPhanCongUpdate.setThoiGianRaCa(thoiGianRaCa);
         } catch (Exception ex) {
-            Logger.getLogger(GUI_LichLamViec.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
         if(DAO_ChiTietPhanCong.updateChiTietPhanCong(chiTietPhanCongUpdate) == true){
