@@ -39,24 +39,24 @@ class JTC_QuanAo {
 		System.out.println("\n");
 	}
 	
-//	@Test
-//	void getQuanAoTheoMaQuanAo() throws RemoteException {
-//		System.err.println("getQuanAoTheoMaQuanAo()");
-//		
-//		IService_QuanAo service_QuanAo = ServiceInitiator.getInstance().getServiceQuanAo();
-//		System.out.println(service_QuanAo.getQuanAoTheoMaQuanAo("QA000001"));
-//		
-//		System.out.println("\n");
-//	}
+	@Test
+	void getQuanAoTheoMaQuanAo() throws RemoteException {
+		System.err.println("getQuanAoTheoMaQuanAo()");
+		
+		IService_QuanAo service_QuanAo = ServiceInitiator.getInstance().getServiceQuanAo();
+		System.out.println(service_QuanAo.getQuanAoTheoMaQuanAo("QA000001"));
+		
+		System.out.println("\n");
+	}
 	
-//	@Test
-//	void getQuanAoCuoi() throws RemoteException {
-//		System.err.println("getQuanAoCuoi()");
-//		
-//		IService_QuanAo service_QuanAo = ServiceInitiator.getInstance().getServiceQuanAo();
-//		System.out.println(service_QuanAo.getQuanAoCuoi("QA0000%"));
-//		
-//		System.out.println("\n");
-//	}
+	@Test
+	void getQuanAoCuoi() throws RemoteException {
+		System.err.println("getQuanAoCuoi()");
+		
+		IService_QuanAo service_QuanAo = ServiceInitiator.getInstance().getServiceQuanAo();
+		System.out.println(service_QuanAo.getQuanAoCuoi("QA0000%"));
+		
+		System.out.println("\n");
+	}
 
 }
