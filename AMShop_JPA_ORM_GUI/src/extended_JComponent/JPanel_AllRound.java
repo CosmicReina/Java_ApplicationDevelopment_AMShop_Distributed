@@ -11,7 +11,9 @@ import javax.swing.JPanel;
 
 public class JPanel_AllRound extends JPanel {
     
-    private int borderTopLeft = 0;
+	private static final long serialVersionUID = 779948103464193951L;
+	
+	private int borderTopLeft = 0;
     private int borderTopRight = 0;
     private int borderBottomLeft = 0;
     private int borderBottomRight = 0;

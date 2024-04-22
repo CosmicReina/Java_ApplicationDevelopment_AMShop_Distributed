@@ -12,9 +12,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public class JTable_LightMode extends JTable {
     
-    private class TableLightHeader extends DefaultTableCellRenderer{
+	private static final long serialVersionUID = -2632576366473921664L;
 
-        @Override
+	private class TableLightHeader extends DefaultTableCellRenderer{
+
+		private static final long serialVersionUID = 8892961753488488046L;
+
+		@Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             component.setBackground(new Color(240, 240, 240));
@@ -27,7 +31,9 @@ public class JTable_LightMode extends JTable {
     
     private class TableLightCell extends DefaultTableCellRenderer{
 
-        @Override
+		private static final long serialVersionUID = -5161747060323511825L;
+
+		@Override
         @SuppressWarnings("null")
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
