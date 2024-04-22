@@ -8,6 +8,9 @@ import entity.DonDatHang;
 
 public interface IService_DonDatHang extends Remote {
 	
-	List<DonDatHang> getAllDonDatHang() throws RemoteException;
+	public List<DonDatHang> getAllDonDatHang() throws RemoteException;
 	
+	public DonDatHang getDonDatHangTheoMaDonDatHang(String maDonDatHang) throws RemoteException;
+	
+	public DonDatHang getDonDatHangCuoi(String prefix) throws RemoteException;
 }
