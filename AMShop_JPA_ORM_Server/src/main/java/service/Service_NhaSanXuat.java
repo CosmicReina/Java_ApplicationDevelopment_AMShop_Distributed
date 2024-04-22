@@ -18,9 +18,8 @@ public class Service_NhaSanXuat extends UnicastRemoteObject implements IService_
 	
 	@Override
 	public void createNhaSanXuat(NhaSanXuat nhaSanXuat) throws RemoteException {
-		
+		DAO_NhaSanXuat.createNhaSanXuat(nhaSanXuat);
 	}
-
 	
 	@Override
 	public List<NhaSanXuat> getAllNhaSanXuat() throws RemoteException {
