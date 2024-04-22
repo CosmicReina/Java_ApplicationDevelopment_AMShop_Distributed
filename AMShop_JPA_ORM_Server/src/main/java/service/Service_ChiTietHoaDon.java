@@ -18,7 +18,7 @@ public class Service_ChiTietHoaDon extends UnicastRemoteObject implements IServi
 
 	@Override
 	public void createChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) throws RemoteException {
-		
+		DAO_ChiTietHoaDon.createChiTietHoaDon(chiTietHoaDon);
 	}
 	
 	@Override
