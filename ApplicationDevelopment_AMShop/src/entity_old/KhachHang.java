@@ -1,8 +1,6 @@
 package entity_old;
 
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class KhachHang {
 	private String maKhachHang;

@@ -1,6 +1,5 @@
 package initiate_old;
 
-import connect_old.ConnectDB;
 import gui_old.GUI_DangNhap;
 
 public class Initiate {

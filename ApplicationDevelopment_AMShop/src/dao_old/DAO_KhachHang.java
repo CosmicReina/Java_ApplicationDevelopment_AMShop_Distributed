@@ -5,8 +5,6 @@ import entity_old.KhachHang;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DAO_KhachHang extends DAO {
 	public static boolean createKhachHang(KhachHang khachHang) {

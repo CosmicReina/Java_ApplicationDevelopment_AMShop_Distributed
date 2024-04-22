@@ -91,7 +91,7 @@ public class DAO_NhanVien extends DAO {
     }
     
     public static ArrayList<NhanVien> getAllNhanVien(){
-        ArrayList<NhanVien> list = new ArrayList();
+        ArrayList<NhanVien> list = new ArrayList<NhanVien>();
         try {
             String sql = "SELECT * FROM NhanVien";
             ResultSet rs_NhanVien = getResultSetFromStatement(sql);
@@ -240,7 +240,7 @@ public class DAO_NhanVien extends DAO {
     }
     
     public static ArrayList<NhanVien> getDanhSachNhanVienChuaCoTrongNgayLamViec(LocalDate ngayLamViec){
-        ArrayList<NhanVien> list = new ArrayList();
+        ArrayList<NhanVien> list = new ArrayList<NhanVien>();
         try {
             String sql = ""
                     + "SELECT * FROM NhanVien "

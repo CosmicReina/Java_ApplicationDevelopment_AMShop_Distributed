@@ -39,12 +39,12 @@ public class GUI_DanhSachQuanAo extends javax.swing.JPanel {
         
         tblQuanAo.fixTable(scrQuanAo);
         
-        ArrayList<String> listNhaSanXuat = DAO_NhaSanXuat.getAllNhaSanXuat();
-        ArrayList<String> listDanhMuc = DAO_DanhMuc.getAllDanhMuc();
-        ArrayList<String> listGioiTinh = DAO_GioiTinh.getAllGioiTinh();
-        ArrayList<String> listMauSac = DAO_MauSac.getAllMauSac();
-        ArrayList<String> listKichThuoc = DAO_KichThuoc.getAllKichThuoc();
-        ArrayList<String> listChatLieu = DAO_ChatLieu.getAllChatLieu();
+        DAO_NhaSanXuat.getAllNhaSanXuat();
+        DAO_DanhMuc.getAllDanhMuc();
+        DAO_GioiTinh.getAllGioiTinh();
+        DAO_MauSac.getAllMauSac();
+        DAO_KichThuoc.getAllKichThuoc();
+        DAO_ChatLieu.getAllChatLieu();
     }
     
     private void updateTableQuanAo(ArrayList<QuanAo> list){

@@ -3,7 +3,6 @@ package gui_old;
 import dao_old.DAO_NhanVien;
 import data_old.FormatDouble;
 import entity_old.NhanVien;
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
@@ -13,9 +12,6 @@ public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
     
     private static GUI_TinhLuongNhanVien instance = new GUI_TinhLuongNhanVien();
     
-    private LocalDate ngayBatDau;
-    private LocalDate ngayKetThuc;
-
     public static GUI_TinhLuongNhanVien getInstance() {
         return instance;
     }

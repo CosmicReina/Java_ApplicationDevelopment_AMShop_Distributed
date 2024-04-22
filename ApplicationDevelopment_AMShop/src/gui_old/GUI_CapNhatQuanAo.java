@@ -331,12 +331,12 @@ public class GUI_CapNhatQuanAo extends javax.swing.JPanel {
     
     private void timKiemTheoThongTin(){
         String tenQuanAo = txtTenQuanAo.getText();
-        String nhaSanXuat = cmbNhaSanXuat.getSelectedItem().toString();
-        String danhMuc = cmbDanhMuc.getSelectedItem().toString();
-        String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
-        String mauSac = cmbMauSac.getSelectedItem().toString();
-        String kichThuoc = cmbKichThuoc.getSelectedItem().toString();
-        String chatLieu = cmbChatLieu.getSelectedItem().toString();
+        cmbNhaSanXuat.getSelectedItem().toString();
+        cmbDanhMuc.getSelectedItem().toString();
+        cmbGioiTinh.getSelectedItem().toString();
+        cmbMauSac.getSelectedItem().toString();
+        cmbKichThuoc.getSelectedItem().toString();
+        cmbChatLieu.getSelectedItem().toString();
         
         ArrayList<QuanAo> list = DAO_QuanAo.getAllQuanAo();
         ArrayList<QuanAo> listRemove = new ArrayList<>();
