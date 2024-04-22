@@ -12,7 +12,7 @@ public class Service_QuanAo extends UnicastRemoteObject implements IService_Quan
 
 	private static final long serialVersionUID = 4430025161351722262L;
 
-	protected Service_QuanAo() throws RemoteException {
+	public Service_QuanAo() throws RemoteException {
 		super();
 	}
 

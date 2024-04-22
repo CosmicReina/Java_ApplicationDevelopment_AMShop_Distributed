@@ -12,7 +12,7 @@ public class Service_ChiTietPhanCong extends UnicastRemoteObject implements ISer
 
 	private static final long serialVersionUID = -2856705427967305931L;
 
-	protected Service_ChiTietPhanCong() throws RemoteException {
+	public Service_ChiTietPhanCong() throws RemoteException {
 		super();
 	}
 

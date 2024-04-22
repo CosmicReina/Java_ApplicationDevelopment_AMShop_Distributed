@@ -27,7 +27,7 @@ public class Server {
 			
 			LocateRegistry.createRegistry(PORT);
 			
-			context.bind(URL + "serviceMessage", serviceMessage);
+			context.bind(URL + "service_Message", serviceMessage);
 			
 			System.out.println("Server is running ...");
 		} catch (RemoteException e) {

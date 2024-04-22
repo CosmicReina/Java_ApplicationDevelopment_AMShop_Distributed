@@ -12,6 +12,14 @@ public class Configuration {
 	private static final int PORT = 8080;
 	private static final String URL = "rmi://" + HOST + ":" + PORT + "/";
 
+	public static String getHOST() {
+		return HOST;
+	}
+	
+	public static int getPORT() {
+		return PORT;
+	}
+	
 	public static String getURL() {
 		return URL;
 	}

@@ -12,7 +12,7 @@ public class Service_LichLamViec extends UnicastRemoteObject implements IService
 
 	private static final long serialVersionUID = -9208656538614128589L;
 
-	protected Service_LichLamViec() throws RemoteException {
+	public Service_LichLamViec() throws RemoteException {
 		super();
 	}
 

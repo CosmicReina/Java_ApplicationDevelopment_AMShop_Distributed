@@ -12,7 +12,7 @@ public class Service_KhachHang extends UnicastRemoteObject implements IService_K
 
 	private static final long serialVersionUID = 1263555923521234738L;
 
-	protected Service_KhachHang() throws RemoteException {
+	public Service_KhachHang() throws RemoteException {
 		super();
 	}
 

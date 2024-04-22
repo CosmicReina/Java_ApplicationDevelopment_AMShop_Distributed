@@ -15,7 +15,7 @@ public class ServiceInitiator {
 
 	private ServiceInitiator() {
 		try {
-			service_Message = (IService_Message) Naming.lookup(URL + "serviceMessage");
+			service_Message = (IService_Message) Naming.lookup(URL + "service_Message");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {

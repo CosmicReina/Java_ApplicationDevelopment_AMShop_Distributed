@@ -13,7 +13,7 @@ public class Service_NhanVien extends UnicastRemoteObject implements IService_Nh
 
 	private static final long serialVersionUID = -410609373671610546L;
 
-	protected Service_NhanVien() throws RemoteException {
+	public Service_NhanVien() throws RemoteException {
 		super();
 	}
 

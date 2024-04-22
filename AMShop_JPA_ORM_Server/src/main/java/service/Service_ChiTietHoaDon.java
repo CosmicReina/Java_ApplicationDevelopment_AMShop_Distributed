@@ -12,7 +12,7 @@ public class Service_ChiTietHoaDon extends UnicastRemoteObject implements IServi
 
 	private static final long serialVersionUID = 2236664299910085355L;
 
-	protected Service_ChiTietHoaDon() throws RemoteException {
+	public Service_ChiTietHoaDon() throws RemoteException {
 		super();
 	}
 

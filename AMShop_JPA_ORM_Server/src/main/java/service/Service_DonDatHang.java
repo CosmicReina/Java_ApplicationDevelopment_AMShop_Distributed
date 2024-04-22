@@ -12,7 +12,7 @@ public class Service_DonDatHang extends UnicastRemoteObject implements IService_
 
 	private static final long serialVersionUID = -6862522127545101341L;
 
-	protected Service_DonDatHang() throws RemoteException {
+	public Service_DonDatHang() throws RemoteException {
 		super();
 	}
 

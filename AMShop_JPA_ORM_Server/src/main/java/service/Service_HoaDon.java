@@ -13,7 +13,7 @@ public class Service_HoaDon extends UnicastRemoteObject implements IService_HoaD
 
 	private static final long serialVersionUID = 8516238878987800789L;
 
-	protected Service_HoaDon() throws RemoteException {
+	public Service_HoaDon() throws RemoteException {
 		super();
 	}
 

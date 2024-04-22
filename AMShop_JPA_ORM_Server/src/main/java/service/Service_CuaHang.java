@@ -11,7 +11,7 @@ public class Service_CuaHang extends UnicastRemoteObject implements IService_Cua
 
 	private static final long serialVersionUID = 8582438986302256679L;
 
-	protected Service_CuaHang() throws RemoteException {
+	public Service_CuaHang() throws RemoteException {
 		super();
 	}
 

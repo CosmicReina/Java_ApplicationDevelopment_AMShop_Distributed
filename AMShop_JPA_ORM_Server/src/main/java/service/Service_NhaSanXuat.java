@@ -12,7 +12,7 @@ public class Service_NhaSanXuat extends UnicastRemoteObject implements IService_
 
 	private static final long serialVersionUID = 4945790864115092327L;
 
-	protected Service_NhaSanXuat() throws RemoteException {
+	public Service_NhaSanXuat() throws RemoteException {
 		super();
 	}
 

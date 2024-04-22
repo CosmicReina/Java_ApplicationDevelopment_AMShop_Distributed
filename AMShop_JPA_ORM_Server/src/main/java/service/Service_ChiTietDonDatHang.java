@@ -12,7 +12,7 @@ public class Service_ChiTietDonDatHang extends UnicastRemoteObject implements IS
 
 	private static final long serialVersionUID = 4561975764196512284L;
 
-	protected Service_ChiTietDonDatHang() throws RemoteException {
+	public Service_ChiTietDonDatHang() throws RemoteException {
 		super();
 	}
 
