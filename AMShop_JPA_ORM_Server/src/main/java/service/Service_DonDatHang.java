@@ -15,6 +15,14 @@ public class Service_DonDatHang extends UnicastRemoteObject implements IService_
 	public Service_DonDatHang() throws RemoteException {
 		super();
 	}
+	
+	@Override
+	public void createDonDatHang(DonDatHang donDatHang) throws RemoteException {
+	}
+
+	@Override
+	public void updateDonDatHang(DonDatHang donDatHang) throws RemoteException {	
+	}
 
 	@Override
 	public List<DonDatHang> getAllDonDatHang() throws RemoteException {
