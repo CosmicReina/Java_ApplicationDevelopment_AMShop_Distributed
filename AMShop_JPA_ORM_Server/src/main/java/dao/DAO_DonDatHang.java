@@ -13,6 +13,39 @@ public class DAO_DonDatHang {
 	private DAO_DonDatHang() {
 	}
 	
+	public static void createDonDatHang(DonDatHang donDatHang) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(donDatHang);
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
+	public static void updateDonDatHang(DonDatHang donDatHang) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.merge(donDatHang);
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
+	public static void deleteDonDatHang(DonDatHang donDatHang) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.remove(donDatHang);
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
 	public static List<DonDatHang> getAllDonDatHang(){
 		return entityManager.createNamedQuery("DonDatHang.getAllDonDatHang", DonDatHang.class)
 				.getResultList();
