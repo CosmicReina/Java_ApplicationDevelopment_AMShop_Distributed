@@ -7,6 +7,10 @@ import java.util.List;
 import entity.KhachHang;
 
 public interface IService_KhachHang extends Remote{
+	
+	public void createKhachHang(KhachHang khachHang) throws RemoteException;
+	
+	public void updateKhachHang(KhachHang khachHang) throws RemoteException;
 
 	public List<KhachHang> getAllKhachHang() throws RemoteException;
 	

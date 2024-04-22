@@ -13,6 +13,17 @@ public class DAO_ChiTietHoaDon {
 	private DAO_ChiTietHoaDon(){
 	}
 	
+	public static void createChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(chiTietHoaDon);
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
 	public static List<ChiTietHoaDon> getAllChiTietHoaDonTheoMaHoaDon(String maHoaDon){
 		return entityManager.createNamedQuery("ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon", ChiTietHoaDon.class)
 				.setParameter("maHoaDon", maHoaDon)

@@ -17,10 +17,19 @@ public class Service_ChiTietDonDatHang extends UnicastRemoteObject implements IS
 	}
 
 	@Override
+	public void createChiTietDonDatHang(ChiTietDonDatHang chiTietDonDatHang) throws RemoteException {
+		DAO_ChiTietDonDatHang.createChiTietDonDatHang(chiTietDonDatHang);
+	}
+	
+	@Override
+	public void deleteChiTietDonDatHang(ChiTietDonDatHang chiTietDonDatHang) throws RemoteException {
+		DAO_ChiTietDonDatHang.deleteChiTietDonDatHang(chiTietDonDatHang);
+	}
+
+	
+	@Override
 	public List<ChiTietDonDatHang> getAllChiTietDonDatHangTheoMaDonDatHang(String maDonDatHang) throws RemoteException {
 		return DAO_ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang(maDonDatHang);
 	}
 
-	
-	
 }

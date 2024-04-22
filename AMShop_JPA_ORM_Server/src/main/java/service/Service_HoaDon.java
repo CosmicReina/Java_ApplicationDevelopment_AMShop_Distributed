@@ -16,10 +16,25 @@ public class Service_HoaDon extends UnicastRemoteObject implements IService_HoaD
 	public Service_HoaDon() throws RemoteException {
 		super();
 	}
+	
+	@Override
+	public void createHoaDon(HoaDon hoaDon) throws RemoteException {
+		DAO_HoaDon.createHoaDon(hoaDon);
+	}
+
+	@Override
+	public void updateHoaDon(HoaDon hoaDon) throws RemoteException {
+		DAO_HoaDon.updateHoaDon(hoaDon);
+	}
+	
+	@Override
+	public void deleteHoaDon(HoaDon hoaDon) throws RemoteException {
+		DAO_HoaDon.deleteHoaDon(hoaDon);
+	}
 
 	@Override
 	public List<HoaDon> getAllHoaDon() throws RemoteException {
-		return null;
+		return DAO_HoaDon.getAllHoaDon();
 	}
 
 	@Override
@@ -38,6 +53,4 @@ public class Service_HoaDon extends UnicastRemoteObject implements IService_HoaD
 		return DAO_HoaDon.getHoaDonCuoi(prefix);
 	}
 
-	
-	
 }
