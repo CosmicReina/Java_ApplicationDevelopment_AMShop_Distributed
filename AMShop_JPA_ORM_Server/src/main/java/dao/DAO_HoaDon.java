@@ -6,6 +6,7 @@ import java.util.List;
 import connection.ConnectionMSSQL;
 import entity.HoaDon;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 public class DAO_HoaDon {
 
@@ -54,22 +55,34 @@ public class DAO_HoaDon {
 	}
 	
 	public static List<HoaDon> getAllHoaDonTrongKhoangNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc){
-		return entityManager.createNamedQuery("HoaDon.getAllHoaDonTrongKhoangNgay", HoaDon.class)
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		List<HoaDon> list = entityManager.createNamedQuery("HoaDon.getAllHoaDonTrongKhoangNgay", HoaDon.class)
 				.setParameter("ngayBatDau", ngayBatDau)
 				.setParameter("ngayKetThuc", ngayKetThuc)
 				.getResultList();
+		entityTransaction.commit();
+		return list;
 	}
 	
 	public static HoaDon getHoaDonTheoMaHoaDon(String maHoaDon) {
-		return entityManager.createNamedQuery("HoaDon.getHoaDonTheoMaHoaDon", HoaDon.class)
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		HoaDon hoaDon = entityManager.createNamedQuery("HoaDon.getHoaDonTheoMaHoaDon", HoaDon.class)
 				.setParameter("maHoaDon", maHoaDon)
 				.getSingleResult();
+		entityTransaction.commit();
+		return hoaDon;
 	}
 	
 	public static HoaDon getHoaDonCuoi(String prefix) {
-		return entityManager.createNamedQuery("HoaDon.getHoaDonCuoi", HoaDon.class)
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		HoaDon hoaDon = entityManager.createNamedQuery("HoaDon.getHoaDonCuoi", HoaDon.class)
 				.setParameter("prefix", prefix)
 				.getSingleResult();
+		entityTransaction.commit();
+		return hoaDon;
 	}
 
 }
