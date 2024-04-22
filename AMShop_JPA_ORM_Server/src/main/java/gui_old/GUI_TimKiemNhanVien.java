@@ -1,8 +1,9 @@
 package gui_old;
 
-import dao_old.DAO_NhanVien;
+
 import data.UtilityJTextField;
-import entity_old.NhanVien;
+import entity.NhanVien;
+
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,55 +27,19 @@ public class GUI_TimKiemNhanVien extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        updateTable(DAO_NhanVien.getAllNhanVien());
-        UtilityJTextField.addPlaceHolderStyle(txtMaNhanVien);
-        tblTable.fixTable(scrTable);
+        
     }
     
     private void updateTable(ArrayList<NhanVien> list){
-        DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
-        model.getDataVector().removeAllElements();
-        tblTable.revalidate();
-        tblTable.repaint();
-        for(NhanVien thisNhanVien : list){
-            model.addRow(new Object[]{
-                thisNhanVien.getMaNhanVien(),
-                thisNhanVien.getHoTen(),
-                thisNhanVien.getSoDienThoai(),
-                thisNhanVien.getCanCuocCongDan(),
-                thisNhanVien.getChucVu()
-            });
-        }
+        
     }
     
     private void timKiemTheoMaNhanVien(){
-        String maNhanVien = txtMaNhanVien.getText();
         
-        ArrayList<NhanVien> list = DAO_NhanVien.getAllNhanVien();
-        ArrayList<NhanVien> listRemove = new ArrayList<>();
-        
-        if(!maNhanVien.equals("")){
-            for(NhanVien thisNhanVien : list){
-                if(!thisNhanVien.getMaNhanVien().equals(maNhanVien))
-                    listRemove.add(thisNhanVien);
-            }
-        }
-        
-        list.removeAll(listRemove);
-        updateTable(list);
     }
 
     private void xemChiTietNhanVien(){
-        int i = tblTable.getSelectedRow();
-        if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Nhân Viên.");
-            return;
-        }
-        String maNhanVien = tblTable.getValueAt(i, 0).toString();
         
-        GUI_Main.getInstance().showPanel(GUI_ChiTietNhanVien.newInstance());
-        GUI_ChiTietNhanVien.getInstance().showChiTietNhanVien(maNhanVien);
-        GUI_ChiTietNhanVien.getInstance().setPnlBefore(this);
     }
     
     @SuppressWarnings("unchecked")
@@ -189,27 +154,22 @@ public class GUI_TimKiemNhanVien extends javax.swing.JPanel {
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
-        timKiemTheoMaNhanVien();
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-        GUI_Main.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
         // TODO add your handling code here:
-        xemChiTietNhanVien();
     }//GEN-LAST:event_btnChiTietActionPerformed
 
     private void txtMaNhanVienFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaNhanVienFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtMaNhanVien, "Mã Nhân Viên");
     }//GEN-LAST:event_txtMaNhanVienFocusGained
 
     private void txtMaNhanVienFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaNhanVienFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtMaNhanVien, "Mã Nhân Viên");
     }//GEN-LAST:event_txtMaNhanVienFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
