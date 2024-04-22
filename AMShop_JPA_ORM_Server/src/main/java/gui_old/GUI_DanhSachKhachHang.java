@@ -1,10 +1,11 @@
 package gui_old;
 
-import dao_old.DAO_KhachHang;
-import entity_old.KhachHang;
+
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import entity.KhachHang;
 
 public class GUI_DanhSachKhachHang extends javax.swing.JPanel {
     
@@ -25,36 +26,14 @@ public class GUI_DanhSachKhachHang extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        hienThiBang(DAO_KhachHang.getAllKhachHang());
-        tblDanhSachKhachHang.fixTable(scrTable);
+    	
     }
     
     private void hienThiBang(ArrayList<KhachHang> list){
-        DefaultTableModel model = (DefaultTableModel) tblDanhSachKhachHang.getModel();
-        model.getDataVector().removeAllElements();
-        tblDanhSachKhachHang.revalidate();
-        tblDanhSachKhachHang.repaint();
-        for(KhachHang thisKhachHang : list){
-            model.addRow(new Object[]{
-                thisKhachHang.getMaKhachHang(),
-                thisKhachHang.getHoTen(),
-                thisKhachHang.getSoDienThoai(),
-                thisKhachHang.getDiaChi(),
-                thisKhachHang.getNhomKhachHang()
-            });
-        }
+        
     }
     private void xemChiTietKhachHang(){
-        int i = tblDanhSachKhachHang.getSelectedRow();
-        if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Khách Hàng.");
-            return;
-        }
-        String maKhachHang = tblDanhSachKhachHang.getValueAt(i, 0).toString();
         
-        GUI_Main.getInstance().showPanel(GUI_ChiTietKhachHang.newInstance());
-        GUI_ChiTietKhachHang.getInstance().showThongTinKhachHang(maKhachHang);
-        GUI_ChiTietKhachHang.getInstance().setPnlBefore(this);
     }
     
     @SuppressWarnings("unchecked")
@@ -127,7 +106,6 @@ public class GUI_DanhSachKhachHang extends javax.swing.JPanel {
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
         // TODO add your handling code here:
-        xemChiTietKhachHang();
     }//GEN-LAST:event_btnChiTietActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

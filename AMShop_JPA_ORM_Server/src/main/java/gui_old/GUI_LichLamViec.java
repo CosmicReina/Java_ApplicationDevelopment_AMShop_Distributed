@@ -1,16 +1,12 @@
 package gui_old;
 
-import dao_old.DAO_CaLamViec;
-import dao_old.DAO_ChiTietPhanCong;
-import dao_old.DAO_LichLamViec;
-import dao_old.DAO_NhanVien;
+
 import data.FormatLocalDate;
 import data.FormatLocalTime;
 import data.KhoiTaoMa;
-import entity_old.CaLamViec;
-import entity_old.ChiTietPhanCong;
-import entity_old.LichLamViec;
-import entity_old.NhanVien;
+import entity.LichLamViec;
+import entity.NhanVien;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,313 +33,51 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        showTableListLichLamViec(DAO_LichLamViec.getAllLichLamViec());
         
-        tblDanhSachLichLamViec.fixTable(scrDanhSachLichLamViec);
-        tblDanhSachNhanVien.fixTable(scrDanhSachNhanVien);
-        tblDanhSachNhanVienTrongCa.fixTable(scrDanhSachNhanVienTrongCa);
-        
-        ArrayList<CaLamViec> listCaLamViec = DAO_CaLamViec.getAllCaLamViec();
-        for(CaLamViec thisCaLamViec : listCaLamViec){
-            cmbCaLamViec.addItem(thisCaLamViec.getTenCaLamViec());
-        }
     }
 
     private void showTableListLichLamViec(ArrayList<LichLamViec> list){
-        DefaultTableModel model = (DefaultTableModel) tblDanhSachLichLamViec.getModel();
-        model.getDataVector().removeAllElements();
-        tblDanhSachLichLamViec.revalidate();
-        tblDanhSachLichLamViec.repaint();
-        for(LichLamViec thisLichLamViec : list){
-            model.addRow(new Object[]{
-                thisLichLamViec.getMaLichLamViec(),
-                thisLichLamViec.getCaLamViec().getTenCaLamViec(),
-                FormatLocalDate.fromLocalDate(thisLichLamViec.getNgayLamViec())
-            });
-        }
-        JScrollBar verticalScrollBar = scrDanhSachLichLamViec.getVerticalScrollBar();
-        verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+        
     }    
 
     private void showTableListNhanVien(ArrayList<NhanVien> list){
-        DefaultTableModel model = (DefaultTableModel) tblDanhSachNhanVien.getModel();
-        model.getDataVector().removeAllElements();
-        tblDanhSachNhanVien.revalidate();
-        tblDanhSachNhanVien.repaint();
-        for(NhanVien thisNhanVien : list){
-            model.addRow(new Object[]{
-                thisNhanVien.getMaNhanVien(),
-                thisNhanVien.getHoTen()
-            });
-        }
+        
     }    
 
     private void showTableListNhanVienTrongCa(String maLichLamViec){
-        ArrayList<ChiTietPhanCong> list = DAO_ChiTietPhanCong.getAllChiTietPhanCongTheoMaLichLamViec(maLichLamViec);
-        DefaultTableModel model = (DefaultTableModel) tblDanhSachNhanVienTrongCa.getModel();
-        model.getDataVector().removeAllElements();
-        tblDanhSachNhanVienTrongCa.revalidate();
-        tblDanhSachNhanVienTrongCa.repaint();
-        for(ChiTietPhanCong thisChiTietPhanCong : list){
-            String thoiGianVaoCa = "";
-            String thoiGianRaCa = "";
-            if(thisChiTietPhanCong.getThoiGianVaoCa() != null){
-                thoiGianVaoCa = FormatLocalTime.fromLocalTime(thisChiTietPhanCong.getThoiGianVaoCa().toLocalTime());
-            }
-            if(thisChiTietPhanCong.getThoiGianRaCa() != null){
-                thoiGianRaCa = FormatLocalTime.fromLocalTime(thisChiTietPhanCong.getThoiGianRaCa().toLocalTime());
-            }
-            model.addRow(new Object[]{
-                thisChiTietPhanCong.getNhanVien().getMaNhanVien(),
-                thisChiTietPhanCong.getNhanVien().getHoTen(),
-                thoiGianVaoCa,
-                thoiGianRaCa
-            });
-        }
+        
     }    
     
     private void themLichLamViec(){
-        String ngayLamViecString = txtNgayLamViec.getText();
-        String caLamViecString = cmbCaLamViec.getSelectedItem().toString();
         
-        String error = "";
-        
-        LocalDate ngayLamViec = null;
-        if(ngayLamViecString.equals("")) // Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Ngày Làm Việc.";
-        else
-            try{
-                ngayLamViec = FormatLocalDate.toLocalDate(ngayLamViecString); // Kiểm tra chuyển đổi
-                if(ngayLamViec.isBefore(LocalDate.now())){
-                    error += "\n- Vui lòng nhập Ngày Làm Việc không bé hơn ngày hiện tại.";
-                }
-            }
-            catch(Exception e){
-                error += "\n- Vui lòng nhập Ngày Làm Việc hợp lệ (DD/MM/YYYY).";
-            }
-        
-        if(caLamViecString.equals("Ca Làm Việc"))
-            error += "\n- Vui lòng chọn Ca Làm Việc.";
-        
-        if(error.equals("")){
-            int maCaLamViec;
-            String charCaLamViec;
-            if(caLamViecString.equals("Ca Sáng")){
-                maCaLamViec = 1;
-                charCaLamViec = "S";
-            }
-            else{
-                maCaLamViec = 2;
-                charCaLamViec = "C";
-            }
-            
-            String maLichlamViec = KhoiTaoMa.generateMaLichLamViec(ngayLamViec, charCaLamViec);
-            CaLamViec caLamViec = DAO_CaLamViec.getCaLamViecTheoMaCaLamViec(maCaLamViec);
-            LichLamViec lichLamViec = new LichLamViec(maLichlamViec, ngayLamViec, caLamViec);
-            
-            ArrayList<LichLamViec> list = DAO_LichLamViec.getAllLichLamViec();
-            if(list.contains(lichLamViec)){
-                JOptionPane.showMessageDialog(null, "Lịch Làm Việc đã tồn tại.");
-                return;
-            }
-            
-            if(DAO_LichLamViec.createLichLamViec(lichLamViec)){
-                JOptionPane.showMessageDialog(null, "Thêm Lịch Thành Công.");
-                GUI_Main.getInstance().showPanel(newInstance());
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Thêm Lịch Thất Bại.");
-            }
-        }
-        else{
-            String throwMessage = "Lỗi nhập liệu: " + error;
-            JOptionPane.showMessageDialog(null, throwMessage);
-        }
     }
 
     private void updateDanhSachNhanVien(){
-        int i = tblDanhSachLichLamViec.getSelectedRow();
-        if(i < 0) return;
-        String maLichLamViec = tblDanhSachLichLamViec.getValueAt(i, 0).toString();
-        updateSauCapNhat(maLichLamViec);
         
-        LichLamViec lichLamViec = DAO_LichLamViec.getLichLamViecTheoMaLichLamViec(maLichLamViec);
-        if(lichLamViec.getNgayLamViec().isBefore(LocalDate.now())){
-            btnThemNhanVien.setEnabled(false);
-            btnXoaNhanVien.setEnabled(false);
-            btnChamCongVao.setEnabled(false);
-            btnChamCongRa.setEnabled(false);
-        }
-        else{
-            btnThemNhanVien.setEnabled(true);
-            btnXoaNhanVien.setEnabled(true);
-            btnChamCongVao.setEnabled(true);
-            btnChamCongRa.setEnabled(true);
-        }
     }
     
     private void themNhanVienVaoLich(){
-        int i = tblDanhSachNhanVien.getSelectedRow();
-        if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Nhân Viên để thêm.");
-            return;
-        }
         
-        String maNhanVien = tblDanhSachNhanVien.getValueAt(i, 0).toString();
-        NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
-        
-        int y = tblDanhSachLichLamViec.getSelectedRow();
-        if(y < 0) return;
-        
-        String maLichLamViec = tblDanhSachLichLamViec.getValueAt(y, 0).toString();
-        LichLamViec lichLamViec = DAO_LichLamViec.getLichLamViecTheoMaLichLamViec(maLichLamViec);
-        
-        ChiTietPhanCong chiTietPhanCong = new ChiTietPhanCong(lichLamViec, nhanVien, null, null);
-        
-        if(DAO_ChiTietPhanCong.createChiTietPhanCong(chiTietPhanCong) == true){
-            updateSauCapNhat(maLichLamViec);
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Thêm Nhân Viên vào Lịch thất bại.");
-        }
-        
-        tblDanhSachNhanVien.clearSelection();
     }
     
     private void xoaNhanVienKhoiLich(){
-        int i = tblDanhSachNhanVienTrongCa.getSelectedRow();
-        if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn Nhân Viên cần xóa.");
-            return;
-        }
         
-        String maNhanVien = tblDanhSachNhanVienTrongCa.getValueAt(i, 0).toString();
-        
-        int y = tblDanhSachLichLamViec.getSelectedRow();
-        if(y < 0) return;
-        
-        String maLichLamViec = tblDanhSachLichLamViec.getValueAt(y, 0).toString();
-        
-        if(DAO_ChiTietPhanCong.deleteChiTietPhanCong(maLichLamViec, maNhanVien)){
-            updateSauCapNhat(maLichLamViec);
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Xóa Nhân Viên khỏi Lịch thất bại.");
-        }
-        
-        tblDanhSachNhanVienTrongCa.clearSelection();
     }
     
     private void updateSauCapNhat(String maLichLamViec){
-        LichLamViec lichLamViec = DAO_LichLamViec.getLichLamViecTheoMaLichLamViec(maLichLamViec);
-        ArrayList<NhanVien> listNhanVienChuaThem = DAO_NhanVien.getDanhSachNhanVienChuaCoTrongNgayLamViec(lichLamViec.getNgayLamViec());
-
-        showTableListNhanVienTrongCa(maLichLamViec);
-        showTableListNhanVien(listNhanVienChuaThem);
+        
     }
     
     private void chamCongVaoCa(){
-        int i = tblDanhSachNhanVienTrongCa.getSelectedRow();
-        if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn Nhân Viên cần chấm công.");
-            return;
-        }
-        String maNhanVien = tblDanhSachNhanVienTrongCa.getValueAt(i, 0).toString();
-        NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
         
-        int y = tblDanhSachLichLamViec.getSelectedRow();
-        if(y < 0) return;
-        String maLichLamViec = tblDanhSachLichLamViec.getValueAt(y, 0).toString();
-        LichLamViec lichLamViec = DAO_LichLamViec.getLichLamViecTheoMaLichLamViec(maLichLamViec);
-        
-        ChiTietPhanCong chiTietPhanCong = new ChiTietPhanCong(lichLamViec, nhanVien, null, null);
-        ArrayList<ChiTietPhanCong> listPC = DAO_ChiTietPhanCong.getAllChiTietPhanCongTheoMaLichLamViec(maLichLamViec);
-        
-        ChiTietPhanCong chiTietPhanCongUpdate = null;
-        if(listPC.contains(chiTietPhanCong))
-            chiTietPhanCongUpdate = listPC.get(listPC.indexOf(chiTietPhanCong));
-        if(chiTietPhanCongUpdate == null) return;
-        
-        LocalDateTime thoiGianVaoCa = LocalDateTime.now();
-        chiTietPhanCongUpdate.setThoiGianVaoCa(thoiGianVaoCa);
-
-        if(DAO_ChiTietPhanCong.updateChiTietPhanCong(chiTietPhanCongUpdate) == true){
-            updateSauCapNhat(maLichLamViec);
-        }
-        
-        tblDanhSachNhanVienTrongCa.clearSelection();
     }
     
     private void chamCongRaCa(){
-        int i = tblDanhSachNhanVienTrongCa.getSelectedRow();
-        if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn Nhân Viên cần chấm công.");
-            return;
-        }
-        String maNhanVien = tblDanhSachNhanVienTrongCa.getValueAt(i, 0).toString();
-        NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
         
-        int y = tblDanhSachLichLamViec.getSelectedRow();
-        if(y < 0) return;
-        String maLichLamViec = tblDanhSachLichLamViec.getValueAt(y, 0).toString();
-        LichLamViec lichLamViec = DAO_LichLamViec.getLichLamViecTheoMaLichLamViec(maLichLamViec);
-        
-        ChiTietPhanCong chiTietPhanCong = new ChiTietPhanCong(lichLamViec, nhanVien, null, null);
-        ArrayList<ChiTietPhanCong> listPC = DAO_ChiTietPhanCong.getAllChiTietPhanCongTheoMaLichLamViec(maLichLamViec);
-        
-        ChiTietPhanCong chiTietPhanCongUpdate = null;
-        if(listPC.contains(chiTietPhanCong))
-            chiTietPhanCongUpdate = listPC.get(listPC.indexOf(chiTietPhanCong));
-        if(chiTietPhanCongUpdate == null) return;
-        
-        if(chiTietPhanCongUpdate.getThoiGianVaoCa() == null){
-            JOptionPane.showMessageDialog(null, "Vui lòng chấm công vào ca cho nhân viên trước");
-            return;
-        }
-        
-        LocalDateTime thoiGianRaCa = LocalDateTime.now();
-        try {
-            chiTietPhanCongUpdate.setThoiGianRaCa(thoiGianRaCa);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        if(DAO_ChiTietPhanCong.updateChiTietPhanCong(chiTietPhanCongUpdate) == true){
-            updateSauCapNhat(maLichLamViec);
-        }
-        
-        tblDanhSachNhanVienTrongCa.clearSelection();
     }
     
     private void timKiem(){
-        ArrayList<LichLamViec> lichLamViec = DAO_LichLamViec.getAllLichLamViec();
-        ArrayList<LichLamViec> lichLamViecRemove = new ArrayList<>();
-        LocalDate ngayLamViec;
         
-        if(txtNgayLamViec.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập Ngày Làm Việc cần tìm.");
-            return;
-        }
-        
-        try{
-            ngayLamViec = FormatLocalDate.toLocalDate(txtNgayLamViec.getText()); // Kiểm tra chuyển đổi
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập Ngày Làm Việc hợp lệ (DD/MM/YYYY).");
-            return;
-        }
-        
-        for(LichLamViec thisLichLamViec : lichLamViec){
-            if(!thisLichLamViec.getNgayLamViec().equals(ngayLamViec))
-                lichLamViecRemove.add(thisLichLamViec);
-        }
-        
-        lichLamViec.removeAll(lichLamViecRemove);
-        if(lichLamViec.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Lịch Làm Việc thông tồn tại.");
-            return;
-        }
-        showTableListLichLamViec(lichLamViec);
     }
     
     @SuppressWarnings("unchecked")
@@ -664,42 +398,34 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        themLichLamViec();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
-        timKiem();
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnChamCongVaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChamCongVaoActionPerformed
         // TODO add your handling code here:
-        chamCongVaoCa();
     }//GEN-LAST:event_btnChamCongVaoActionPerformed
 
     private void btnChamCongRaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChamCongRaActionPerformed
         // TODO add your handling code here:
-        chamCongRaCa();
     }//GEN-LAST:event_btnChamCongRaActionPerformed
 
     private void btnThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanVienActionPerformed
         // TODO add your handling code here:
-        themNhanVienVaoLich();
     }//GEN-LAST:event_btnThemNhanVienActionPerformed
 
     private void btnXoaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaNhanVienActionPerformed
         // TODO add your handling code here:
-        xoaNhanVienKhoiLich();
     }//GEN-LAST:event_btnXoaNhanVienActionPerformed
 
     private void tblDanhSachLichLamViecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachLichLamViecMouseClicked
         // TODO add your handling code here:
-        updateDanhSachNhanVien();
     }//GEN-LAST:event_tblDanhSachLichLamViecMouseClicked
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-        GUI_Main.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

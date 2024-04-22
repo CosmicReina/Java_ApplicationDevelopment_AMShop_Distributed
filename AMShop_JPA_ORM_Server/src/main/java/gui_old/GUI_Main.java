@@ -1,7 +1,6 @@
 package gui_old;
 
-import dao_old.DAO_NhanVien;
-import entity_old.NhanVien;
+
 import extended_component.JButton_AllRound;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -39,82 +38,19 @@ public class GUI_Main extends javax.swing.JPanel {
     }
     
     private void addButtonToList(){
-        NhanVien nhanVien = DAO_NhanVien.nhanVienHienTai;
-        if(nhanVien.getChucVu().equals("Người Quản Lý")){
-            listBtnNhanVien.add(btnLapHoaDon);
-            listBtnNhanVien.add(btnDanhSachDonDatHang);
-            listBtnNhanVien.add(btnDanhSachNhanVien);
-            listBtnNhanVien.add(btnTimKiemNhanVien);
-            listBtnNhanVien.add(btnThemNhanVien);
-            listBtnNhanVien.add(btnCapNhatNhanVien);
-            listBtnNhanVien.add(btnThongTinNhanVien);
-
-            listBtnKhachHang.add(btnDanhSachKhachHang);
-            listBtnKhachHang.add(btnTimKiemKhachHang);
-            listBtnKhachHang.add(btnCapNhatKhachHang);
-            
-            listBtnHoaDon.add(btnDanhSachHoaDon);
-            listBtnHoaDon.add(btnTimKiemHoaDon);
-
-            listBtnQuanAo.add(btnDanhSachQuanAo);
-            listBtnQuanAo.add(btnTimKiemQuanAo);
-            listBtnQuanAo.add(btnThemQuanAo);
-            listBtnQuanAo.add(btnCapNhatQuanAo);
-
-            listBtnLichLamViec.add(btnDanhSachLichLamViec);
-            listBtnLichLamViec.add(btnTinhLuong);
-
-            listBtnThongKe.add(btnThongKeDoanhThu);
-            listBtnThongKe.add(btnThongKeKhachHang);
-            listBtnThongKe.add(btnThongKeQuanAoDaBan);
-            listBtnThongKe.add(btnThongKeQuanAoDaHet);
-        }
-        else{
-            listBtnNhanVien.add(btnLapHoaDon);
-            listBtnNhanVien.add(btnDanhSachDonDatHang);
-            listBtnNhanVien.add(btnThongTinNhanVien);
-            
-            listBtnKhachHang.add(btnDanhSachKhachHang);
-            listBtnKhachHang.add(btnTimKiemKhachHang);
-            listBtnKhachHang.add(btnCapNhatKhachHang);
-            
-            listBtnHoaDon.add(btnDanhSachHoaDon);
-            listBtnHoaDon.add(btnTimKiemHoaDon);
-            
-            listBtnQuanAo.add(btnDanhSachQuanAo);
-            listBtnQuanAo.add(btnTimKiemQuanAo);
-            
-            btnLichLamViec.setVisible(false);
-            btnThongKe.setVisible(false);
-        }
+        
     }
     
     public void showPanel(JPanel panel){
-        pnlWork.removeAll();
-    	pnlWork.revalidate();
-    	pnlWork.repaint();
-    	pnlWork.setLayout(new BorderLayout());
-    	pnlWork.add(panel, BorderLayout.CENTER);
+        
     }
     
     public void tatHetChucNang(){
-        btnTrangChu.setVisible(false);
-        btnNhanVien.setVisible(false);
-        btnKhachHang.setVisible(false);
-        btnHoaDon.setVisible(false);
-        btnQuanAo.setVisible(false);
-        btnLichLamViec.setVisible(false);
-        btnThongKe.setVisible(false);
         
-        showPanel(GUI_TimKiemQuanAo.newInstance());
     }
     
     private void dangXuat(){
-        int i = JOptionPane.showConfirmDialog(null, "Đăng Xuất Chương Trình?", "Đăng Xuất", JOptionPane.YES_NO_OPTION);
-        if(i == JOptionPane.YES_OPTION){
-            GUI_DangNhap.newInstance().setVisible(true);
-            GUI_MainFrame.getInstance().dispose();
-        }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -617,152 +553,128 @@ public class GUI_Main extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
-        dangXuat();
+        
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void btnTrangChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrangChuActionPerformed
-        showPanel(GUI_TrangChu.newInstance());
+        
     }//GEN-LAST:event_btnTrangChuActionPerformed
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
-        GUI_MainFrame.getInstance().createPopupForButton(btnNhanVien, listBtnNhanVien);
+        
     }//GEN-LAST:event_btnNhanVienActionPerformed
 
     private void btnKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhachHangActionPerformed
-        GUI_MainFrame.getInstance().createPopupForButton(btnKhachHang, listBtnKhachHang);
+        
     }//GEN-LAST:event_btnKhachHangActionPerformed
 
     private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
-        GUI_MainFrame.getInstance().createPopupForButton(btnHoaDon, listBtnHoaDon);
+        
     }//GEN-LAST:event_btnHoaDonActionPerformed
 
     private void btnQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanAoActionPerformed
-        GUI_MainFrame.getInstance().createPopupForButton(btnQuanAo, listBtnQuanAo);
+        
     }//GEN-LAST:event_btnQuanAoActionPerformed
 
     private void btnLichLamViecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLichLamViecActionPerformed
-        GUI_MainFrame.getInstance().createPopupForButton(btnLichLamViec, listBtnLichLamViec);
+        
     }//GEN-LAST:event_btnLichLamViecActionPerformed
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
-        GUI_MainFrame.getInstance().createPopupForButton(btnThongKe, listBtnThongKe);
+        
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnLapHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLapHoaDonActionPerformed
-        showPanel(GUI_LapHoaDon.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnLapHoaDonActionPerformed
 
     private void btnDanhSachDonDatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachDonDatHangActionPerformed
-        showPanel(GUI_DanhSachDonDatHang.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnDanhSachDonDatHangActionPerformed
 
     private void btnTimKiemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemNhanVienActionPerformed
-        showPanel(GUI_TimKiemNhanVien.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnTimKiemNhanVienActionPerformed
 
     private void btnThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanVienActionPerformed
-        showPanel(GUI_ThemNhanVien.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnThemNhanVienActionPerformed
 
     private void btnCapNhatNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatNhanVienActionPerformed
-        showPanel(GUI_CapNhatNhanVien.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnCapNhatNhanVienActionPerformed
 
     private void btnThongTinNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongTinNhanVienActionPerformed
-        showPanel(GUI_ChiTietNhanVien.newInstance());
-        GUI_ChiTietNhanVien.getInstance().showChiTietNhanVien(DAO_NhanVien.nhanVienHienTai.getMaNhanVien());
-        GUI_ChiTietNhanVien.getInstance().setPnlBefore(GUI_TrangChu.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnThongTinNhanVienActionPerformed
 
     private void btnTimKiemKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemKhachHangActionPerformed
-        showPanel(GUI_TimKiemKhachHang.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnTimKiemKhachHangActionPerformed
 
     private void btnCapNhatKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatKhachHangActionPerformed
-        showPanel(GUI_CapNhatKhachHang.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnCapNhatKhachHangActionPerformed
 
     private void btnTimKiemHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemHoaDonActionPerformed
-        showPanel(GUI_TimKiemHoaDon.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnTimKiemHoaDonActionPerformed
 
     private void btnTimKiemQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemQuanAoActionPerformed
-        showPanel(GUI_TimKiemQuanAo.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnTimKiemQuanAoActionPerformed
 
     private void btnThemQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemQuanAoActionPerformed
-        showPanel(GUI_ThemQuanAo.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnThemQuanAoActionPerformed
 
     private void btnCapNhatQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatQuanAoActionPerformed
-        showPanel(GUI_CapNhatQuanAo.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnCapNhatQuanAoActionPerformed
 
     private void btnDanhSachLichLamViecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachLichLamViecActionPerformed
-        showPanel(GUI_LichLamViec.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnDanhSachLichLamViecActionPerformed
 
     private void btnThongKeDoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeDoanhThuActionPerformed
-        showPanel(GUI_ThongKeDoanhThu.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnThongKeDoanhThuActionPerformed
 
     private void btnThongKeKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeKhachHangActionPerformed
-        showPanel(GUI_ThongKeKhachHang.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnThongKeKhachHangActionPerformed
 
     private void btnThongKeQuanAoDaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeQuanAoDaBanActionPerformed
-        showPanel(GUI_ThongKeQuanAoDaBan.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnThongKeQuanAoDaBanActionPerformed
 
     private void btnThongKeQuanAoDaHetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeQuanAoDaHetActionPerformed
-        showPanel(GUI_ThongKeQuanAoDaHet.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnThongKeQuanAoDaHetActionPerformed
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
         // TODO add your handling code here:
-        showPanel(GUI_TinhLuongNhanVien.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnTinhLuongActionPerformed
 
     private void btnDanhSachHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachHoaDonActionPerformed
         // TODO add your handling code here:
-        showPanel(GUI_DanhSachHoaDon.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnDanhSachHoaDonActionPerformed
 
     private void btnDanhSachKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachKhachHangActionPerformed
         // TODO add your handling code here:
-        showPanel(GUI_DanhSachKhachHang.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnDanhSachKhachHangActionPerformed
 
     private void btnDanhSachNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachNhanVienActionPerformed
         // TODO add your handling code here:
-        showPanel(GUI_DanhSachNhanVien.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnDanhSachNhanVienActionPerformed
 
     private void btnDanhSachQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachQuanAoActionPerformed
         // TODO add your handling code here:
-        showPanel(GUI_DanhSachQuanAo.newInstance());
-        GUI_MainFrame.getInstance().resetPopupPanel();
+        
     }//GEN-LAST:event_btnDanhSachQuanAoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

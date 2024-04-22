@@ -1,10 +1,10 @@
 package gui_old;
 
-import dao_old.DAO_QuanAo;
+
 import data.FormatDouble;
 import data.FormatLocalDate;
 import data.InBaoCaoQuanAoDaBan;
-import entity_old.QuanAo;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
@@ -34,95 +34,11 @@ public class GUI_ThongKeQuanAoDaBan extends javax.swing.JPanel {
     }
     
     private void updateTable(){
-        String ngayBatDauString = txtNgayBatDau.getText();
-        String ngayKetThucString = txtNgayKetThuc.getText();
         
-        ngayBatDau = LocalDate.now();
-        ngayKetThuc = LocalDate.now();
-        
-        String error = "";
-        
-        if(ngayBatDauString.isBlank())
-            error += "\n- Vui lòng nhập Ngày Bắt Đầu thống kê.";
-        else{
-            try{
-                ngayBatDau = FormatLocalDate.toLocalDate(ngayBatDauString); // Kiểm tra chuyển đổi
-            }
-            catch(Exception e){
-                error += "\n- Vui lòng nhập Ngày Bắt Đầu hợp lệ (DD/MM/YYYY).";
-            }
-        }
-        
-        if(ngayKetThucString.isBlank())
-            error += "\n- Vui lòng nhập Ngày Kết Thúc thống kê.";
-        else{
-            try{
-                ngayKetThuc = FormatLocalDate.toLocalDate(ngayKetThucString); // Kiểm tra chuyển đổi
-                if(ngayBatDau.isAfter(ngayKetThuc))
-                    error += "\n- Ngày Kết Thúc Thống kê phải lớn hơn Ngày Bắt Đầu.";
-            }
-            catch(Exception e){
-                error += "\n- Vui lòng nhập Ngày Kết Thúc hợp lệ (DD/MM/YYYY).";
-            }
-        }
-        
-        if(!error.equals("")){
-            String throwMessage = "Lỗi nhập liệu: " + error;
-            JOptionPane.showMessageDialog(null, throwMessage);
-            return;
-        }
-        
-        DefaultTableModel model = (DefaultTableModel) tblQuanAo.getModel();
-        model.getDataVector().removeAllElements();
-        tblQuanAo.revalidate();
-        tblQuanAo.repaint();
-
-        int tongQuanAo = 0;
-        double tongDoanhThu = 0;
-        double tongDoanhThuThuan = 0;
-        
-        ResultSet rs = DAO_QuanAo.thongKeQuanAoDaBanTrongKhoangNgay(ngayBatDau, ngayKetThuc);
-        try {
-            while(rs.next()){
-                String maQuanAo = rs.getString(1);
-                QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
-                int soLuong = rs.getInt(2);
-                double doanhThuThanhPhan = rs.getDouble(2) * quanAo.getDonGiaBan();
-                double doanhThuThuanThanhPhan = rs.getDouble(2) * (quanAo.getDonGiaBan() - quanAo.getDonGiaNhap());
-                model.addRow(new Object[]{
-                    maQuanAo,
-                    quanAo.getTenQuanAo(),
-                    soLuong,
-                    FormatDouble.toMoney(doanhThuThanhPhan),
-                    FormatDouble.toMoney(doanhThuThuanThanhPhan)
-                });
-                tongQuanAo += soLuong;
-                tongDoanhThu += doanhThuThanhPhan;
-                tongDoanhThuThuan += doanhThuThuanThanhPhan;
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        }
-        txtTongSoQuanAo.setText(Integer.toString(tongQuanAo));
-        txtTongSoDoanhThu.setText(FormatDouble.toMoney(tongDoanhThu));
-        txtTongSoDoanhThuThuan.setText(FormatDouble.toMoney(tongDoanhThuThuan));
     }
     
     private void inBaoCaoThongKe(){
-        try {
-            if(tblQuanAo.getModel().getRowCount() == 0){
-                JOptionPane.showMessageDialog(null, "Vui lòng Tạo Thống Kê trước.");
-                return;
-            }
-            if(InBaoCaoQuanAoDaBan.createBaoCaoQuanAoDaBan(ngayBatDau, ngayKetThuc) == true){
-                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Quần Áo đã bán thành công.");
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Quần Áo đã bán thất bại.");
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace(System.out);
-        }
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -294,12 +210,10 @@ public class GUI_ThongKeQuanAoDaBan extends javax.swing.JPanel {
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         // TODO add your handling code here:
-        updateTable();
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnInBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInBaoCaoActionPerformed
         // TODO add your handling code here:
-        inBaoCaoThongKe();
     }//GEN-LAST:event_btnInBaoCaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,14 +1,10 @@
 package gui_old;
 
-import dao_old.DAO_ChiTietHoaDon;
-import dao_old.DAO_HoaDon;
-import dao_old.DAO_NhanVien;
+
 import data.FormatDouble;
 import data.FormatLocalDate;
 import data.FormatLocalDateTime;
-import entity_old.ChiTietHoaDon;
-import entity_old.HoaDon;
-import entity_old.NhanVien;
+
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -43,60 +39,15 @@ public class GUI_ChiTietNhanVien extends javax.swing.JPanel {
     }
     
     public void showChiTietNhanVien(String maNhanVien){
-        NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
-        txtMaNhanVien.setText(nhanVien.getMaNhanVien());
-        txtHoTen.setText(nhanVien.getHoTen());
-        txtSoDienThoai.setText(nhanVien.getSoDienThoai());
-        txtDiaChi.setText(nhanVien.getDiaChi());
-        txtChucVu.setText(nhanVien.getChucVu());
-        txtNgaySinh.setText(FormatLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
-        txtCCCD.setText(nhanVien.getCanCuocCongDan());
-        txtGioiTinh.setText(nhanVien.getGioiTinh());
-        txtNgayBatDauLam.setText(FormatLocalDate.fromLocalDate(nhanVien.getNgayBatDauLam()));
-        if(nhanVien.getNgayKetThucLam() != null)
-            txtNgayKetThucLam.setText(FormatLocalDate.fromLocalDate(nhanVien.getNgayKetThucLam()));
-        else
-            txtNgayKetThucLam.setText("");
-        txtLuong.setText(FormatDouble.toMoney(nhanVien.getLuong()));
         
-        ArrayList<HoaDon> listHD = DAO_HoaDon.getAllHoaDon();
-        ArrayList<HoaDon> listRemove = new ArrayList<>();
-        for(int i = 0; i < listHD.size(); i++){
-            HoaDon thisHoaDon = listHD.get(i);
-            if(!thisHoaDon.getNhanVien().getMaNhanVien().equals(nhanVien.getMaNhanVien()))
-                listRemove.add(thisHoaDon);
-        }
-        listHD.removeAll(listRemove);
-        DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
-        for(HoaDon thisHoaDon : listHD){
-            ArrayList<ChiTietHoaDon> listCTHD = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(thisHoaDon.getMaHoaDon());
-            double tongTien = 0;
-            for(ChiTietHoaDon thisChiTietHoaDon : listCTHD)
-                tongTien += thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
-            model.addRow(new Object[]{
-                thisHoaDon.getMaHoaDon(),
-                thisHoaDon.getKhachHang().getHoTen(),
-                FormatLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
-                FormatDouble.toMoney(tongTien)
-            });
-        }
     }
     
     private void xemChiTietHoaDon(){
-        int i = tblHoaDon.getSelectedRow();
-        if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Hóa Đơn");
-            return;
-        }
-        String maHoaDon = tblHoaDon.getValueAt(i, 0).toString();
         
-        GUI_Main.getInstance().showPanel(GUI_ChiTietHoaDon.newInstance());
-        GUI_ChiTietHoaDon.getInstance().showThongTinHoaDon(maHoaDon);
-        GUI_ChiTietHoaDon.getInstance().setPnlBefore(this);
     }
     
     private void quayLai(){
-        if(pnlBefore != null) GUI_Main.getInstance().showPanel(pnlBefore);
+       
     }
 
     @SuppressWarnings("unchecked")
@@ -360,12 +311,10 @@ public class GUI_ChiTietNhanVien extends javax.swing.JPanel {
 
     private void btnXemChiTietHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietHoaDonActionPerformed
         // TODO add your handling code here:
-        xemChiTietHoaDon();
     }//GEN-LAST:event_btnXemChiTietHoaDonActionPerformed
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
         // TODO add your handling code here:
-        quayLai();
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

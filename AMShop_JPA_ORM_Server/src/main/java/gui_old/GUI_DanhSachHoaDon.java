@@ -1,11 +1,10 @@
 package gui_old;
 
-import dao_old.DAO_ChiTietHoaDon;
-import dao_old.DAO_HoaDon;
+
 import data.FormatDouble;
 import data.FormatLocalDateTime;
-import entity_old.ChiTietHoaDon;
-import entity_old.HoaDon;
+import entity.HoaDon;
+
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -29,43 +28,15 @@ public class GUI_DanhSachHoaDon extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        hienThiBang(DAO_HoaDon.getAllHoaDon());
-        tblDanhSachHoaDon.fixTable(scrDanhSachHoaDon);
+    	
     }
 
     private void hienThiBang(ArrayList<HoaDon> list){
-        DefaultTableModel model = (DefaultTableModel) tblDanhSachHoaDon.getModel();
-        model.getDataVector().removeAllElements();
-        tblDanhSachHoaDon.revalidate();
-        tblDanhSachHoaDon.repaint();
-        for(HoaDon thisHoaDon : list){
-            ArrayList<ChiTietHoaDon> listCTHD = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(thisHoaDon.getMaHoaDon());
-            double tongTienThanhPhan = 0;
-            for(ChiTietHoaDon thisChiTietHoaDon : listCTHD){
-                tongTienThanhPhan += thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
-            }
-            model.addRow(new Object[]{
-                thisHoaDon.getMaHoaDon(),
-                thisHoaDon.getNhanVien().getHoTen(),
-                thisHoaDon.getKhachHang().getHoTen(),
-                thisHoaDon.getKhachHang().getSoDienThoai(),
-                FormatLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
-                FormatDouble.toMoney(tongTienThanhPhan)
-            });
-        }
+        
     }
     
     private void xemChiTietHoaDon(){
-        int i = tblDanhSachHoaDon.getSelectedRow();
-        if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Hóa Đơn");
-            return;
-        }
-        String maHoaDon = tblDanhSachHoaDon.getValueAt(i, 0).toString();
         
-        GUI_Main.getInstance().showPanel(GUI_ChiTietHoaDon.newInstance());
-        GUI_ChiTietHoaDon.getInstance().showThongTinHoaDon(maHoaDon);
-        GUI_ChiTietHoaDon.getInstance().setPnlBefore(this);
     }
     
     @SuppressWarnings("unchecked")
@@ -131,7 +102,6 @@ public class GUI_DanhSachHoaDon extends javax.swing.JPanel {
 
     private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
         // TODO add your handling code here:
-        xemChiTietHoaDon();
     }//GEN-LAST:event_btnXemChiTietActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

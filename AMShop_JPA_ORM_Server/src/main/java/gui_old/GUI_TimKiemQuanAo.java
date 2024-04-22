@@ -1,15 +1,10 @@
 package gui_old;
 
-import dao_old.DAO_ChatLieu;
-import dao_old.DAO_DanhMuc;
-import dao_old.DAO_GioiTinh;
-import dao_old.DAO_KichThuoc;
-import dao_old.DAO_MauSac;
-import dao_old.DAO_NhaSanXuat;
-import dao_old.DAO_QuanAo;
+
 import data.FormatDouble;
 import data.UtilityJTextField;
-import entity_old.QuanAo;
+import entity.QuanAo;
+
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,147 +31,19 @@ public class GUI_TimKiemQuanAo extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        updateTableQuanAo(DAO_QuanAo.getAllQuanAo());
         
-        UtilityJTextField.addPlaceHolderStyle(txtMaQuanAo);
-        UtilityJTextField.addPlaceHolderStyle(txtTenQuanAo);
-        
-        tblQuanAo.fixTable(scrQuanAo);
-        
-        ArrayList<String> listNhaSanXuat = DAO_NhaSanXuat.getAllNhaSanXuat();
-        ArrayList<String> listDanhMuc = DAO_DanhMuc.getAllDanhMuc();
-        ArrayList<String> listGioiTinh = DAO_GioiTinh.getAllGioiTinh();
-        ArrayList<String> listMauSac = DAO_MauSac.getAllMauSac();
-        ArrayList<String> listKichThuoc = DAO_KichThuoc.getAllKichThuoc();
-        ArrayList<String> listChatLieu = DAO_ChatLieu.getAllChatLieu();
-        
-        
-        for(String thisNhaSanXuat : listNhaSanXuat){
-            cmbNhaSanXuat.addItem(thisNhaSanXuat);
-        }
-        
-        for(String thisDanhMuc : listDanhMuc){
-            cmbDanhMuc.addItem(thisDanhMuc);
-        }
-        
-        for(String thisGioiTinh : listGioiTinh){
-            cmbGioiTinh.addItem(thisGioiTinh);
-        }
-        
-        for(String thisMauSac : listMauSac){
-            cmbMauSac.addItem(thisMauSac);
-        }
-        
-        for(String thisKichThuoc : listKichThuoc){
-            cmbKichThuoc.addItem(thisKichThuoc);
-        }
-        
-        for(String thisChatLieu : listChatLieu){
-            cmbChatLieu.addItem(thisChatLieu);
-        }
     }
     
     private void updateTableQuanAo(ArrayList<QuanAo> list){
-        DefaultTableModel model = (DefaultTableModel) tblQuanAo.getModel();
-        model.getDataVector().removeAllElements();
-        tblQuanAo.revalidate();
-        tblQuanAo.repaint();
-        for(QuanAo thisQuanAo : list){
-            model.addRow(new Object[]{
-                thisQuanAo.getMaQuanAo(),
-                thisQuanAo.getTenQuanAo(),
-                FormatDouble.toMoney(thisQuanAo.getDonGiaBan()),
-                thisQuanAo.getSoLuongTrongKho(),
-                thisQuanAo.getNhaSanXuat(),
-                thisQuanAo.getDanhMuc(),
-                thisQuanAo.getGioiTinh(),
-                thisQuanAo.getMauSac(),
-                thisQuanAo.getKichThuoc(),
-                thisQuanAo.getChatLieu()
-            });
-        }
+        
     }
     
     private void timKiemQuanAo(){
-        ArrayList<QuanAo> list = DAO_QuanAo.getAllQuanAo();
-        ArrayList<QuanAo> listRemove = new ArrayList<>();
         
-        if(!txtMaQuanAo.getText().equals("Mã Quần Áo")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getMaQuanAo().equals(txtMaQuanAo.getText()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!txtTenQuanAo.getText().equals("Tên Quần Áo")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getTenQuanAo().toLowerCase().contains(txtTenQuanAo.getText().toLowerCase()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!cmbNhaSanXuat.getSelectedItem().toString().equals("Nhà Sản Xuất")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getNhaSanXuat().equals(cmbNhaSanXuat.getSelectedItem().toString()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!cmbDanhMuc.getSelectedItem().toString().equals("Danh Mục")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getDanhMuc().equals(cmbDanhMuc.getSelectedItem().toString()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!cmbGioiTinh.getSelectedItem().toString().equals("Giới Tính")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getGioiTinh().equals(cmbGioiTinh.getSelectedItem().toString()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!cmbMauSac.getSelectedItem().toString().equals("Màu Sắc")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getMauSac().equals(cmbMauSac.getSelectedItem().toString()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!cmbKichThuoc.getSelectedItem().toString().equals("Kích Thước")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getKichThuoc().equals(cmbKichThuoc.getSelectedItem().toString()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        if(!cmbChatLieu.getSelectedItem().toString().equals("Chất Liệu")){
-            for(int i = 0; i < list.size(); i ++){
-                QuanAo thisQuanAo = list.get(i);
-                if(!thisQuanAo.getChatLieu().equals(cmbChatLieu.getSelectedItem().toString()))
-                    listRemove.add(thisQuanAo);
-            }
-        }
-        
-        list.removeAll(listRemove);
-        updateTableQuanAo(list);
     }
     
     private void updateHinhAnh(){
-        int i = tblQuanAo.getSelectedRow();
-        if(i < 0) return;
-        String maQuanAo = tblQuanAo.getValueAt(i, 0).toString();
-        QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
-
-        lblHinhAnh.setText("");
-        lblHinhAnh.setIcon(quanAo.getHinhAnh());
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -356,37 +223,30 @@ public class GUI_TimKiemQuanAo extends javax.swing.JPanel {
 
     private void txtMaQuanAoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaQuanAoFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtMaQuanAo, "Mã Quần Áo");
     }//GEN-LAST:event_txtMaQuanAoFocusGained
 
     private void txtMaQuanAoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaQuanAoFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtMaQuanAo, "Mã Quần Áo");
     }//GEN-LAST:event_txtMaQuanAoFocusLost
 
     private void txtTenQuanAoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenQuanAoFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtTenQuanAo, "Tên Quần Áo");
     }//GEN-LAST:event_txtTenQuanAoFocusGained
 
     private void txtTenQuanAoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenQuanAoFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtTenQuanAo, "Tên Quần Áo");
     }//GEN-LAST:event_txtTenQuanAoFocusLost
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
-        timKiemQuanAo();
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-        GUI_Main.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void tblQuanAoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuanAoMouseClicked
         // TODO add your handling code here:
-        updateHinhAnh();
     }//GEN-LAST:event_tblQuanAoMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
