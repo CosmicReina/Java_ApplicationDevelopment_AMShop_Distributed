@@ -12,6 +12,28 @@ public class DAO_KhachHang {
 
 	private DAO_KhachHang() {
 	}
+	
+	public static void createKhachHang(KhachHang khachHang) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(khachHang);
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
+	public static void updateKhachHang(KhachHang khachHang) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.merge(khachHang);
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
 
 	public static List<KhachHang> getAllKhachHang() {
 		return entityManager.createNamedQuery("KhachHang.getAllKhachHang", KhachHang.class)
