@@ -5,6 +5,7 @@ import java.util.List;
 import connection.ConnectionMSSQL;
 import entity.QuanAo;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 public class DAO_QuanAo {
 
@@ -41,15 +42,23 @@ public class DAO_QuanAo {
 	}
 	
 	public static QuanAo getQuanAoTheoMaQuanAo(String maQuanAo) {
-		return entityManager.createNamedQuery("QuanAo.getQuanAoTheoMaQuanAo", QuanAo.class)
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		QuanAo quanAo =  entityManager.createNamedQuery("QuanAo.getQuanAoTheoMaQuanAo", QuanAo.class)
 				.setParameter("maQuanAo", maQuanAo)
 				.getSingleResult();
+		entityTransaction.commit();
+		return quanAo;
 	}
 	
 	public static QuanAo getQuanAoCuoi(String prefix) {
-		return entityManager.createNamedQuery("QuanAo.getQuanAoCuoi", QuanAo.class)
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		QuanAo quanAo = entityManager.createNamedQuery("QuanAo.getQuanAoCuoi", QuanAo.class)
 				.setParameter("prefix", prefix)
 				.getSingleResult();
+		entityTransaction.commit();
+		return quanAo;
 	}
 	
 }
