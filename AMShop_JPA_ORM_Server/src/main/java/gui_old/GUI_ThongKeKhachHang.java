@@ -1,10 +1,10 @@
 package gui_old;
 
-import dao_old.DAO_KhachHang;
+
 import data.FormatDouble;
 import data.FormatLocalDate;
 import data.InBaoCaoKhachHang;
-import entity_old.KhachHang;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
@@ -34,93 +34,10 @@ public class GUI_ThongKeKhachHang extends javax.swing.JPanel {
     }
     
     private void updateTable(){
-        String ngayBatDauString = txtNgayBatDau.getText();
-        String ngayKetThucString = txtNgayKetThuc.getText();
         
-        ngayBatDau = LocalDate.now();
-        ngayKetThuc = LocalDate.now();
-        
-        String error = "";
-        
-        if(ngayBatDauString.isBlank())
-            error += "\n- Vui lòng nhập Ngày Bắt Đầu thống kê.";
-        else{
-            try{
-                ngayBatDau = FormatLocalDate.toLocalDate(ngayBatDauString); // Kiểm tra chuyển đổi
-            }
-            catch(Exception e){
-                error += "\n- Vui lòng nhập Ngày Bắt Đầu hợp lệ (DD/MM/YYYY).";
-            }
-        }
-        
-        if(ngayKetThucString.isBlank())
-            error += "\n- Vui lòng nhập Ngày Kết Thúc thống kê.";
-        else{
-            try{
-                ngayKetThuc = FormatLocalDate.toLocalDate(ngayKetThucString); // Kiểm tra chuyển đổi
-                if(ngayBatDau.isAfter(ngayKetThuc))
-                    error += "\n- Ngày Kết Thúc Thống kê phải lớn hơn Ngày Bắt Đầu.";
-            }
-            catch(Exception e){
-                error += "\n- Vui lòng nhập Ngày Kết Thúc hợp lệ (DD/MM/YYYY).";
-            }
-        }
-        
-        if(!error.equals("")){
-            String throwMessage = "Lỗi nhập liệu: " + error;
-            JOptionPane.showMessageDialog(null, throwMessage);
-            return;
-        }
-        
-        DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
-        model.getDataVector().removeAllElements();
-        tblKhachHang.revalidate();
-        tblKhachHang.repaint();
-        
-        int tongSoKhachHang = 0;
-        double tongDoanhThu = 0;
-        
-        ResultSet rs = DAO_KhachHang.thongKeKhachHangTheoKhoangNgay(ngayBatDau, ngayKetThuc);
-        try {
-            while(rs.next()){
-                tongSoKhachHang++;
-                String maKhachHang = rs.getString(1);
-                KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
-                
-                model.addRow(new Object[]{
-                    maKhachHang,
-                    khachHang.getHoTen(),
-                    khachHang.getNhomKhachHang(),
-                    rs.getInt(2),
-                    rs.getInt(3),
-                    FormatDouble.toMoney(rs.getInt(4))
-                });
-                
-                tongDoanhThu += rs.getInt(4);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        }
-        
-        txtTongSoKhachHang.setText(Integer.toString(tongSoKhachHang));
-        txtTongSoDoanhThu.setText(FormatDouble.toMoney(tongDoanhThu));
     }
     
     private void inBaoCaoThongKe(){
-        try {
-            if(tblKhachHang.getModel().getRowCount() == 0){
-                JOptionPane.showMessageDialog(null, "Vui lòng tạo Thống Kê trước.");
-                return;
-            }
-            if(InBaoCaoKhachHang.createBaoCaoKhachHang(ngayBatDau, ngayKetThuc) == true){
-                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Thống Kê Khách Hàng thành công.");
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Thống Kê Khách Hàng thất bại.");
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace(System.out);
-        }
         
     }
     
@@ -276,12 +193,10 @@ public class GUI_ThongKeKhachHang extends javax.swing.JPanel {
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         // TODO add your handling code here:
-        updateTable();
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnInBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInBaoCaoActionPerformed
         // TODO add your handling code here:
-        inBaoCaoThongKe();
     }//GEN-LAST:event_btnInBaoCaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
