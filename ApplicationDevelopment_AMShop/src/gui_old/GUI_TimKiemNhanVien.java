@@ -1,80 +1,80 @@
-package gui;
+package gui_old;
 
-import dao_old.DAO_KhachHang;
+import dao_old.DAO_NhanVien;
 import data_old.UtilityJTextField;
-import entity_old.KhachHang;
+import entity_old.NhanVien;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class GUI_TimKiemKhachHang extends javax.swing.JPanel {
+public class GUI_TimKiemNhanVien extends javax.swing.JPanel {
     
-    private static GUI_TimKiemKhachHang instance = new GUI_TimKiemKhachHang();
+    private static GUI_TimKiemNhanVien instance = new GUI_TimKiemNhanVien();
 
-    public static GUI_TimKiemKhachHang getInstance() {
+    public static GUI_TimKiemNhanVien getInstance() {
         return instance;
     }
     
-    public static GUI_TimKiemKhachHang newInstance() {
-        instance = new GUI_TimKiemKhachHang();
+    public static GUI_TimKiemNhanVien newInstance() {
+        instance = new GUI_TimKiemNhanVien();
         return instance;
     }
 
-    public GUI_TimKiemKhachHang() {
+    public GUI_TimKiemNhanVien() {
         initComponents();
         initExtra();
     }
     
     private void initExtra(){
-        hienThiBang(DAO_KhachHang.getAllKhachHang());
-        UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
-        tblDanhSachKhachHang.fixTable(scrTable);
+        updateTable(DAO_NhanVien.getAllNhanVien());
+        UtilityJTextField.addPlaceHolderStyle(txtMaNhanVien);
+        tblTable.fixTable(scrTable);
     }
     
-    private void hienThiBang(ArrayList<KhachHang> list){
-        DefaultTableModel model = (DefaultTableModel) tblDanhSachKhachHang.getModel();
+    private void updateTable(ArrayList<NhanVien> list){
+        DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
         model.getDataVector().removeAllElements();
-        tblDanhSachKhachHang.revalidate();
-        tblDanhSachKhachHang.repaint();
-        for(KhachHang thisKhachHang : list){
+        tblTable.revalidate();
+        tblTable.repaint();
+        for(NhanVien thisNhanVien : list){
             model.addRow(new Object[]{
-                thisKhachHang.getMaKhachHang(),
-                thisKhachHang.getHoTen(),
-                thisKhachHang.getSoDienThoai(),
-                thisKhachHang.getDiaChi(),
-                thisKhachHang.getNhomKhachHang()
+                thisNhanVien.getMaNhanVien(),
+                thisNhanVien.getHoTen(),
+                thisNhanVien.getSoDienThoai(),
+                thisNhanVien.getCanCuocCongDan(),
+                thisNhanVien.getChucVu()
             });
         }
     }
     
-    private void timKiemTheoSoDienThoai(){
-        String soDienThoai = txtSoDienThoai.getText();
+    private void timKiemTheoMaNhanVien(){
+        String maNhanVien = txtMaNhanVien.getText();
         
-        ArrayList<KhachHang> list = DAO_KhachHang.getAllKhachHang();
-        ArrayList<KhachHang> listRemove = new ArrayList<>();
+        ArrayList<NhanVien> list = DAO_NhanVien.getAllNhanVien();
+        ArrayList<NhanVien> listRemove = new ArrayList<>();
         
-        if(!soDienThoai.equals("")){
-            for(KhachHang thisKhachHang : list){
-                if(!thisKhachHang.getSoDienThoai().equals(soDienThoai))
-                    listRemove.add(thisKhachHang);
+        if(!maNhanVien.equals("")){
+            for(NhanVien thisNhanVien : list){
+                if(!thisNhanVien.getMaNhanVien().equals(maNhanVien))
+                    listRemove.add(thisNhanVien);
             }
         }
         
         list.removeAll(listRemove);
-        hienThiBang(list);
+        updateTable(list);
     }
 
-    private void xemChiTietKhachHang(){
-        int i = tblDanhSachKhachHang.getSelectedRow();
+    private void xemChiTietNhanVien(){
+        int i = tblTable.getSelectedRow();
         if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Khách Hàng.");
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Nhân Viên.");
             return;
         }
-        String maKhachHang = tblDanhSachKhachHang.getValueAt(i, 0).toString();
+        String maNhanVien = tblTable.getValueAt(i, 0).toString();
         
-        GUI_Main.getInstance().showPanel(GUI_ChiTietKhachHang.newInstance());
-        GUI_ChiTietKhachHang.getInstance().showThongTinKhachHang(maKhachHang);
-        GUI_ChiTietKhachHang.getInstance().setPnlBefore(this);
+        GUI_Main.getInstance().showPanel(GUI_ChiTietNhanVien.newInstance());
+        GUI_ChiTietNhanVien.getInstance().showChiTietNhanVien(maNhanVien);
+        GUI_ChiTietNhanVien.getInstance().setPnlBefore(this);
     }
     
     @SuppressWarnings("unchecked")
@@ -82,13 +82,13 @@ public class GUI_TimKiemKhachHang extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlTimKiem = new javax.swing.JPanel();
-        txtSoDienThoai = new extended_JComponent.JTextField_AllRound();
+        txtMaNhanVien = new extended_JComponent.JTextField_AllRound();
         btnTimKiem = new extended_JComponent.JButton_AllRound();
         btnLamMoi = new extended_JComponent.JButton_AllRound();
         btnChiTiet = new extended_JComponent.JButton_AllRound();
         pnlTable = new javax.swing.JPanel();
         scrTable = new javax.swing.JScrollPane();
-        tblDanhSachKhachHang = new extended_JComponent.JTable_LightMode();
+        tblTable = new extended_JComponent.JTable_LightMode();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -96,13 +96,13 @@ public class GUI_TimKiemKhachHang extends javax.swing.JPanel {
         pnlTimKiem.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm Kiếm", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
         pnlTimKiem.setPreferredSize(new java.awt.Dimension(300, 700));
 
-        txtSoDienThoai.setText("Số Điện Thoại");
-        txtSoDienThoai.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtMaNhanVien.setText("Mã Nhân Viên");
+        txtMaNhanVien.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtSoDienThoaiFocusGained(evt);
+                txtMaNhanVienFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtSoDienThoaiFocusLost(evt);
+                txtMaNhanVienFocusLost(evt);
             }
         });
 
@@ -130,7 +130,7 @@ public class GUI_TimKiemKhachHang extends javax.swing.JPanel {
             }
         });
 
-        btnChiTiet.setText("Xem Chi Tiết Khách Hàng");
+        btnChiTiet.setText("Xem Chi Tiết Nhân Viên");
         btnChiTiet.setBorderRadius(30);
         btnChiTiet.setColorBackground(new java.awt.Color(170, 238, 255));
         btnChiTiet.setColorBorder(new java.awt.Color(255, 255, 255));
@@ -146,8 +146,8 @@ public class GUI_TimKiemKhachHang extends javax.swing.JPanel {
         pnlTimKiem.setLayout(pnlTimKiemLayout);
         pnlTimKiemLayout.setHorizontalGroup(
             pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtSoDienThoai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(pnlTimKiemLayout.createSequentialGroup()
+            .addComponent(txtMaNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTimKiemLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -158,53 +158,38 @@ public class GUI_TimKiemKhachHang extends javax.swing.JPanel {
         pnlTimKiemLayout.setVerticalGroup(
             pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTimKiemLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 476, Short.MAX_VALUE))
+                .addGap(0, 482, Short.MAX_VALUE))
         );
 
         add(pnlTimKiem, java.awt.BorderLayout.EAST);
 
         pnlTable.setLayout(new java.awt.BorderLayout());
 
-        tblDanhSachKhachHang.setModel(new javax.swing.table.DefaultTableModel(
+        tblTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Mã Khách Hàng", "Họ Tên", "Số Điện Thoại", "Địa Chỉ", "Nhóm Khách Hàng"
+                "Mã Nhân Viên", "Tên Nhân Viên", "Số Điện Thoại", "Căn Cước Công Dân", "Chức Vụ"
             }
         ));
-        scrTable.setViewportView(tblDanhSachKhachHang);
-        if (tblDanhSachKhachHang.getColumnModel().getColumnCount() > 0) {
-            tblDanhSachKhachHang.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tblDanhSachKhachHang.getColumnModel().getColumn(3).setPreferredWidth(300);
-        }
+        scrTable.setViewportView(tblTable);
 
         pnlTable.add(scrTable, java.awt.BorderLayout.CENTER);
 
         add(pnlTable, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtSoDienThoaiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusGained
-        // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtSoDienThoai, "Số Điện Thoại");
-    }//GEN-LAST:event_txtSoDienThoaiFocusGained
-
-    private void txtSoDienThoaiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusLost
-        // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtSoDienThoai, "Số Điện Thoại");
-    }//GEN-LAST:event_txtSoDienThoaiFocusLost
-
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
-        timKiemTheoSoDienThoai();
+        timKiemTheoMaNhanVien();
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
@@ -214,8 +199,18 @@ public class GUI_TimKiemKhachHang extends javax.swing.JPanel {
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
         // TODO add your handling code here:
-        xemChiTietKhachHang();
+        xemChiTietNhanVien();
     }//GEN-LAST:event_btnChiTietActionPerformed
+
+    private void txtMaNhanVienFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaNhanVienFocusGained
+        // TODO add your handling code here:
+        UtilityJTextField.focusGained(txtMaNhanVien, "Mã Nhân Viên");
+    }//GEN-LAST:event_txtMaNhanVienFocusGained
+
+    private void txtMaNhanVienFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaNhanVienFocusLost
+        // TODO add your handling code here:
+        UtilityJTextField.focusLost(txtMaNhanVien, "Mã Nhân Viên");
+    }//GEN-LAST:event_txtMaNhanVienFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private extended_JComponent.JButton_AllRound btnChiTiet;
@@ -224,8 +219,8 @@ public class GUI_TimKiemKhachHang extends javax.swing.JPanel {
     private javax.swing.JPanel pnlTable;
     private javax.swing.JPanel pnlTimKiem;
     private javax.swing.JScrollPane scrTable;
-    private extended_JComponent.JTable_LightMode tblDanhSachKhachHang;
-    private extended_JComponent.JTextField_AllRound txtSoDienThoai;
+    private extended_JComponent.JTable_LightMode tblTable;
+    private extended_JComponent.JTextField_AllRound txtMaNhanVien;
     // End of variables declaration//GEN-END:variables
 
 }

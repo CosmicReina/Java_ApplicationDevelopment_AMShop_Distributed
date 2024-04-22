@@ -1,4 +1,4 @@
-package gui;
+package gui_old;
 
 import dao_old.DAO_ChatLieu;
 import dao_old.DAO_DanhMuc;
@@ -8,35 +8,35 @@ import dao_old.DAO_MauSac;
 import dao_old.DAO_NhaSanXuat;
 import dao_old.DAO_QuanAo;
 import data_old.FormatDouble;
-import data_old.KhoiTaoMa;
 import data_old.UtilityImageIcon;
 import entity_old.QuanAo;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import jnafilechooser.api.JnaFileChooser;
 
-public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
+public class GUI_CapNhatQuanAo extends javax.swing.JPanel {
     
-    private static GUI_ThemQuanAo instance = new GUI_ThemQuanAo();
+    private static GUI_CapNhatQuanAo instance = new GUI_CapNhatQuanAo();
     
     private String imagePath = "";
+    private boolean imageChanged = false;
 
-    public static GUI_ThemQuanAo getInstance() {
+    public static GUI_CapNhatQuanAo getInstance() {
         return instance;
     }
     
-    public static GUI_ThemQuanAo newInstance() {
-        instance = new GUI_ThemQuanAo();
+    public static GUI_CapNhatQuanAo newInstance() {
+        instance = new GUI_CapNhatQuanAo();
         return instance;
     }
     
 
-    public GUI_ThemQuanAo() {
+    public GUI_CapNhatQuanAo() {
         initComponents();
         initExtra();
     }
@@ -44,12 +44,7 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
     private void initExtra(){
         updateTable(DAO_QuanAo.getAllQuanAo());
         
-        txtMaQuanAo.setText(KhoiTaoMa.generateMaQuanAo());
-        txtMaQuanAo.setEditable(false);
-        
-        cmbNhaSanXuat.addItemListener(this);
-        cmbDanhMuc.addItemListener(this);
-        cmbChatLieu.addItemListener(this);
+        tblTable.fixTable(scrTable);
         
         updateNhaSanXuat();
         updateDanhMuc();
@@ -57,8 +52,6 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
         updateGioiTinh();
         updateMauSac();
         updateKichThuoc();
-        
-        tblTable.fixTable(scrTable);
     }
     
     private void updateNhaSanXuat(){
@@ -128,7 +121,12 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
         }
     }
     
-    private void themQuanAo(){
+    private void capNhatQuanAo(){
+        if(tblTable.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn Quần Áo.");
+            return;
+        }
+        
         String error = "";
         
         String maQuanAo = txtMaQuanAo.getText();
@@ -142,11 +140,20 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
         String mauSac = cmbMauSac.getSelectedItem().toString();
         String kichThuoc = cmbKichThuoc.getSelectedItem().toString();
         String chatLieu = cmbChatLieu.getSelectedItem().toString();
+        boolean ngungNhap = chkNgungNhap.isSelected();
         
         double donGiaNhap = 0;
         double donGiaBan = 0;
         int soLuong = 0;
-        ImageIcon hinhAnh = UtilityImageIcon.fromStringPath(imagePath, 196, 270);
+        
+        ImageIcon hinhAnh;
+        if(imageChanged){
+            hinhAnh = UtilityImageIcon.fromStringPath(imagePath, 196, 270);
+        }
+        else{
+            hinhAnh = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo).getHinhAnh();
+        }
+            
         
         if(tenQuanAo.equals(""))
             error += "\n- Vui lòng nhập Tên Quần Áo.";
@@ -199,17 +206,17 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
         if(gioiTinh.equals("Giới Tính"))
             error += "\n -Vui lòng chọn Giới Tính.";
         
-        if(imagePath.equals(""))
-            error += "\n -Vui lòng chọn Hình Ảnh.";
+//        if(imagePath.equals(""))
+//            error += "\n -Vui lòng chọn Hình Ảnh.";
         
         if(error.equals("")){
-            QuanAo quanAo = new QuanAo(maQuanAo, tenQuanAo, donGiaNhap, donGiaBan, soLuong, nhaSanXuat, danhMuc, gioiTinh, mauSac, kichThuoc, chatLieu, hinhAnh, false);
-            if(DAO_QuanAo.createQuanAo(quanAo) == true){
-                JOptionPane.showMessageDialog(null, "Thêm Quần Áo thành công.");
+            QuanAo quanAo = new QuanAo(maQuanAo, tenQuanAo, donGiaNhap, donGiaBan, soLuong, nhaSanXuat, danhMuc, gioiTinh, mauSac, kichThuoc, chatLieu, hinhAnh, ngungNhap);
+            if(DAO_QuanAo.updateQuanAo(quanAo) == true){
+                JOptionPane.showMessageDialog(null, "Cập Nhật Quần Áo thành công.");
                 GUI_Main.getInstance().showPanel(newInstance());
             }
             else{
-                JOptionPane.showMessageDialog(null, "Thêm Quần Áo thất bại.");
+                JOptionPane.showMessageDialog(null, "Cập Nhật Quần Áo thất bại.");
             }
         }
         else{
@@ -294,15 +301,126 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
     }
     
     private void chonHinhAnh(){
-        JnaFileChooser fileChooser = new JnaFileChooser();
-        File directory = new File("files//hinhAnh//");
-        fileChooser.setCurrentDirectory(directory.getAbsolutePath());
-        boolean action = fileChooser.showOpenDialog(null);
-        if(action){
-            imagePath = fileChooser.getSelectedFile().getAbsolutePath();
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter executeFilter = new FileNameExtensionFilter("Image", "jpg", "png");
+        fileChooser.setFileFilter(executeFilter);
+        fileChooser.setMultiSelectionEnabled(false);
+        
+        int prompt = fileChooser.showDialog(this, "Add");
+        if(prompt == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            imagePath = file.getAbsolutePath();
             lblIMG.setText("");
             lblIMG.setIcon(UtilityImageIcon.fromStringPath(imagePath, 194, 270));
+            imageChanged = true;
         }
+    }
+    
+    private void timKiemTheoMa(){
+        String maQuanAo = JOptionPane.showInputDialog(null, "Nhập Mã Quần Áo", "Tìm Kiếm Quần Áo", JOptionPane.YES_NO_CANCEL_OPTION);
+        if(maQuanAo == null || maQuanAo.equals("")) return;
+        ArrayList<QuanAo> list = DAO_QuanAo.getAllQuanAo();
+        ArrayList<QuanAo> listRemove = new ArrayList<>();
+        for(QuanAo thisQuanAo : list){
+            if(!thisQuanAo.getMaQuanAo().equals(maQuanAo))
+                listRemove.add(thisQuanAo);
+        }
+        list.removeAll(listRemove);
+        updateTable(list);
+    }
+    
+    private void timKiemTheoThongTin(){
+        String tenQuanAo = txtTenQuanAo.getText();
+        String nhaSanXuat = cmbNhaSanXuat.getSelectedItem().toString();
+        String danhMuc = cmbDanhMuc.getSelectedItem().toString();
+        String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+        String mauSac = cmbMauSac.getSelectedItem().toString();
+        String kichThuoc = cmbKichThuoc.getSelectedItem().toString();
+        String chatLieu = cmbChatLieu.getSelectedItem().toString();
+        
+        ArrayList<QuanAo> list = DAO_QuanAo.getAllQuanAo();
+        ArrayList<QuanAo> listRemove = new ArrayList<>();
+        
+        if(!tenQuanAo.equals("")){
+            for(int i = 0; i < list.size(); i++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getTenQuanAo().toLowerCase().contains(tenQuanAo.toLowerCase()))
+                    listRemove.add(thisQuanAo);
+            }
+        }
+        
+        if(!cmbNhaSanXuat.getSelectedItem().toString().equals("Nhà Sản Xuất")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getNhaSanXuat().equals(cmbNhaSanXuat.getSelectedItem().toString()))
+                    listRemove.add(thisQuanAo);
+            }
+        }
+        
+        if(!cmbDanhMuc.getSelectedItem().toString().equals("Danh Mục")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getDanhMuc().equals(cmbDanhMuc.getSelectedItem().toString()))
+                    listRemove.add(thisQuanAo);
+            }
+        }
+        
+        if(!cmbGioiTinh.getSelectedItem().toString().equals("Giới Tính")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getGioiTinh().equals(cmbGioiTinh.getSelectedItem().toString()))
+                    listRemove.add(thisQuanAo);
+            }
+        }
+        
+        if(!cmbMauSac.getSelectedItem().toString().equals("Màu Sắc")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getMauSac().equals(cmbMauSac.getSelectedItem().toString()))
+                    listRemove.add(thisQuanAo);
+            }
+        }
+        
+        if(!cmbKichThuoc.getSelectedItem().toString().equals("Kích Thước")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getKichThuoc().equals(cmbKichThuoc.getSelectedItem().toString()))
+                    listRemove.add(thisQuanAo);
+            }
+        }
+        
+        if(!cmbChatLieu.getSelectedItem().toString().equals("Chất Liệu")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getChatLieu().equals(cmbChatLieu.getSelectedItem().toString()))
+                    listRemove.add(thisQuanAo);
+            }
+        }
+        
+        list.removeAll(listRemove);
+        updateTable(list);
+    }
+    
+    private void hienThiThongTinQuanAo(){
+        int i = tblTable.getSelectedRow();
+        String maQuanAo = tblTable.getValueAt(i, 0).toString();
+        QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
+
+        txtMaQuanAo.setText(quanAo.getMaQuanAo());
+        txtTenQuanAo.setText(quanAo.getTenQuanAo());
+        txtDonGiaNhap.setText(String.format("%.0f", quanAo.getDonGiaNhap()));
+        txtDonGiaBan.setText(String.format("%.0f", quanAo.getDonGiaBan()));
+        txtSoLuong.setText(Integer.toString(quanAo.getSoLuongTrongKho()));
+        cmbNhaSanXuat.setSelectedItem(quanAo.getNhaSanXuat());
+        cmbDanhMuc.setSelectedItem(quanAo.getDanhMuc());
+        cmbChatLieu.setSelectedItem(quanAo.getChatLieu());
+        cmbMauSac.setSelectedItem(quanAo.getMauSac());
+        cmbKichThuoc.setSelectedItem(quanAo.getKichThuoc());
+        cmbGioiTinh.setSelectedItem(quanAo.getGioiTinh());
+        chkNgungNhap.setSelected(quanAo.isNgungNhap());
+
+        lblIMG.setText("");
+        lblIMG.setIcon(quanAo.getHinhAnh());
     }
 
     @SuppressWarnings("unchecked")
@@ -334,10 +452,13 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
         cmbKichThuoc = new javax.swing.JComboBox<>();
         lblGioiTinh = new javax.swing.JLabel();
         cmbGioiTinh = new javax.swing.JComboBox<>();
+        chkNgungNhap = new javax.swing.JCheckBox();
         pnlHinhAnh = new javax.swing.JPanel();
         lblIMG = new javax.swing.JLabel();
-        btnThemQuanAo = new extended_JComponent.JButton_AllRound();
+        btnCapNhatQuanAo = new extended_JComponent.JButton_AllRound();
         btnLamMoi = new extended_JComponent.JButton_AllRound();
+        btnTimKiemTheoMa = new extended_JComponent.JButton_AllRound();
+        btnTimKiemTheoThongTin = new extended_JComponent.JButton_AllRound();
         pnlCenter = new javax.swing.JPanel();
         scrTable = new javax.swing.JScrollPane();
         tblTable = new extended_JComponent.JTable_LightMode();
@@ -443,6 +564,11 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
         cmbGioiTinh.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Giới Tính" }));
 
+        chkNgungNhap.setBackground(new java.awt.Color(68, 136, 255));
+        chkNgungNhap.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        chkNgungNhap.setForeground(new java.awt.Color(255, 255, 255));
+        chkNgungNhap.setText("Ngưng Nhập Quần Áo");
+
         pnlHinhAnh.setBackground(new java.awt.Color(204, 204, 204));
         pnlHinhAnh.setLayout(new java.awt.GridBagLayout());
 
@@ -450,15 +576,15 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
         lblIMG.setText("IMG");
         pnlHinhAnh.add(lblIMG, new java.awt.GridBagConstraints());
 
-        btnThemQuanAo.setText("Thêm Quần Áo");
-        btnThemQuanAo.setBorderRadius(30);
-        btnThemQuanAo.setColorBackground(new java.awt.Color(170, 238, 255));
-        btnThemQuanAo.setColorBorder(new java.awt.Color(255, 255, 255));
-        btnThemQuanAo.setColorClick(new java.awt.Color(119, 204, 255));
-        btnThemQuanAo.setColorEnter(new java.awt.Color(119, 238, 255));
-        btnThemQuanAo.addActionListener(new java.awt.event.ActionListener() {
+        btnCapNhatQuanAo.setText("Cập Nhật Thông Tin");
+        btnCapNhatQuanAo.setBorderRadius(30);
+        btnCapNhatQuanAo.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnCapNhatQuanAo.setColorBorder(new java.awt.Color(255, 255, 255));
+        btnCapNhatQuanAo.setColorClick(new java.awt.Color(119, 204, 255));
+        btnCapNhatQuanAo.setColorEnter(new java.awt.Color(119, 238, 255));
+        btnCapNhatQuanAo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemQuanAoActionPerformed(evt);
+                btnCapNhatQuanAoActionPerformed(evt);
             }
         });
 
@@ -474,13 +600,45 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
             }
         });
 
+        btnTimKiemTheoMa.setText("Tìm Kiếm Theo Mã");
+        btnTimKiemTheoMa.setBorderRadius(30);
+        btnTimKiemTheoMa.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnTimKiemTheoMa.setColorBorder(new java.awt.Color(255, 255, 255));
+        btnTimKiemTheoMa.setColorClick(new java.awt.Color(119, 204, 255));
+        btnTimKiemTheoMa.setColorEnter(new java.awt.Color(119, 238, 255));
+        btnTimKiemTheoMa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemTheoMaActionPerformed(evt);
+            }
+        });
+
+        btnTimKiemTheoThongTin.setText("Tìm Kiếm Theo Thông Tin");
+        btnTimKiemTheoThongTin.setBorderRadius(30);
+        btnTimKiemTheoThongTin.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnTimKiemTheoThongTin.setColorBorder(new java.awt.Color(255, 255, 255));
+        btnTimKiemTheoThongTin.setColorClick(new java.awt.Color(119, 204, 255));
+        btnTimKiemTheoThongTin.setColorEnter(new java.awt.Color(119, 238, 255));
+        btnTimKiemTheoThongTin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemTheoThongTinActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlNorthLayout = new javax.swing.GroupLayout(pnlNorth);
         pnlNorth.setLayout(pnlNorthLayout);
         pnlNorthLayout.setHorizontalGroup(
             pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlNorthLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNorthLayout.createSequentialGroup()
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlNorthLayout.createSequentialGroup()
+                        .addComponent(btnCapNhatQuanAo, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnTimKiemTheoMa, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTimKiemTheoThongTin, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlNorthLayout.createSequentialGroup()
                         .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlNorthLayout.createSequentialGroup()
@@ -530,19 +688,16 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(chkNgungNhap, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
-                        .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlNorthLayout.createSequentialGroup()
-                        .addComponent(btnThemQuanAo, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(39, 39, 39))
         );
         pnlNorthLayout.setVerticalGroup(
             pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlNorthLayout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlNorthLayout.createSequentialGroup()
@@ -578,12 +733,16 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
                                 .addComponent(lblChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(cmbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cmbGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(18, 18, 18)
-                .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnThemQuanAo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41))
+                                .addComponent(cmbGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(chkNgungNhap)))
+                .addGap(19, 19, 19)
+                .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCapNhatQuanAo, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(btnTimKiemTheoMa, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(btnTimKiemTheoThongTin, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
+                .addGap(46, 46, 46))
         );
 
         add(pnlNorth, java.awt.BorderLayout.NORTH);
@@ -598,6 +757,11 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
                 "Mã Quần Áo", "Tên Quần Áo", "Đơn Giá Nhập", "Đơn Giá Bán", "Số Lượng", "Nhà Sản Xuất", "Danh Mục", "Giới Tính", "Màu Sắc", "Kích Thước", "Chất Liệu"
             }
         ));
+        tblTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTableMouseClicked(evt);
+            }
+        });
         scrTable.setViewportView(tblTable);
         if (tblTable.getColumnModel().getColumnCount() > 0) {
             tblTable.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -608,15 +772,30 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
         add(pnlCenter, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThemQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemQuanAoActionPerformed
-        // TODO add your handling code here:
-        themQuanAo();
-    }//GEN-LAST:event_btnThemQuanAoActionPerformed
-
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
         GUI_Main.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void btnCapNhatQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatQuanAoActionPerformed
+        // TODO add your handling code here:
+        capNhatQuanAo();
+    }//GEN-LAST:event_btnCapNhatQuanAoActionPerformed
+
+    private void btnTimKiemTheoMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemTheoMaActionPerformed
+        // TODO add your handling code here:
+        timKiemTheoMa();
+    }//GEN-LAST:event_btnTimKiemTheoMaActionPerformed
+
+    private void btnTimKiemTheoThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemTheoThongTinActionPerformed
+        // TODO add your handling code here:
+        timKiemTheoThongTin();
+    }//GEN-LAST:event_btnTimKiemTheoThongTinActionPerformed
+
+    private void tblTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTableMouseClicked
+        // TODO add your handling code here:
+        hienThiThongTinQuanAo();
+    }//GEN-LAST:event_tblTableMouseClicked
 
     private void cmbNhaSanXuatItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbNhaSanXuatItemStateChanged
         // TODO add your handling code here:
@@ -651,9 +830,12 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
     }//GEN-LAST:event_btnHinhAnhActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private extended_JComponent.JButton_AllRound btnCapNhatQuanAo;
     private extended_JComponent.JButton_AllRound btnHinhAnh;
     private extended_JComponent.JButton_AllRound btnLamMoi;
-    private extended_JComponent.JButton_AllRound btnThemQuanAo;
+    private extended_JComponent.JButton_AllRound btnTimKiemTheoMa;
+    private extended_JComponent.JButton_AllRound btnTimKiemTheoThongTin;
+    private javax.swing.JCheckBox chkNgungNhap;
     private javax.swing.JComboBox<String> cmbChatLieu;
     private javax.swing.JComboBox<String> cmbDanhMuc;
     private javax.swing.JComboBox<String> cmbGioiTinh;
@@ -684,31 +866,5 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
     private extended_JComponent.JTextField_AllRound txtSoLuong;
     private extended_JComponent.JTextField_AllRound txtTenQuanAo;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-        Object o = e.getSource();
-        if(o == cmbNhaSanXuat){
-            if(e.getStateChange() == ItemEvent.SELECTED){
-                if(cmbNhaSanXuat.getSelectedItem().toString().equals("-- Nhà Sản Xuất Mới --")){
-                    themNhaSanXuat();
-                }  
-            }
-        }
-        if(o == cmbDanhMuc){
-            if(e.getStateChange() == ItemEvent.SELECTED){
-                if(cmbDanhMuc.getSelectedItem().toString().equals("-- Danh Mục Mới --")){
-                    themDanhMuc();
-                }  
-            }
-        }
-        if(o == cmbChatLieu){
-            if(e.getStateChange() == ItemEvent.SELECTED){
-                if(cmbChatLieu.getSelectedItem().toString().equals("-- Chất Liệu Mới --")){
-                    themChatLieu();
-                }  
-            }
-        }
-    }
 
 }

@@ -1,7 +1,7 @@
 package initiate_old;
 
 import connect_old.ConnectDB;
-import gui.GUI_DangNhap;
+import gui_old.GUI_DangNhap;
 
 public class Initiate {
     public static void main(String[] args) {
