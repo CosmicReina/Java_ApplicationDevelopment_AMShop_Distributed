@@ -14,6 +14,28 @@ public class DAO_NhanVien {
 	private DAO_NhanVien() {
 	}
 	
+	public static void createNhanVien(NhanVien nhanVien) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(nhanVien);
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
+	public static void updateNhanVien(NhanVien nhanVien) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.merge(nhanVien);
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
 	public static List<NhanVien> getAllNhanVien(){
 		return entityManager.createNamedQuery("NhanVien.getAllNhanVien", NhanVien.class)
 				.getResultList();

@@ -16,6 +16,16 @@ public class Service_NhanVien extends UnicastRemoteObject implements IService_Nh
 	public Service_NhanVien() throws RemoteException {
 		super();
 	}
+	
+	@Override
+	public void createNhanVien(NhanVien nhanVien) throws RemoteException {
+		
+	}
+
+	@Override
+	public void updateNhanVien(NhanVien nhanVien) throws RemoteException {
+		
+	}
 
 	@Override
 	public List<NhanVien> getAllNhanVien() throws RemoteException {
@@ -47,6 +57,4 @@ public class Service_NhanVien extends UnicastRemoteObject implements IService_Nh
 		return DAO_NhanVien.getNhanVienCuoi(prefix);
 	}
 
-	
-	
 }
