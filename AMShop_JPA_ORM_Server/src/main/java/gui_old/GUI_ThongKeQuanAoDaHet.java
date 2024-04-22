@@ -1,8 +1,6 @@
 package gui_old;
 
 
-import data.InBaoCaoQuanAoDaHet;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;

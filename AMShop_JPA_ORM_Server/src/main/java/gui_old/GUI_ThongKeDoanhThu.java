@@ -1,16 +1,7 @@
 package gui_old;
 
 
-import data.FormatDouble;
-import data.FormatLocalDate;
-import data.FormatLocalDateTime;
-import data.InBaoCaoDoanhThu;
-
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class GUI_ThongKeDoanhThu extends javax.swing.JPanel {
     

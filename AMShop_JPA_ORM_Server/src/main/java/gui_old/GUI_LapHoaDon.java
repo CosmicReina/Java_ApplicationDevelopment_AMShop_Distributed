@@ -2,8 +2,6 @@ package gui_old;
 
 
 import data.FormatDouble;
-import data.InHoaDon;
-import data.KhoiTaoMa;
 import data.UtilityJTextField;
 import entity.ChiTietHoaDon;
 import entity.QuanAo;

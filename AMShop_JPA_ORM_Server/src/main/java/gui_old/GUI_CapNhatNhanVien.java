@@ -1,16 +1,8 @@
 package gui_old;
 
-import data.FormatDouble;
-import data.FormatLocalDate;
-import data.KhoiTaoMa;
-import data.UtilityJTextField;
 import entity.NhanVien;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
 
 public class GUI_CapNhatNhanVien extends javax.swing.JPanel {
     

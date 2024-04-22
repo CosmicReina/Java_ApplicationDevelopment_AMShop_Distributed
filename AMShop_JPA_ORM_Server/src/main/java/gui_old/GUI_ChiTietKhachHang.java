@@ -1,12 +1,6 @@
 package gui_old;
 
-import data.FormatDouble;
-import data.FormatLocalDateTime;
-
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
 
 public class GUI_ChiTietKhachHang extends javax.swing.JPanel {
     

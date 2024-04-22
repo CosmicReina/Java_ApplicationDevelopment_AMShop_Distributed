@@ -1,11 +1,8 @@
 package gui_old;
 
-import data.UtilityJTextField;
 import entity.KhachHang;
 
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class GUI_CapNhatKhachHang extends javax.swing.JPanel {
     

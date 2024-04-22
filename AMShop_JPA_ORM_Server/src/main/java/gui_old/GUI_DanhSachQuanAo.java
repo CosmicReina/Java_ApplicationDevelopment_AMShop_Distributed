@@ -1,11 +1,9 @@
 package gui_old;
 
 
-import data.FormatDouble;
 import entity.QuanAo;
 
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
 
 public class GUI_DanhSachQuanAo extends javax.swing.JPanel {
     

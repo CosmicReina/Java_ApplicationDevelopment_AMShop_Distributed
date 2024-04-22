@@ -1,17 +1,8 @@
 package gui_old;
 
-import data.FormatDouble;
-import data.UtilityImageIcon;
 import entity.QuanAo;
 
-import java.awt.event.ItemEvent;
-import java.io.File;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableModel;
 
 public class GUI_CapNhatQuanAo extends javax.swing.JPanel {
     

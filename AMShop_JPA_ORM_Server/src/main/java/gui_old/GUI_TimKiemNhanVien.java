@@ -1,12 +1,9 @@
 package gui_old;
 
 
-import data.UtilityJTextField;
 import entity.NhanVien;
 
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class GUI_TimKiemNhanVien extends javax.swing.JPanel {
     

@@ -1,15 +1,6 @@
 package gui_old;
 
-import data.FormatDouble;
-import data.FormatLocalDateTime;
-import data.InHoaDon;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
-import org.jpedal.examples.viewer.Viewer;
 
 public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
     

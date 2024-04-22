@@ -1,12 +1,9 @@
 package gui_old;
 
 
-import data.FormatDouble;
-import data.UtilityJTextField;
 import entity.QuanAo;
 
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
 
 public class GUI_TimKiemQuanAo extends javax.swing.JPanel {
     

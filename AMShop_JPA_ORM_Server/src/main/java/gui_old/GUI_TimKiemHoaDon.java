@@ -1,13 +1,9 @@
 package gui_old;
 
 
-import data.FormatDouble;
-import data.FormatLocalDateTime;
 import entity.HoaDon;
 
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class GUI_TimKiemHoaDon extends javax.swing.JPanel {
     

@@ -1,13 +1,5 @@
 package gui_old;
 
-
-import data.FormatDouble;
-
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import java.sql.*;
-import java.time.Duration;
-
 public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
     
     private static GUI_TinhLuongNhanVien instance = new GUI_TinhLuongNhanVien();

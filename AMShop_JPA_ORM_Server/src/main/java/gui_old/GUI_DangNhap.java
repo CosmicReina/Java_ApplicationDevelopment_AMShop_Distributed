@@ -1,8 +1,5 @@
 package gui_old;
 
-
-import javax.swing.JOptionPane;
-
 public class GUI_DangNhap extends javax.swing.JFrame {
     
     private static GUI_DangNhap instance = new GUI_DangNhap();

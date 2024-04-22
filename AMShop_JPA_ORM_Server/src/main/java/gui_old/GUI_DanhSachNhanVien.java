@@ -2,9 +2,6 @@ package gui_old;
 
 
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-
 import entity.NhanVien;
 
 public class GUI_DanhSachNhanVien extends javax.swing.JPanel {

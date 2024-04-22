@@ -2,9 +2,7 @@ package gui_old;
 
 
 import extended_component.JButton_AllRound;
-import java.awt.BorderLayout;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class GUI_Main extends javax.swing.JPanel {
