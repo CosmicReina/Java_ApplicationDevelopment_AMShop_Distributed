@@ -5,6 +5,7 @@ import java.util.List;
 import connection.ConnectionMSSQL;
 import entity.DonDatHang;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 public class DAO_DonDatHang {
 	
@@ -52,16 +53,24 @@ public class DAO_DonDatHang {
 	}
 	
 	public static DonDatHang getDonDatHangTheoMaDonDatHang(String maDonDatHang) {
-		return entityManager
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		DonDatHang donDatHang = entityManager
 				.createNamedQuery("DonDatHang.getDonDatHangTheoMaDonDatHang", DonDatHang.class)
 				.setParameter("maDonDatHang", maDonDatHang)
 				.getSingleResult();
+		entityTransaction.commit();
+		return donDatHang;
 	}
 
 	public static DonDatHang getDonDatHangCuoi(String prefix) {
-		return entityManager.createNamedQuery("DonDatHang.getDonDatHangCuoi", DonDatHang.class)
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		DonDatHang donDatHang =  entityManager.createNamedQuery("DonDatHang.getDonDatHangCuoi", DonDatHang.class)
 				.setParameter("prefix", prefix)
 				.getSingleResult();
+		entityTransaction.commit();
+		return donDatHang;
 	}
 	
 }
