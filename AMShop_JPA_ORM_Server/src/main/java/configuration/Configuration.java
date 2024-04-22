@@ -8,7 +8,7 @@ public class Configuration {
 	}
 
 	// This is the URL of the server
-	private static final String HOST = "REI";
+	private static final String HOST = "localhost";
 	private static final int PORT = 8080;
 	private static final String URL = "rmi://" + HOST + ":" + PORT + "/";
 
