@@ -17,12 +17,13 @@ public class Service_ChiTietHoaDon extends UnicastRemoteObject implements IServi
 	}
 
 	@Override
+	public void createChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) throws RemoteException {
+		
+	}
+	
+	@Override
 	public List<ChiTietHoaDon> getAllChiTietHoaDonTheoMaHoaDon(String maHoaDon) throws RemoteException {
 		return DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(maHoaDon);
 	}
-
-	
-	
-	
 
 }
