@@ -13,6 +13,28 @@ public class DAO_QuanAo {
 	private DAO_QuanAo() {
 	}
 	
+	public static void createQuanAo(QuanAo quanAo) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(quanAo);
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
+	public static void updateQuanAo(QuanAo quanAo) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.merge(quanAo);
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
 	public static List<QuanAo> getAllQuanAo() {
 		List<QuanAo> list = entityManager.createNamedQuery("QuanAo.getAllQuanAo", QuanAo.class).getResultList();
 		return list;

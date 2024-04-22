@@ -15,6 +15,16 @@ public class Service_QuanAo extends UnicastRemoteObject implements IService_Quan
 	public Service_QuanAo() throws RemoteException {
 		super();
 	}
+	
+	@Override
+	public void createQuanAo(QuanAo quanAo) throws RemoteException {
+		
+	}
+
+	@Override
+	public void updateQuanAo(QuanAo quanAo) throws RemoteException {
+		
+	}
 
 	@Override
 	public List<QuanAo> getAllQuanAo() throws RemoteException {
@@ -31,6 +41,4 @@ public class Service_QuanAo extends UnicastRemoteObject implements IService_Quan
 		return DAO_QuanAo.getQuanAoCuoi(prefix);
 	}
 
-	
-	
 }
