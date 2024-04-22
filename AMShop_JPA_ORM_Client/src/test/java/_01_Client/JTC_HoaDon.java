@@ -1,6 +1,7 @@
 package _01_Client;
 
 import java.rmi.RemoteException;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -40,4 +41,26 @@ class JTC_HoaDon {
 		System.out.println("\n");
 	}
 
+//	@Test
+//	void getAllHoaDonTrongKhoangNgay() throws RemoteException{
+//		
+//		System.err.println("getAllHoaDonTrongKhoangNgay()");
+//		
+//		IService_HoaDon service_HoaDon = ServiceInitiator.getInstance().getServiceHoaDon();
+//		service_HoaDon.getAllHoaDonTrongKhoangNgay(LocalDateTime.of(2023, 12, 01, 0, 0), LocalDateTime.of(2023, 12, 30, 0, 0)).forEach(System.out::println);
+//		
+//		System.out.println("\n");
+//	}
+	
+//	@Test
+//	void getHoaDonTheoMaHoaDon() throws RemoteException{
+//		
+//		System.err.println("getHoaDonTheoMaHoaDon()");
+//		
+//		IService_HoaDon service_HoaDon = ServiceInitiator.getInstance().getServiceHoaDon();
+//		System.out.println(service_HoaDon.getHoaDonTheoMaHoaDon("HD2312090001"));
+//		
+//		System.out.println("\n");
+//	}
+	
 }
