@@ -1,8 +1,9 @@
 package gui_old;
 
-import dao_old.DAO_KhachHang;
+
 import data.UtilityJTextField;
-import entity_old.KhachHang;
+import entity.KhachHang;
+
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,55 +27,19 @@ public class GUI_TimKiemKhachHang extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        hienThiBang(DAO_KhachHang.getAllKhachHang());
-        UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
-        tblDanhSachKhachHang.fixTable(scrTable);
+
     }
     
     private void hienThiBang(ArrayList<KhachHang> list){
-        DefaultTableModel model = (DefaultTableModel) tblDanhSachKhachHang.getModel();
-        model.getDataVector().removeAllElements();
-        tblDanhSachKhachHang.revalidate();
-        tblDanhSachKhachHang.repaint();
-        for(KhachHang thisKhachHang : list){
-            model.addRow(new Object[]{
-                thisKhachHang.getMaKhachHang(),
-                thisKhachHang.getHoTen(),
-                thisKhachHang.getSoDienThoai(),
-                thisKhachHang.getDiaChi(),
-                thisKhachHang.getNhomKhachHang()
-            });
-        }
+        
     }
     
     private void timKiemTheoSoDienThoai(){
-        String soDienThoai = txtSoDienThoai.getText();
         
-        ArrayList<KhachHang> list = DAO_KhachHang.getAllKhachHang();
-        ArrayList<KhachHang> listRemove = new ArrayList<>();
-        
-        if(!soDienThoai.equals("")){
-            for(KhachHang thisKhachHang : list){
-                if(!thisKhachHang.getSoDienThoai().equals(soDienThoai))
-                    listRemove.add(thisKhachHang);
-            }
-        }
-        
-        list.removeAll(listRemove);
-        hienThiBang(list);
     }
 
     private void xemChiTietKhachHang(){
-        int i = tblDanhSachKhachHang.getSelectedRow();
-        if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Khách Hàng.");
-            return;
-        }
-        String maKhachHang = tblDanhSachKhachHang.getValueAt(i, 0).toString();
         
-        GUI_Main.getInstance().showPanel(GUI_ChiTietKhachHang.newInstance());
-        GUI_ChiTietKhachHang.getInstance().showThongTinKhachHang(maKhachHang);
-        GUI_ChiTietKhachHang.getInstance().setPnlBefore(this);
     }
     
     @SuppressWarnings("unchecked")
@@ -194,27 +159,22 @@ public class GUI_TimKiemKhachHang extends javax.swing.JPanel {
 
     private void txtSoDienThoaiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtSoDienThoai, "Số Điện Thoại");
     }//GEN-LAST:event_txtSoDienThoaiFocusGained
 
     private void txtSoDienThoaiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtSoDienThoai, "Số Điện Thoại");
     }//GEN-LAST:event_txtSoDienThoaiFocusLost
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
-        timKiemTheoSoDienThoai();
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-        GUI_Main.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
         // TODO add your handling code here:
-        xemChiTietKhachHang();
     }//GEN-LAST:event_btnChiTietActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
