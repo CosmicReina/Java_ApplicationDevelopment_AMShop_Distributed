@@ -1,8 +1,8 @@
 package gui_old;
 
-import dao_old.DAO_NhanVien;
+
 import data.FormatDouble;
-import entity_old.NhanVien;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
@@ -28,47 +28,7 @@ public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
     }
     
     private void tinhLuongNhanVien(){
-        int nam;
-        int thang;
-        try{
-            nam = Integer.parseInt(txtNam.getText());
-            thang = Integer.parseInt(txtThang.getText());
-        } catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập Năm và Tháng hợp lệ");
-            return;
-        }
-        ResultSet rs = DAO_NhanVien.tinhLuongNhanVien(nam, thang);
-        try {
-            DefaultTableModel model = (DefaultTableModel) tblLuong.getModel();
-            model.getDataVector().removeAllElements();
-            tblLuong.revalidate();
-            tblLuong.repaint();
-            while(rs.next()){
-                String maNhanVien = rs.getString(1);
-                NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
-                
-                int thoiGianLam = rs.getInt(2);
-                Duration duration = Duration.ofSeconds(thoiGianLam);
-                long gio = duration.toHours();
-                long phut = duration.toMinutesPart();
-                long giay = duration.toSecondsPart();
-                
-                double thoiGianLamViec = gio + phut/60 + giay/3600;
-                
-                model.addRow(new Object[]{
-                    maNhanVien,
-                    nhanVien.getHoTen(),
-                    nhanVien.getChucVu(),
-                    nhanVien.getLuong(),
-                    thoiGianLamViec,
-                    FormatDouble.toMoney(nhanVien.getLuong() * thoiGianLamViec)
-                });
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        }
-        if(tblLuong.getModel().getRowCount() == 0)
-            JOptionPane.showMessageDialog(null, "Không có dữ liệu");
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -173,7 +133,6 @@ public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
         // TODO add your handling code here:
-        tinhLuongNhanVien();
     }//GEN-LAST:event_btnTinhLuongActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
