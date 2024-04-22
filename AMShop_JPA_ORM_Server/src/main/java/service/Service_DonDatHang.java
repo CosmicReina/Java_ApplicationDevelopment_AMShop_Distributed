@@ -18,12 +18,19 @@ public class Service_DonDatHang extends UnicastRemoteObject implements IService_
 	
 	@Override
 	public void createDonDatHang(DonDatHang donDatHang) throws RemoteException {
+		DAO_DonDatHang.createDonDatHang(donDatHang);
 	}
 
 	@Override
 	public void updateDonDatHang(DonDatHang donDatHang) throws RemoteException {	
+		DAO_DonDatHang.updateDonDatHang(donDatHang);
 	}
 
+	@Override
+	public void deleteDonDatHang(DonDatHang donDatHang) throws RemoteException {
+		DAO_DonDatHang.deleteDonDatHang(donDatHang);
+	}
+	
 	@Override
 	public List<DonDatHang> getAllDonDatHang() throws RemoteException {
 		return DAO_DonDatHang.getAllDonDatHang();
@@ -38,7 +45,5 @@ public class Service_DonDatHang extends UnicastRemoteObject implements IService_
 	public DonDatHang getDonDatHangCuoi(String prefix) throws RemoteException {
 		return DAO_DonDatHang.getDonDatHangCuoi(prefix);
 	}
-	
-	
 	
 }
