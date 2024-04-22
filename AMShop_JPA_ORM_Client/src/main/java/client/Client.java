@@ -5,17 +5,16 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import configuration.Configuration;
 import service_interface.IService_Message;
 
 public class Client {
 	
-	private static final String HOST = "REI";
-	private static final int PORT = 8080;
-	private static final String URL = "rmi://" + HOST + ":" + PORT + "/";
-	
 	public static void main(String[] args) {
 		
 		try {
+			String URL = Configuration.getURL();
+			
 			IService_Message serviceMessage = (IService_Message) Naming.lookup(URL + "serviceMessage");
 			
 			System.out.println(serviceMessage.sendHello());

@@ -8,7 +8,6 @@ import jakarta.persistence.EntityManager;
 import service_interface.IService_Message;
 
 public class Service_Message extends UnicastRemoteObject implements IService_Message {
-	
 
 	private static final long serialVersionUID = -2427389336855226372L;
 
@@ -19,7 +18,9 @@ public class Service_Message extends UnicastRemoteObject implements IService_Mes
 	@Override
 	public String sendHello() throws RemoteException {
 		EntityManager entityManager = ConnectionMSSQL.getEntityManager();
-		String message = entityManager.createQuery("SELECT 'Hello, Client!'").getSingleResult().toString();
+		String message = entityManager.createQuery("SELECT 'Hello, Client!'")
+				.getSingleResult()
+				.toString();
 		return message;
 	}
 

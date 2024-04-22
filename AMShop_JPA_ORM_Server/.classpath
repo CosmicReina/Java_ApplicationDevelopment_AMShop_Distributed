@@ -6,6 +6,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="src_amshop"/>
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -36,5 +37,32 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="library/apache-log4j-2.21.0-bin-java/log4j-api-2.21.0.jar"/>
+	<classpathentry kind="lib" path="library/apache-log4j-2.21.0-bin-java/log4j-slf4j2-impl-2.21.0.jar"/>
+	<classpathentry kind="lib" path="library/apache-log4j-2.21.0-bin-java/log4j-to-jul-2.21.0.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/barcodes-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/bouncy-castle-adapter-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/bouncy-castle-connector-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/bouncy-castle-fips-adapter-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/commons-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/font-asian-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/forms-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/hyph-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/io-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/kernel-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/layout-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/pdfa-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/pdftest-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/sign-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/styled-xml-parser-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/iText-Core-8.0.1-only-jars/svg-8.0.1.jar"/>
+	<classpathentry kind="lib" path="library/slf4j-api-2.0.9/slf4j-api-2.0.9.jar"/>
+	<classpathentry kind="lib" path="library/sqljdbc_12.4/mssql-jdbc-12.4.1.jre11.jar"/>
+	<classpathentry kind="lib" path="library/sqljdbc_12.4/mssql-jdbc-12.4.1.jre11-javadoc.jar"/>
+	<classpathentry kind="lib" path="library/sqljdbc_12.4/mssql-jdbc-12.4.1.jre11-sources.jar"/>
+	<classpathentry kind="lib" path="library/jna-5.5.0.jar"/>
+	<classpathentry kind="lib" path="library/jsign-jpedal-4.92.13.jar"/>
+	<classpathentry kind="lib" path="library/swing-jnafilechooser.jar"/>
+	<classpathentry kind="lib" path="library/TimingFramework-0.55.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
