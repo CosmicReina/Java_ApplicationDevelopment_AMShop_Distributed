@@ -1,0 +1,36 @@
+package service;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
+
+import dao.DAO_QuanAo;
+import entity.QuanAo;
+import service_interface.IService_QuanAo;
+
+public class Service_QuanAo extends UnicastRemoteObject implements IService_QuanAo {
+
+	private static final long serialVersionUID = 4430025161351722262L;
+
+	protected Service_QuanAo() throws RemoteException {
+		super();
+	}
+
+	@Override
+	public List<QuanAo> getAllQuanAo() throws RemoteException {
+		return DAO_QuanAo.getAllQuanAo();
+	}
+
+	@Override
+	public QuanAo getQuanAoTheoMaQuanAo(String maQuanAo) throws RemoteException {
+		return DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
+	}
+
+	@Override
+	public QuanAo getQuanAoCuoi(String prefix) throws RemoteException {
+		return DAO_QuanAo.getQuanAoCuoi(prefix);
+	}
+
+	
+	
+}
