@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import configuration.ServiceInitiator;
 import service_interface.IService_Message;
+import service_interface.IService_QuanAo;
 
 class JTC_Message {
 
@@ -31,8 +32,14 @@ class JTC_Message {
 
 	@Test
 	void sendHello() throws RemoteException {
-		IService_Message serviceMessage = ServiceInitiator.getInstance().getServiceMessage();
-		System.out.println(serviceMessage.sendHello());
+		IService_Message service_Message = ServiceInitiator.getInstance().getServiceMessage();
+		System.out.println(service_Message.sendHello());
+	}
+	
+	@Test
+	void getAllQuanAo() throws RemoteException {
+		IService_QuanAo service_QuanAo = ServiceInitiator.getInstance().getServiceQuanAo();
+		service_QuanAo.getAllQuanAo().forEach(System.out::println);
 	}
 
 }

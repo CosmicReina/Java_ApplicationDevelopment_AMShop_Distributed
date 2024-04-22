@@ -22,21 +22,7 @@ import service.Service_NhanVien;
 import service.Service_QuanAo;
 
 public class ServiceBinder {
-	
-//	Service_CaLamViec.java
-//	Service_ChiTietDonDatHang.java
-//	Service_ChiTietHoaDon.java
-//	Service_ChiTietPhanCong.java
-//	Service_CuaHang.java
-//	Service_DonDatHang.java
-//	Service_HoaDon.java
-//	Service_KhachHang.java
-//	Service_LichLamViec.java
-//	Service_Message.java
-//	Service_NhanVien.java
-//	Service_NhaSanXuat.java
-//	Service_QuanAo.java
-	
+
 	private static final String URL = Configuration.getURL();
 	private static ServiceBinder instance = new ServiceBinder();
 	private static Service_Message service_Message;
@@ -52,8 +38,15 @@ public class ServiceBinder {
 	private static Service_NhanVien service_NhanVien;
 	private static Service_NhaSanXuat service_NhaSanXuat;
 	private static Service_QuanAo service_QuanAo;
-	
-	public ServiceBinder() {
+
+	private ServiceBinder() {
+	}
+
+	public static ServiceBinder getInstance() {
+		return instance;
+	}
+
+	public void bind() {
 		try {
 			service_Message = new Service_Message();
 			service_CaLamViec = new Service_CaLamViec();
@@ -68,11 +61,11 @@ public class ServiceBinder {
 			service_NhanVien = new Service_NhanVien();
 			service_NhaSanXuat = new Service_NhaSanXuat();
 			service_QuanAo = new Service_QuanAo();
-			
+
 			Context context = new InitialContext();
-			
+
 			LocateRegistry.createRegistry(Configuration.getPORT());
-			
+
 			context.bind(URL + "service_Message", service_Message);
 			context.bind(URL + "service_CaLamViec", service_CaLamViec);
 			context.bind(URL + "service_ChiTietDonDatHang", service_ChiTietDonDatHang);
@@ -86,14 +79,12 @@ public class ServiceBinder {
 			context.bind(URL + "service_NhanVien", service_NhanVien);
 			context.bind(URL + "service_NhaSanXuat", service_NhaSanXuat);
 			context.bind(URL + "service_QuanAo", service_QuanAo);
-			
+
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		
 	}
-
 
 }
