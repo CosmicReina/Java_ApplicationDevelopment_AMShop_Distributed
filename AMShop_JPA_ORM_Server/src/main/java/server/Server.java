@@ -10,7 +10,7 @@ public class Server {
 		ConnectionMSSQL.open();
 
 		ServiceBinder.getInstance().bind();
-		
+
 		System.out.println("Server is running ...");
 
 	}

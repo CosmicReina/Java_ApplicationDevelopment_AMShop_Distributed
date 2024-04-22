@@ -41,9 +41,12 @@ public class ServiceInitiator {
 		try {
 			service_Message = (IService_Message) Naming.lookup(URL + "service_Message");
 			service_CaLamViec = (IService_CaLamViec) Naming.lookup(URL + "service_CaLamViec");
-			service_ChiTietDonDatHang = (IService_ChiTietDonDatHang) Naming.lookup(URL + "service_ChiTietDonDatHang");
-			service_ChiTietHoaDon = (IService_ChiTietHoaDon) Naming.lookup(URL + "service_ChiTietHoaDon");
-			service_ChiTietPhanCong = (IService_ChiTietPhanCong) Naming.lookup(URL + "service_ChiTietPhanCong");
+			service_ChiTietDonDatHang = (IService_ChiTietDonDatHang) Naming
+					.lookup(URL + "service_ChiTietDonDatHang");
+			service_ChiTietHoaDon = (IService_ChiTietHoaDon) Naming
+					.lookup(URL + "service_ChiTietHoaDon");
+			service_ChiTietPhanCong = (IService_ChiTietPhanCong) Naming
+					.lookup(URL + "service_ChiTietPhanCong");
 			service_CuaHang = (IService_CuaHang) Naming.lookup(URL + "service_CuaHang");
 			service_DonDatHang = (IService_DonDatHang) Naming.lookup(URL + "service_DonDatHang");
 			service_HoaDon = (IService_HoaDon) Naming.lookup(URL + "service_HoaDon");
@@ -68,51 +71,51 @@ public class ServiceInitiator {
 	public IService_Message getServiceMessage() {
 		return service_Message;
 	}
-	
+
 	public IService_CaLamViec getServiceCaLamViec() {
 		return service_CaLamViec;
 	}
-	
+
 	public IService_ChiTietDonDatHang getServiceChiTietDonDatHang() {
 		return service_ChiTietDonDatHang;
 	}
-	
+
 	public IService_ChiTietHoaDon getServiceChiTietHoaDon() {
 		return service_ChiTietHoaDon;
 	}
-	
+
 	public IService_ChiTietPhanCong getServiceChiTietPhanCong() {
 		return service_ChiTietPhanCong;
 	}
-	
+
 	public IService_CuaHang getServiceCuaHang() {
 		return service_CuaHang;
 	}
-	
+
 	public IService_DonDatHang getServiceDonDatHang() {
 		return service_DonDatHang;
 	}
-	
+
 	public IService_HoaDon getServiceHoaDon() {
 		return service_HoaDon;
 	}
-	
+
 	public IService_KhachHang getServiceKhachHang() {
 		return service_KhachHang;
 	}
-	
+
 	public IService_LichLamViec getServiceLichLamViec() {
 		return service_LichLamViec;
 	}
-	
+
 	public IService_NhanVien getServiceNhanVien() {
 		return service_NhanVien;
 	}
-	
+
 	public IService_NhaSanXuat getServiceNhaSanXuat() {
 		return service_NhaSanXuat;
 	}
-	
+
 	public IService_QuanAo getServiceQuanAo() {
 		return service_QuanAo;
 	}

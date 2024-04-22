@@ -15,11 +15,11 @@ public class Configuration {
 	public static String getHOST() {
 		return HOST;
 	}
-	
+
 	public static int getPORT() {
 		return PORT;
 	}
-	
+
 	public static String getURL() {
 		return URL;
 	}
