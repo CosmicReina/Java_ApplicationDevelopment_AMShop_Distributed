@@ -1,14 +1,9 @@
 package gui_old;
 
-import dao_old.DAO_ChatLieu;
-import dao_old.DAO_DanhMuc;
-import dao_old.DAO_GioiTinh;
-import dao_old.DAO_KichThuoc;
-import dao_old.DAO_MauSac;
-import dao_old.DAO_NhaSanXuat;
-import dao_old.DAO_QuanAo;
+
 import data.FormatDouble;
-import entity_old.QuanAo;
+import entity.QuanAo;
+
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,47 +30,15 @@ public class GUI_DanhSachQuanAo extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        updateTableQuanAo(DAO_QuanAo.getAllQuanAo());
         
-        tblQuanAo.fixTable(scrQuanAo);
-        
-        DAO_NhaSanXuat.getAllNhaSanXuat();
-        DAO_DanhMuc.getAllDanhMuc();
-        DAO_GioiTinh.getAllGioiTinh();
-        DAO_MauSac.getAllMauSac();
-        DAO_KichThuoc.getAllKichThuoc();
-        DAO_ChatLieu.getAllChatLieu();
     }
     
     private void updateTableQuanAo(ArrayList<QuanAo> list){
-        DefaultTableModel model = (DefaultTableModel) tblQuanAo.getModel();
-        model.getDataVector().removeAllElements();
-        tblQuanAo.revalidate();
-        tblQuanAo.repaint();
-        for(QuanAo thisQuanAo : list){
-            model.addRow(new Object[]{
-                thisQuanAo.getMaQuanAo(),
-                thisQuanAo.getTenQuanAo(),
-                FormatDouble.toMoney(thisQuanAo.getDonGiaBan()),
-                thisQuanAo.getSoLuongTrongKho(),
-                thisQuanAo.getNhaSanXuat(),
-                thisQuanAo.getDanhMuc(),
-                thisQuanAo.getGioiTinh(),
-                thisQuanAo.getMauSac(),
-                thisQuanAo.getKichThuoc(),
-                thisQuanAo.getChatLieu()
-            });
-        }
+        
     }
     
     private void updateHinhAnh(){
-        int i = tblQuanAo.getSelectedRow();
-        if(i < 0) return;
-        String maQuanAo = tblQuanAo.getValueAt(i, 0).toString();
-        QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
-
-        lblHinhAnh.setText("");
-        lblHinhAnh.setIcon(quanAo.getHinhAnh());
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -150,7 +113,6 @@ public class GUI_DanhSachQuanAo extends javax.swing.JPanel {
 
     private void tblQuanAoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuanAoMouseClicked
         // TODO add your handling code here:
-        updateHinhAnh();
     }//GEN-LAST:event_tblQuanAoMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
