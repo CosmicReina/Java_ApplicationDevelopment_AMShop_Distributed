@@ -18,12 +18,12 @@ public class Service_KhachHang extends UnicastRemoteObject implements IService_K
 	
 	@Override
 	public void createKhachHang(KhachHang khachHang) throws RemoteException {
-		
+		DAO_KhachHang.createKhachHang(khachHang);
 	}
 
 	@Override
 	public void updateKhachHang(KhachHang khachHang) throws RemoteException {
-		
+		DAO_KhachHang.updateKhachHang(khachHang);
 	}
 
 	@Override
