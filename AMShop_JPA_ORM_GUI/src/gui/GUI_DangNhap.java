@@ -1,10 +1,5 @@
 package gui;
 
-import javax.swing.JOptionPane;
-
-import configuration.Configuration;
-import entity.NhanVien;
-
 public class GUI_DangNhap extends javax.swing.JFrame {
     
 	private static final long serialVersionUID = -5213195318791065660L;
@@ -25,22 +20,6 @@ public class GUI_DangNhap extends javax.swing.JFrame {
     }
     
     private void kiemTraDangNhap(){
-    	String tenDangNhap = txtTenDangNhap.getText();
-    	String matKhau = new String(txtMatKhau.getPassword());
-    	if(tenDangNhap.isEmpty() || matKhau.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin đăng nhập.");
-            return;
-        }
-    	// TODO: ServiceInitiator.getInstance().getServiceNhanVien().getNhanVienTheoThongTinDangNhap(tenDangNhap, matKhau);
-    	NhanVien nhanVien = null;
-		if (nhanVien == null) {
-			JOptionPane.showMessageDialog(null, "Tên đăng nhập hoặc mật khẩu không đúng.");
-			return;
-		}
-    	JOptionPane.showMessageDialog(null, "Đăng nhập thành công.");
-    	Configuration.setNhanVienHienTai(nhanVien);
-    	// TODO: Show MainFrame
-    	this.dispose();
     }
     
     private void moTraCuuChoKhachHang(){
@@ -188,11 +167,9 @@ public class GUI_DangNhap extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-    	kiemTraDangNhap();
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
-    	System.exit(0);
     }//GEN-LAST:event_btnThoatActionPerformed
 
     private void btnTraCuuChoKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraCuuChoKhachHangActionPerformed
