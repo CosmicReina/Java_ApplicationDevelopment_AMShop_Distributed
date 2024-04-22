@@ -15,7 +15,9 @@ import extend_component.swing.shadow.ShadowRenderer;
 
 public class PasswordField extends JPasswordField {
 
-    public int getRound() {
+	private static final long serialVersionUID = 5725367348205776365L;
+
+	public int getRound() {
         return round;
     }
 

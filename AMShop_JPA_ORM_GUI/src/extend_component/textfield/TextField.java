@@ -15,7 +15,9 @@ import extend_component.swing.shadow.ShadowRenderer;
 
 public class TextField extends JTextField {
 
-    public int getRound() {
+	private static final long serialVersionUID = 9116460821156379371L;
+
+	public int getRound() {
         return round;
     }
 

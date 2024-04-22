@@ -15,7 +15,9 @@ import extend_component.swing.shadow.util.RippleEffect;
 
 public class Button extends JButton {
 
-    public int getRound() {
+	private static final long serialVersionUID = 419022308248341108L;
+
+	public int getRound() {
         return round;
     }
 
