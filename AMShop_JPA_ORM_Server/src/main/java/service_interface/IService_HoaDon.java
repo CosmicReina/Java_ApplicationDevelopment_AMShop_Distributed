@@ -8,6 +8,10 @@ import java.util.List;
 import entity.HoaDon;
 
 public interface IService_HoaDon extends Remote{
+	
+	public void createHoaDon(HoaDon hoaDon) throws RemoteException;
+	
+	public void updateHoaDon(HoaDon hoaDon) throws RemoteException;
 
 	public List<HoaDon> getAllHoaDon() throws RemoteException;
 	
