@@ -1,6 +1,6 @@
 package gui_old;
 
-import dao_old.DAO_QuanAo;
+
 import data.InBaoCaoQuanAoDaHet;
 
 import java.io.IOException;
@@ -32,43 +32,11 @@ public class GUI_ThongKeQuanAoDaHet extends javax.swing.JPanel {
     }
     
     private void updateTable(){
-        DefaultTableModel model = (DefaultTableModel) tblQuanAo.getModel();
-        model.getDataVector().removeAllElements();
-        tblQuanAo.revalidate();
-        tblQuanAo.repaint();
-
-        int tongQuanAo = 0;
         
-        ResultSet rs = DAO_QuanAo.thongKeQuanAoDaHetHang();
-        try {
-            while(rs.next()){
-                model.addRow(new Object[]{
-                    rs.getString(1),
-                    rs.getString(2)
-                });
-                tongQuanAo++;
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        }
-        txtTongSoQuanAo.setText(Integer.toString(tongQuanAo));
     }
     
     private void inBaoCaoThongKe(){
-        try {
-            if(tblQuanAo.getModel().getRowCount() == 0){
-                JOptionPane.showMessageDialog(null, "Vui lòng Tạo Thống Kê trước.");
-                return;
-            }
-            if(InBaoCaoQuanAoDaHet.createBaoCaoQuanAoDaHet(ngayBatDau, ngayKetThuc) == true){
-                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Quần Áo đã hết thành công.");
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Quần Áo đã hết thất bại.");
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace(System.out);
-        }
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -179,12 +147,10 @@ public class GUI_ThongKeQuanAoDaHet extends javax.swing.JPanel {
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         // TODO add your handling code here:
-        updateTable();
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnInBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInBaoCaoActionPerformed
         // TODO add your handling code here:
-        inBaoCaoThongKe();
     }//GEN-LAST:event_btnInBaoCaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
