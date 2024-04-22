@@ -15,7 +15,13 @@ public class Service_NhaSanXuat extends UnicastRemoteObject implements IService_
 	public Service_NhaSanXuat() throws RemoteException {
 		super();
 	}
+	
+	@Override
+	public void createNhaSanXuat(NhaSanXuat nhaSanXuat) throws RemoteException {
+		
+	}
 
+	
 	@Override
 	public List<NhaSanXuat> getAllNhaSanXuat() throws RemoteException {
 		return DAO_NhaSanXuat.getAllNhaSanXuat();
@@ -26,6 +32,4 @@ public class Service_NhaSanXuat extends UnicastRemoteObject implements IService_
 		return DAO_NhaSanXuat.kiemTraTonTai(tenNhaSanXuat);
 	}
 
-	
-	
 }

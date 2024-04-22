@@ -13,6 +13,17 @@ public class DAO_NhaSanXuat {
 	private DAO_NhaSanXuat() {
 	}
 	
+	public static void createNhaSanXuat(NhaSanXuat nhaSanXuat) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(nhaSanXuat);
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
 	public static List<NhaSanXuat> getAllNhaSanXuat(){
 		return entityManager.createNamedQuery("NhaSanXuat.getAllNhaSanXuat",NhaSanXuat.class)
 				.getResultList();
