@@ -10,9 +10,10 @@ import service_interface.IService_Message;
 public class ServiceInitiator {
 
 	private static final String URL = Configuration.getURL();
+	private static ServiceInitiator instance = new ServiceInitiator();
 	private static IService_Message service_Message;
 
-	public ServiceInitiator() {
+	private ServiceInitiator() {
 		try {
 			service_Message = (IService_Message) Naming.lookup(URL + "serviceMessage");
 		} catch (MalformedURLException e) {
@@ -22,6 +23,10 @@ public class ServiceInitiator {
 		} catch (NotBoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static ServiceInitiator getInstance() {
+		return instance;
 	}
 
 	public IService_Message getServiceMessage() {

@@ -31,7 +31,7 @@ class JTC_Message {
 
 	@Test
 	void sendHello() throws RemoteException {
-		IService_Message serviceMessage = new ServiceInitiator().getServiceMessage();
+		IService_Message serviceMessage = ServiceInitiator.getInstance().getServiceMessage();
 		System.out.println(serviceMessage.sendHello());
 	}
 
