@@ -1,13 +1,11 @@
 package gui_old;
 
-import dao_old.DAO_ChiTietHoaDon;
-import dao_old.DAO_HoaDon;
+
 import data.FormatDouble;
 import data.FormatLocalDate;
 import data.FormatLocalDateTime;
 import data.InBaoCaoDoanhThu;
-import entity_old.ChiTietHoaDon;
-import entity_old.HoaDon;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,97 +35,11 @@ public class GUI_ThongKeDoanhThu extends javax.swing.JPanel {
     }
     
     private void updateTable(){
-        String ngayBatDauString = txtNgayBatDau.getText();
-        String ngayKetThucString = txtNgayKetThuc.getText();
         
-        ngayBatDau = LocalDate.now();
-        ngayKetThuc = LocalDate.now();
-        
-        String error = "";
-        
-        if(ngayBatDauString.isBlank())
-            error += "\n- Vui lòng nhập Ngày Bắt Đầu thống kê.";
-        else{
-            try{
-                ngayBatDau = FormatLocalDate.toLocalDate(ngayBatDauString); // Kiểm tra chuyển đổi
-            }
-            catch(Exception e){
-                error += "\n- Vui lòng nhập Ngày Bắt Đầu hợp lệ (DD/MM/YYYY).";
-            }
-        }
-        
-        if(ngayKetThucString.isBlank())
-            error += "\n- Vui lòng nhập Ngày Kết Thúc thống kê.";
-        else{
-            try{
-                ngayKetThuc = FormatLocalDate.toLocalDate(ngayKetThucString); // Kiểm tra chuyển đổi
-                if(ngayBatDau.isAfter(ngayKetThuc))
-                    error += "\n- Ngày Kết Thúc Thống kê phải lớn hơn Ngày Bắt Đầu.";
-            }
-            catch(Exception e){
-                error += "\n- Vui lòng nhập Ngày Kết Thúc hợp lệ (DD/MM/YYYY).";
-            }
-        }
-        
-        if(!error.equals("")){
-            String throwMessage = "Lỗi nhập liệu: " + error;
-            JOptionPane.showMessageDialog(null, throwMessage);
-            return;
-        }
-        
-        DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
-        model.getDataVector().removeAllElements();
-        tblHoaDon.revalidate();
-        tblHoaDon.repaint();
-            
-        ArrayList<HoaDon> listHD = DAO_HoaDon.getAllHoaDonTrongKhoangNgay(ngayBatDau, ngayKetThuc);
-
-        int tongQuanAo = 0;
-        double tongDoanhThu = 0;
-        double tongDoanhThuThuan = 0;
-        for(HoaDon thisHoaDon : listHD){
-            ArrayList<ChiTietHoaDon> listCTHD = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(thisHoaDon.getMaHoaDon());
-            double tongDoanhThuThanhPhan = 0;
-            double tongDoanhThuThuanThanhPhan = 0;
-            int tongQuanAoThanhPhan = 0;
-            for(ChiTietHoaDon thisChiTietHoaDon : listCTHD){
-                tongDoanhThuThanhPhan += thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
-                tongDoanhThuThuanThanhPhan += thisChiTietHoaDon.getSoLuong() * (thisChiTietHoaDon.getDonGia() - thisChiTietHoaDon.getQuanAo().getDonGiaNhap());
-                tongQuanAoThanhPhan += thisChiTietHoaDon.getSoLuong();
-            }
-            model.addRow(new Object[]{
-                thisHoaDon.getMaHoaDon(),
-                thisHoaDon.getNhanVien().getHoTen(),
-                thisHoaDon.getKhachHang().getHoTen(),
-                FormatLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
-                Integer.toString(tongQuanAoThanhPhan),
-                FormatDouble.toMoney(tongDoanhThuThanhPhan)
-            });
-            tongQuanAo += tongQuanAoThanhPhan;
-            tongDoanhThu += tongDoanhThuThanhPhan;
-            tongDoanhThuThuan += tongDoanhThuThuanThanhPhan;
-        }
-        txtTongSoHoaDon.setText(Integer.toString(listHD.size()));
-        txtTongSoQuanAo.setText(Integer.toString(tongQuanAo));
-        txtTongSoDoanhThu.setText(FormatDouble.toMoney(tongDoanhThu));
-        txtTongSoDoanhThuThuan.setText(FormatDouble.toMoney(tongDoanhThuThuan));
     }
     
     private void inBaoCaoThongKe(){
-        try {
-            if(tblHoaDon.getModel().getRowCount() == 0){
-                JOptionPane.showMessageDialog(null, "Vui lòng Tạo Thống Kê trước.");
-                return;
-            }
-            if(InBaoCaoDoanhThu.createBaoCaoDoanhThu(ngayBatDau, ngayKetThuc) == true){
-                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Doanh Thu thành công.");
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Doanh Thu thất bại.");
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace(System.out);
-        }
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -316,12 +228,10 @@ public class GUI_ThongKeDoanhThu extends javax.swing.JPanel {
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         // TODO add your handling code here:
-        updateTable();
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnInBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInBaoCaoActionPerformed
         // TODO add your handling code here:
-        inBaoCaoThongKe();
     }//GEN-LAST:event_btnInBaoCaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
