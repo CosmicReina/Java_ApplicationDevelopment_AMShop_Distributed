@@ -15,6 +15,11 @@ public class Service_LichLamViec extends UnicastRemoteObject implements IService
 	public Service_LichLamViec() throws RemoteException {
 		super();
 	}
+	
+	@Override
+	public void createLichLamViec(LichLamViec lichLamViec) throws RemoteException {
+		
+	}
 
 	@Override
 	public List<LichLamViec> getAllLichLamViec() throws RemoteException {
@@ -25,7 +30,5 @@ public class Service_LichLamViec extends UnicastRemoteObject implements IService
 	public LichLamViec getLichLamViecTheoMaLichLamViec(String maLichLamViec) throws RemoteException {
 		return DAO_LichLamViec.getLichLamViecTheoMaLichLamViec(maLichLamViec);
 	}
-
-	
 	
 }
