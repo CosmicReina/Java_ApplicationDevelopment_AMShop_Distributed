@@ -1,16 +1,11 @@
 package gui_old;
 
-import dao_old.DAO_ChatLieu;
-import dao_old.DAO_DanhMuc;
-import dao_old.DAO_GioiTinh;
-import dao_old.DAO_KichThuoc;
-import dao_old.DAO_MauSac;
-import dao_old.DAO_NhaSanXuat;
-import dao_old.DAO_QuanAo;
+
 import data.FormatDouble;
 import data.KhoiTaoMa;
 import data.UtilityImageIcon;
-import entity_old.QuanAo;
+import entity.QuanAo;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
@@ -42,267 +37,55 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
     }
     
     private void initExtra(){
-        updateTable(DAO_QuanAo.getAllQuanAo());
         
-        txtMaQuanAo.setText(KhoiTaoMa.generateMaQuanAo());
-        txtMaQuanAo.setEditable(false);
-        
-        cmbNhaSanXuat.addItemListener(this);
-        cmbDanhMuc.addItemListener(this);
-        cmbChatLieu.addItemListener(this);
-        
-        updateNhaSanXuat();
-        updateDanhMuc();
-        updateChatLieu();
-        updateGioiTinh();
-        updateMauSac();
-        updateKichThuoc();
-        
-        tblTable.fixTable(scrTable);
     }
     
     private void updateNhaSanXuat(){
-        ArrayList<String> listNhaSanXuat = DAO_NhaSanXuat.getAllNhaSanXuat();
-        cmbNhaSanXuat.removeAllItems();
-        cmbNhaSanXuat.addItem("Nhà Sản Xuất");
-        for(String thisNhaSanXuat : listNhaSanXuat)
-            cmbNhaSanXuat.addItem(thisNhaSanXuat);
-        cmbNhaSanXuat.addItem("-- Nhà Sản Xuất Mới --");
+        
     }
     
     private void updateDanhMuc(){
-        ArrayList<String> listDanhMuc = DAO_DanhMuc.getAllDanhMuc();
-        cmbDanhMuc.removeAllItems();
-        cmbDanhMuc.addItem("Danh Mục");
-        for(String thisDanhMuc : listDanhMuc)
-            cmbDanhMuc.addItem(thisDanhMuc);
-        cmbDanhMuc.addItem("-- Danh Mục Mới --");
+        
     }
     
     private void updateChatLieu(){
-        ArrayList<String> listChatLieu= DAO_ChatLieu.getAllChatLieu();
-        cmbChatLieu.removeAllItems();
-        cmbChatLieu.addItem("Chất Liệu");
-        for(String thisChatLieu : listChatLieu)
-            cmbChatLieu.addItem(thisChatLieu);
-        cmbChatLieu.addItem("-- Chất Liệu Mới --");
+        
     }
     
     private void updateGioiTinh(){
-        ArrayList<String> listGioiTinh = DAO_GioiTinh.getAllGioiTinh();
-        for(String thisGioiTinh : listGioiTinh)
-            cmbGioiTinh.addItem(thisGioiTinh);
+        
     }
     
     private void updateMauSac(){
-         ArrayList<String> listMauSac = DAO_MauSac.getAllMauSac();
-         for(String thisMauSac : listMauSac)
-            cmbMauSac.addItem(thisMauSac);
+         
     }
     
     private void updateKichThuoc(){
-        ArrayList<String> listKichThuoc = DAO_KichThuoc.getAllKichThuoc();
-        for(String thisKichThuoc : listKichThuoc)
-            cmbKichThuoc.addItem(thisKichThuoc);
+        
     }
     
     private void updateTable(ArrayList<QuanAo> list){
-        DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
-        model.getDataVector().removeAllElements();
-        tblTable.revalidate();
-        tblTable.repaint();
-        for(QuanAo thisQuanAo : list){
-            model.addRow(new Object[]{
-                thisQuanAo.getMaQuanAo(),
-                thisQuanAo.getTenQuanAo(),
-                FormatDouble.toMoney(thisQuanAo.getDonGiaNhap()),
-                FormatDouble.toMoney(thisQuanAo.getDonGiaBan()),
-                thisQuanAo.getSoLuongTrongKho(),
-                thisQuanAo.getNhaSanXuat(),
-                thisQuanAo.getDanhMuc(),
-                thisQuanAo.getGioiTinh(),
-                thisQuanAo.getMauSac(),
-                thisQuanAo.getKichThuoc(),
-                thisQuanAo.getChatLieu()
-            });
-        }
+        
     }
     
     private void themQuanAo(){
-        String error = "";
         
-        String maQuanAo = txtMaQuanAo.getText();
-        String tenQuanAo = txtTenQuanAo.getText();
-        String donGiaNhapString = txtDonGiaNhap.getText();
-        String donGiaBanString = txtDonGiaBan.getText();
-        String soLuongString = txtSoLuong.getText();
-        String nhaSanXuat = cmbNhaSanXuat.getSelectedItem().toString();
-        String danhMuc = cmbDanhMuc.getSelectedItem().toString();
-        String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
-        String mauSac = cmbMauSac.getSelectedItem().toString();
-        String kichThuoc = cmbKichThuoc.getSelectedItem().toString();
-        String chatLieu = cmbChatLieu.getSelectedItem().toString();
-        
-        double donGiaNhap = 0;
-        double donGiaBan = 0;
-        int soLuong = 0;
-        ImageIcon hinhAnh = UtilityImageIcon.fromStringPath(imagePath, 196, 270);
-        
-        if(tenQuanAo.equals(""))
-            error += "\n- Vui lòng nhập Tên Quần Áo.";
-        
-        try{
-            donGiaNhap = Double.parseDouble(donGiaNhapString);
-            if(donGiaNhap < 0)
-                error += "\n- Đơn Giá Nhập phải lớn hơn 0.";
-        }
-        catch(NumberFormatException e){
-            error += "\n- Vui lòng nhập Đơn Giá Nhập hợp lệ.";
-        }
-        
-        try{
-            donGiaBan = Double.parseDouble(donGiaBanString);
-            if(donGiaBan < 0)
-                error += "\n- Đơn Giá Bán phải lớn hơn 0.";
-            else
-                if(donGiaBan < donGiaNhap)
-                    error += "\n- Đơn Giá Bán phải lớn hơn Đơn Giá Nhập.";
-        }
-        catch(NumberFormatException e){
-            error += "\n- Vui lòng nhập Đơn Giá Bán hợp lệ.";
-        }
-        
-        try{
-            soLuong = Integer.parseInt(soLuongString);
-            if(soLuong < 0)
-                error += "\n- Số Lượng phải lớn hơn 0.";
-        }
-        catch(NumberFormatException e){
-            error += "\n- Vui lòng nhập Số Lượng hợp lệ.";
-        }
-        
-        if(nhaSanXuat.equals("Nhà Sản Xuất"))
-            error += "\n -Vui lòng chọn Nhà Sản Xuất.";
-        
-        if(danhMuc.equals("Danh Mục"))
-            error += "\n -Vui lòng chọn Danh Mục.";
-        
-        if(chatLieu.equals("Chất Liệu"))
-            error += "\n -Vui lòng chọn Chất Liệu.";
-        
-        if(mauSac.equals("Màu Sắc"))
-            error += "\n -Vui lòng chọn Màu Sắc.";
-        
-        if(kichThuoc.equals("Kích Thước"))
-            error += "\n -Vui lòng chọn Kích Thước.";
-        
-        if(gioiTinh.equals("Giới Tính"))
-            error += "\n -Vui lòng chọn Giới Tính.";
-        
-        if(imagePath.equals(""))
-            error += "\n -Vui lòng chọn Hình Ảnh.";
-        
-        if(error.equals("")){
-            QuanAo quanAo = new QuanAo(maQuanAo, tenQuanAo, donGiaNhap, donGiaBan, soLuong, nhaSanXuat, danhMuc, gioiTinh, mauSac, kichThuoc, chatLieu, hinhAnh, false);
-            if(DAO_QuanAo.createQuanAo(quanAo) == true){
-                JOptionPane.showMessageDialog(null, "Thêm Quần Áo thành công.");
-                GUI_Main.getInstance().showPanel(newInstance());
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Thêm Quần Áo thất bại.");
-            }
-        }
-        else{
-            String throwMessage = "Lỗi nhập liệu: " + error;
-            JOptionPane.showMessageDialog(null, throwMessage);
-        }
     }
     
     private void themNhaSanXuat(){
-        String nhaSanXuat = JOptionPane.showInputDialog(null, "Thêm Nhà Sản Xuất Mới", "Nhập Tên Nhà Sản Xuất Mới:", JOptionPane.YES_NO_CANCEL_OPTION);
-        if(nhaSanXuat == null || nhaSanXuat.equals("")){
-            cmbNhaSanXuat.setSelectedItem("Nhà Sản Xuất");
-            return;
-        }
-        boolean kiemTraTonTai = DAO_NhaSanXuat.kiemTraTonTai(nhaSanXuat);
-        if(kiemTraTonTai){
-            JOptionPane.showMessageDialog(null, "Nhà Sản Xuất này đã tồn tại.");
-            cmbNhaSanXuat.setSelectedItem("Nhà Sản Xuất");
-        }
-        else{
-            boolean kiemTra = DAO_NhaSanXuat.createNhaSanXuat(nhaSanXuat);
-            if(kiemTra){
-                JOptionPane.showMessageDialog(null, "Thêm Nhà Sản Xuất thành công.");
-                updateNhaSanXuat();
-                cmbNhaSanXuat.setSelectedItem(nhaSanXuat);
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Thêm Nhà Sản Xuất thất bại.");
-                cmbNhaSanXuat.setSelectedItem("Nhà Sản Xuất");
-            }
-        }
+        
     }
     
     private void themDanhMuc(){
-        String danhMuc = JOptionPane.showInputDialog(null, "Thêm Danh Mục Mới", "Nhập Tên Danh Mục Mới:", JOptionPane.YES_NO_CANCEL_OPTION);
-        if(danhMuc == null || danhMuc.equals("")){
-            cmbDanhMuc.setSelectedItem("Danh Mục");
-            return;
-        }
-        boolean kiemTraTonTai = DAO_DanhMuc.kiemTraTonTai(danhMuc);
-        if(kiemTraTonTai){
-            JOptionPane.showMessageDialog(null, "Danh Mục này đã tồn tại.");
-            cmbDanhMuc.setSelectedItem("Danh Mục");
-        }
-        else{
-            boolean kiemTra = DAO_DanhMuc.createDanhMuc(danhMuc);
-            if(kiemTra){
-                JOptionPane.showMessageDialog(null, "Thêm Danh Mục thành công.");
-                updateDanhMuc();
-                cmbDanhMuc.setSelectedItem(danhMuc);
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Thêm Danh Mục thất bại.");
-                cmbDanhMuc.setSelectedItem("Danh Mục");
-            }
-        }
+        
     }
     
     private void themChatLieu(){
-        String chatLieu = JOptionPane.showInputDialog(null, "Thêm Chất Liệu Mới", "Nhập Tên Chất Liệu Mới:", JOptionPane.YES_NO_CANCEL_OPTION);
-        if(chatLieu == null || chatLieu.equals("")){
-            cmbChatLieu.setSelectedItem("Chất Liệu");
-            return;
-        }
-        boolean kiemTraTonTai = DAO_ChatLieu.kiemTraTonTai(chatLieu);
-        if(kiemTraTonTai){
-            JOptionPane.showMessageDialog(null, "Chất Liệu này đã tồn tại.");
-            cmbChatLieu.setSelectedItem("Chất Liệu");
-        }
-        else{
-            boolean kiemTra = DAO_ChatLieu.createChatLieu(chatLieu);
-            if(kiemTra){
-                JOptionPane.showMessageDialog(null, "Thêm Chất Liệu thành công.");
-                updateChatLieu();
-                cmbChatLieu.setSelectedItem(chatLieu);
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Thêm Chất Liệu thất bại.");
-                cmbChatLieu.setSelectedItem("Chất Liệu");
-            }
-        }
+        
     }
     
     private void chonHinhAnh(){
-        JnaFileChooser fileChooser = new JnaFileChooser();
-        File directory = new File("files//hinhAnh//");
-        fileChooser.setCurrentDirectory(directory.getAbsolutePath());
-        boolean action = fileChooser.showOpenDialog(null);
-        if(action){
-            imagePath = fileChooser.getSelectedFile().getAbsolutePath();
-            lblIMG.setText("");
-            lblIMG.setIcon(UtilityImageIcon.fromStringPath(imagePath, 194, 270));
-        }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -610,44 +393,26 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
 
     private void btnThemQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemQuanAoActionPerformed
         // TODO add your handling code here:
-        themQuanAo();
     }//GEN-LAST:event_btnThemQuanAoActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-        GUI_Main.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void cmbNhaSanXuatItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbNhaSanXuatItemStateChanged
         // TODO add your handling code here:
-        if(evt.getStateChange() == ItemEvent.SELECTED){
-            if(cmbNhaSanXuat.getSelectedItem().toString().equals("-- Nhà Sản Xuất Mới --")){
-                themNhaSanXuat();
-            }
-        }
     }//GEN-LAST:event_cmbNhaSanXuatItemStateChanged
 
     private void cmbDanhMucItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDanhMucItemStateChanged
         // TODO add your handling code here:
-        if(evt.getStateChange() == ItemEvent.SELECTED){
-            if(cmbDanhMuc.getSelectedItem().toString().equals("-- Danh Mục Mới --")){
-                themDanhMuc();
-            }
-        }
     }//GEN-LAST:event_cmbDanhMucItemStateChanged
 
     private void cmbChatLieuItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbChatLieuItemStateChanged
         // TODO add your handling code here:
-        if(evt.getStateChange() == ItemEvent.SELECTED){
-            if(cmbChatLieu.getSelectedItem().toString().equals("-- Chất Liệu Mới --")){
-                themChatLieu();
-            }
-        }
     }//GEN-LAST:event_cmbChatLieuItemStateChanged
 
     private void btnHinhAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHinhAnhActionPerformed
         // TODO add your handling code here:
-        chonHinhAnh();
     }//GEN-LAST:event_btnHinhAnhActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -687,28 +452,7 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        Object o = e.getSource();
-        if(o == cmbNhaSanXuat){
-            if(e.getStateChange() == ItemEvent.SELECTED){
-                if(cmbNhaSanXuat.getSelectedItem().toString().equals("-- Nhà Sản Xuất Mới --")){
-                    themNhaSanXuat();
-                }  
-            }
-        }
-        if(o == cmbDanhMuc){
-            if(e.getStateChange() == ItemEvent.SELECTED){
-                if(cmbDanhMuc.getSelectedItem().toString().equals("-- Danh Mục Mới --")){
-                    themDanhMuc();
-                }  
-            }
-        }
-        if(o == cmbChatLieu){
-            if(e.getStateChange() == ItemEvent.SELECTED){
-                if(cmbChatLieu.getSelectedItem().toString().equals("-- Chất Liệu Mới --")){
-                    themChatLieu();
-                }  
-            }
-        }
+        
     }
 
 }
