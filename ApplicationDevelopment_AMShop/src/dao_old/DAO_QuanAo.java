@@ -1,8 +1,8 @@
 package dao_old;
 
-import data.UtilityImageIcon;
-import data.UtilityLocalDate;
-import entity.QuanAo;
+import data_old.UtilityImageIcon;
+import data_old.UtilityLocalDate;
+import entity_old.QuanAo;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDate;

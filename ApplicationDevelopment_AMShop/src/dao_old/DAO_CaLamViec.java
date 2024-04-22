@@ -1,7 +1,7 @@
 package dao_old;
 
-import data.UtilityLocalTime;
-import entity.CaLamViec;
+import data_old.UtilityLocalTime;
+import entity_old.CaLamViec;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalTime;

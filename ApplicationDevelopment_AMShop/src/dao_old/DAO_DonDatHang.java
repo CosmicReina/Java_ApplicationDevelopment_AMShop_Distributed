@@ -1,12 +1,12 @@
 package dao_old;
 
 import static dao_old.DAO.connection;
-import data.UtilityLocalDateTime;
-import entity.ChiTietDonDatHang;
-import entity.DonDatHang;
-import entity.KhachHang;
-import entity.NhanVien;
-import entity.QuanAo;
+import data_old.UtilityLocalDateTime;
+import entity_old.ChiTietDonDatHang;
+import entity_old.DonDatHang;
+import entity_old.KhachHang;
+import entity_old.NhanVien;
+import entity_old.QuanAo;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDateTime;

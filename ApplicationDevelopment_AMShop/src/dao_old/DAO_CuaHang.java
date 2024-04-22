@@ -1,6 +1,6 @@
 package dao_old;
 
-import entity.CuaHang;
+import entity_old.CuaHang;
 import java.sql.*;
 
 public class DAO_CuaHang extends DAO {

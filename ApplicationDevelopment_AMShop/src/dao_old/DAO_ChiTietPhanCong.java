@@ -1,9 +1,9 @@
 package dao_old;
 
-import data.UtilityLocalDateTime;
-import entity.ChiTietPhanCong;
-import entity.LichLamViec;
-import entity.NhanVien;
+import data_old.UtilityLocalDateTime;
+import entity_old.ChiTietPhanCong;
+import entity_old.LichLamViec;
+import entity_old.NhanVien;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDateTime;

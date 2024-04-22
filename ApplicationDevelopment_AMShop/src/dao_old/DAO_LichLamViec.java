@@ -1,8 +1,8 @@
 package dao_old;
 
-import data.UtilityLocalDate;
-import entity.CaLamViec;
-import entity.LichLamViec;
+import data_old.UtilityLocalDate;
+import entity_old.CaLamViec;
+import entity_old.LichLamViec;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDate;

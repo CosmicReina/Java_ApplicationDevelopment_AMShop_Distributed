@@ -1,6 +1,6 @@
 package dao_old;
 
-import connect.ConnectDB;
+import connect_old.ConnectDB;
 import java.sql.*;
 
 public class DAO {

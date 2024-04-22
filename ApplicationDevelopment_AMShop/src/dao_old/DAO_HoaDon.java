@@ -1,11 +1,11 @@
 package dao_old;
 
-import data.UtilityLocalDate;
-import data.UtilityLocalDateTime;
-import entity.CuaHang;
-import entity.HoaDon;
-import entity.KhachHang;
-import entity.NhanVien;
+import data_old.UtilityLocalDate;
+import data_old.UtilityLocalDateTime;
+import entity_old.CuaHang;
+import entity_old.HoaDon;
+import entity_old.KhachHang;
+import entity_old.NhanVien;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

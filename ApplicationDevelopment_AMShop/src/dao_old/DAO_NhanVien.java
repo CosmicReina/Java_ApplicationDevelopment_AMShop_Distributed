@@ -1,7 +1,7 @@
 package dao_old;
 
-import data.UtilityLocalDate;
-import entity.NhanVien;
+import data_old.UtilityLocalDate;
+import entity_old.NhanVien;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDate;

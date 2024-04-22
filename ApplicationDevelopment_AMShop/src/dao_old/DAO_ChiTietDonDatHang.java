@@ -1,8 +1,8 @@
 package dao_old;
 
-import entity.ChiTietDonDatHang;
-import entity.DonDatHang;
-import entity.QuanAo;
+import entity_old.ChiTietDonDatHang;
+import entity_old.DonDatHang;
+import entity_old.QuanAo;
 import java.util.ArrayList;
 import java.sql.*;
 
