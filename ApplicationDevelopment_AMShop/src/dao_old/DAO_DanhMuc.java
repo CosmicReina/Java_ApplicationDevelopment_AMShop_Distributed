@@ -1,19 +1,20 @@
-package dao;
+package dao_old;
 
+import static dao_old.DAO.connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.sql.*;
 
-public class DAO_NhaSanXuat extends DAO {
-    public static boolean createNhaSanXuat(String nhaSanXuat){
+public class DAO_DanhMuc {
+    public static boolean createDanhMuc(String danhMuc){
         int n = 0;
         try {
             String sql = ""
-                    + "INSERT INTO NhaSanXuat "
+                    + "INSERT INTO DanhMuc "
                     + "VALUES (?)";
             PreparedStatement prs = connection.prepareStatement(sql);
-            prs.setString(1, nhaSanXuat);
+            prs.setString(1, danhMuc);
             
             n = prs.executeUpdate();
         } catch (SQLException ex) {
@@ -22,10 +23,10 @@ public class DAO_NhaSanXuat extends DAO {
         return n > 0;
     }
     
-    public static ArrayList<String> getAllNhaSanXuat(){
+    public static ArrayList<String> getAllDanhMuc(){
         ArrayList<String> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM NhaSanXuat";
+            String sql = "SELECT * FROM DanhMuc";
             ResultSet rs = DAO.getResultSetFromStatement(sql);
             while(rs.next()){
                 list.add(rs.getString(1));
@@ -36,14 +37,14 @@ public class DAO_NhaSanXuat extends DAO {
         return list;
     }
     
-    public static boolean kiemTraTonTai(String nhaSanXuat){
+    public static boolean kiemTraTonTai(String danhMuc){
         try {
             String sql = ""
                     + "SELECT * "
-                    + "FROM NhaSanXuat "
-                    + "WHERE NhaSanXuat = ?";
+                    + "FROM DanhMuc "
+                    + "WHERE DanhMuc = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
-            prs.setString(1, nhaSanXuat);
+            prs.setString(1, danhMuc);
             
             ResultSet rs = prs.executeQuery();
             if(rs.next())

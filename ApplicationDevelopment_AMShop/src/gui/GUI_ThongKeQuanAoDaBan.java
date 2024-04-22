@@ -1,6 +1,6 @@
 package gui;
 
-import dao.DAO_QuanAo;
+import dao_old.DAO_QuanAo;
 import data.FormatLocalDate;
 import data.FormatDouble;
 import data.InBaoCaoQuanAoDaBan;

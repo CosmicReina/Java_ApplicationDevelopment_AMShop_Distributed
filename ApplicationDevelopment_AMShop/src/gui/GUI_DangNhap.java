@@ -1,8 +1,8 @@
 package gui;
 
 import connect.ConnectDB;
-import dao.DAO_NhanVien;
-import dao.DAO_TaiKhoan;
+import dao_old.DAO_NhanVien;
+import dao_old.DAO_TaiKhoan;
 import javax.swing.JOptionPane;
 
 public class GUI_DangNhap extends javax.swing.JFrame {

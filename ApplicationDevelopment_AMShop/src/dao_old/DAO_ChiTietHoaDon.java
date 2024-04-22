@@ -1,4 +1,4 @@
-package dao;
+package dao_old;
 
 import entity.ChiTietHoaDon;
 import entity.HoaDon;

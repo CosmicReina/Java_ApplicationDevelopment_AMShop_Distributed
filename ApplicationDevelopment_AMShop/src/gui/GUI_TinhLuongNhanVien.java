@@ -1,6 +1,6 @@
 package gui;
 
-import dao.DAO_NhanVien;
+import dao_old.DAO_NhanVien;
 import data.FormatDouble;
 import entity.NhanVien;
 import java.time.LocalDate;

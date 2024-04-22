@@ -1,14 +1,14 @@
-package dao;
+package dao_old;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class DAO_KichThuoc {
-    public static ArrayList<String> getAllKichThuoc(){
+public class DAO_MauSac {
+    public static ArrayList<String> getAllMauSac(){
         ArrayList<String> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM KichThuoc";
+            String sql = "SELECT * FROM MauSac";
             ResultSet rs = DAO.getResultSetFromStatement(sql);
             while(rs.next()){
                 list.add(rs.getString(1));

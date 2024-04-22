@@ -1,12 +1,12 @@
 package gui;
 
-import dao.DAO_ChatLieu;
-import dao.DAO_DanhMuc;
-import dao.DAO_GioiTinh;
-import dao.DAO_KichThuoc;
-import dao.DAO_MauSac;
-import dao.DAO_NhaSanXuat;
-import dao.DAO_QuanAo;
+import dao_old.DAO_ChatLieu;
+import dao_old.DAO_DanhMuc;
+import dao_old.DAO_GioiTinh;
+import dao_old.DAO_KichThuoc;
+import dao_old.DAO_MauSac;
+import dao_old.DAO_NhaSanXuat;
+import dao_old.DAO_QuanAo;
 import data.FormatDouble;
 import data.KhoiTaoMa;
 import data.UtilityImageIcon;

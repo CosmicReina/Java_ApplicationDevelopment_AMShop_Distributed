@@ -10,7 +10,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
-import dao.DAO_KhachHang;
+import dao_old.DAO_KhachHang;
 import entity.KhachHang;
 import java.io.IOException;
 import java.time.LocalDate;

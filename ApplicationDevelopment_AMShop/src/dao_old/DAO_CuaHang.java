@@ -1,4 +1,4 @@
-package dao;
+package dao_old;
 
 import entity.CuaHang;
 import java.sql.*;

@@ -1,8 +1,8 @@
 package gui;
 
-import dao.DAO_ChiTietHoaDon;
-import dao.DAO_HoaDon;
-import dao.DAO_KhachHang;
+import dao_old.DAO_ChiTietHoaDon;
+import dao_old.DAO_HoaDon;
+import dao_old.DAO_KhachHang;
 import data.FormatDouble;
 import data.FormatLocalDateTime;
 import entity.ChiTietHoaDon;

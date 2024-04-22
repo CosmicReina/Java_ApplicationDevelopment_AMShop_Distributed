@@ -1,7 +1,7 @@
 package gui;
 
-import dao.DAO_ChiTietHoaDon;
-import dao.DAO_HoaDon;
+import dao_old.DAO_ChiTietHoaDon;
+import dao_old.DAO_HoaDon;
 import data.FormatLocalDate;
 import data.FormatDouble;
 import data.FormatLocalDateTime;

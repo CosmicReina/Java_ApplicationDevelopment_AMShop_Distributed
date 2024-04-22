@@ -1,6 +1,6 @@
-package dao;
+package dao_old;
 
-import static dao.DAO.connection;
+import static dao_old.DAO.connection;
 import data.UtilityLocalDateTime;
 import entity.ChiTietDonDatHang;
 import entity.DonDatHang;

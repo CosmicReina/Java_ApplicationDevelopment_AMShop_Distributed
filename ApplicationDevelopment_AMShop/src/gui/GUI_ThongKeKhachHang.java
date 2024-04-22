@@ -1,6 +1,6 @@
 package gui;
 
-import dao.DAO_KhachHang;
+import dao_old.DAO_KhachHang;
 import data.FormatLocalDate;
 import data.FormatDouble;
 import data.InBaoCaoKhachHang;

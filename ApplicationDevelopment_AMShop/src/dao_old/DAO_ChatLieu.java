@@ -1,20 +1,20 @@
-package dao;
+package dao_old;
 
-import static dao.DAO.connection;
+import static dao_old.DAO.connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class DAO_DanhMuc {
-    public static boolean createDanhMuc(String danhMuc){
+public class DAO_ChatLieu {
+    public static boolean createChatLieu(String chatLieu){
         int n = 0;
         try {
             String sql = ""
-                    + "INSERT INTO DanhMuc "
+                    + "INSERT INTO ChatLieu "
                     + "VALUES (?)";
             PreparedStatement prs = connection.prepareStatement(sql);
-            prs.setString(1, danhMuc);
+            prs.setString(1, chatLieu);
             
             n = prs.executeUpdate();
         } catch (SQLException ex) {
@@ -23,10 +23,10 @@ public class DAO_DanhMuc {
         return n > 0;
     }
     
-    public static ArrayList<String> getAllDanhMuc(){
+    public static ArrayList<String> getAllChatLieu(){
         ArrayList<String> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM DanhMuc";
+            String sql = "SELECT * FROM ChatLieu";
             ResultSet rs = DAO.getResultSetFromStatement(sql);
             while(rs.next()){
                 list.add(rs.getString(1));
@@ -37,14 +37,14 @@ public class DAO_DanhMuc {
         return list;
     }
     
-    public static boolean kiemTraTonTai(String danhMuc){
+    public static boolean kiemTraTonTai(String chatLieu){
         try {
             String sql = ""
                     + "SELECT * "
-                    + "FROM DanhMuc "
-                    + "WHERE DanhMuc = ?";
+                    + "FROM ChatLieu "
+                    + "WHERE ChatLieu = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
-            prs.setString(1, danhMuc);
+            prs.setString(1, chatLieu);
             
             ResultSet rs = prs.executeQuery();
             if(rs.next())

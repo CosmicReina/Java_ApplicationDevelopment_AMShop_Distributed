@@ -10,7 +10,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
-import dao.DAO_QuanAo;
+import dao_old.DAO_QuanAo;
 import entity.QuanAo;
 import java.io.IOException;
 import java.time.LocalDate;

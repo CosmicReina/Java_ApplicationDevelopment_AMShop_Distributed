@@ -1,6 +1,6 @@
 package gui;
 
-import dao.DAO_KhachHang;
+import dao_old.DAO_KhachHang;
 import entity.KhachHang;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

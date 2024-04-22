@@ -1,12 +1,12 @@
 package gui;
 
-import dao.DAO_ChiTietDonDatHang;
-import dao.DAO_ChiTietHoaDon;
-import dao.DAO_CuaHang;
-import dao.DAO_DonDatHang;
-import dao.DAO_HoaDon;
-import dao.DAO_KhachHang;
-import dao.DAO_NhanVien;
+import dao_old.DAO_ChiTietDonDatHang;
+import dao_old.DAO_ChiTietHoaDon;
+import dao_old.DAO_CuaHang;
+import dao_old.DAO_DonDatHang;
+import dao_old.DAO_HoaDon;
+import dao_old.DAO_KhachHang;
+import dao_old.DAO_NhanVien;
 import data.FormatDouble;
 import data.FormatLocalDateTime;
 import data.KhoiTaoMa;

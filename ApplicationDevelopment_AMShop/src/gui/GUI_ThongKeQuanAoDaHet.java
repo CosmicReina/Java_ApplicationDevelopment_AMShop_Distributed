@@ -1,6 +1,6 @@
 package gui;
 
-import dao.DAO_QuanAo;
+import dao_old.DAO_QuanAo;
 import data.InBaoCaoQuanAoDaHet;
 import java.io.IOException;
 import java.time.LocalDate;

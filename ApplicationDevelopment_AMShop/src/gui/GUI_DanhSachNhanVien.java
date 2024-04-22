@@ -1,6 +1,6 @@
 package gui;
 
-import dao.DAO_NhanVien;
+import dao_old.DAO_NhanVien;
 import entity.NhanVien;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

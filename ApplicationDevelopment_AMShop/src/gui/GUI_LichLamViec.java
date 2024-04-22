@@ -1,9 +1,9 @@
 package gui;
 
-import dao.DAO_CaLamViec;
-import dao.DAO_ChiTietPhanCong;
-import dao.DAO_LichLamViec;
-import dao.DAO_NhanVien;
+import dao_old.DAO_CaLamViec;
+import dao_old.DAO_ChiTietPhanCong;
+import dao_old.DAO_LichLamViec;
+import dao_old.DAO_NhanVien;
 import data.FormatLocalDate;
 import data.FormatLocalTime;
 import data.KhoiTaoMa;
