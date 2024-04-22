@@ -18,7 +18,12 @@ public class Service_LichLamViec extends UnicastRemoteObject implements IService
 	
 	@Override
 	public void createLichLamViec(LichLamViec lichLamViec) throws RemoteException {
-		
+		DAO_LichLamViec.createLichLamViec(lichLamViec);
+	}
+	
+	@Override
+	public void updateLichLamViec(LichLamViec lichLamViec) throws RemoteException {
+		DAO_LichLamViec.updateLichLamViec(lichLamViec);
 	}
 
 	@Override
