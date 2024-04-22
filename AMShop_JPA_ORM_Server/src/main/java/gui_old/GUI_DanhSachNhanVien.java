@@ -1,10 +1,11 @@
 package gui_old;
 
-import dao_old.DAO_NhanVien;
-import entity_old.NhanVien;
+
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import entity.NhanVien;
 
 public class GUI_DanhSachNhanVien extends javax.swing.JPanel {
     
@@ -25,37 +26,15 @@ public class GUI_DanhSachNhanVien extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        updateTable(DAO_NhanVien.getAllNhanVien());
-        tblTable.fixTable(scrTable);
+        
     }
     
     private void updateTable(ArrayList<NhanVien> list){
-        DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
-        model.getDataVector().removeAllElements();
-        tblTable.revalidate();
-        tblTable.repaint();
-        for(NhanVien thisNhanVien : list){
-            model.addRow(new Object[]{
-                thisNhanVien.getMaNhanVien(),
-                thisNhanVien.getHoTen(),
-                thisNhanVien.getSoDienThoai(),
-                thisNhanVien.getCanCuocCongDan(),
-                thisNhanVien.getChucVu()
-            });
-        }
+        
     }
 
     private void xemChiTietNhanVien(){
-        int i = tblTable.getSelectedRow();
-        if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Nhân Viên.");
-            return;
-        }
-        String maNhanVien = tblTable.getValueAt(i, 0).toString();
         
-        GUI_Main.getInstance().showPanel(GUI_ChiTietNhanVien.newInstance());
-        GUI_ChiTietNhanVien.getInstance().showChiTietNhanVien(maNhanVien);
-        GUI_ChiTietNhanVien.getInstance().setPnlBefore(this);
     }
     
     @SuppressWarnings("unchecked")
@@ -124,7 +103,6 @@ public class GUI_DanhSachNhanVien extends javax.swing.JPanel {
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
         // TODO add your handling code here:
-        xemChiTietNhanVien();
     }//GEN-LAST:event_btnChiTietActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
