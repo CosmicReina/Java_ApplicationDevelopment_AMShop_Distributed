@@ -1,13 +1,8 @@
 package gui_old;
 
-import dao_old.DAO_ChiTietHoaDon;
-import dao_old.DAO_HoaDon;
 import data.FormatDouble;
 import data.FormatLocalDateTime;
 import data.InHoaDon;
-import entity_old.ChiTietHoaDon;
-import entity_old.HoaDon;
-import entity_old.QuanAo;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,56 +38,15 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
     }
     
     public void showThongTinHoaDon(String maHoaDon){
-        this.maHoaDon = maHoaDon;
-        HoaDon hoaDon = DAO_HoaDon.getHoaDonTheoMaHoaDon(maHoaDon);
-        if(hoaDon == null) return;
         
-        ArrayList<ChiTietHoaDon> list = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(maHoaDon);
-        double tongTien = 0;
-        
-        DefaultTableModel model = (DefaultTableModel) tblQuanAo.getModel();
-        for(ChiTietHoaDon thisChiTietHoaDon : list){
-            double tongTienThanhPhan = thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
-            tongTien += tongTienThanhPhan;
-            QuanAo quanAo = thisChiTietHoaDon.getQuanAo();
-            model.addRow(new Object[]{
-                quanAo.getTenQuanAo(),
-                thisChiTietHoaDon.getSoLuong(),
-                FormatDouble.toMoney(thisChiTietHoaDon.getDonGia()),
-                FormatDouble.toMoney(tongTienThanhPhan)
-            });
-        }
-        
-        txtMaHoaDon.setText(hoaDon.getMaHoaDon());
-        txtNhanVienLapDon.setText(hoaDon.getNhanVien().getHoTen());
-        txtKhachHang.setText(hoaDon.getKhachHang().getHoTen());
-        txtThoiGianTao.setText(FormatLocalDateTime.toFormattedLocalDateTime(hoaDon.getThoiGianTao()));
-        txtTongTien.setText(FormatDouble.toMoney(tongTien));
-        txtTienKhachDua.setText(FormatDouble.toMoney(hoaDon.getTienKhachDua()));
-        txtTienThua.setText(FormatDouble.toMoney(hoaDon.getTienKhachDua() - tongTien));
     }
 
     private void xemFileHoaDon(){
-        try {
-            InHoaDon.createTempAMShopInvoice(maHoaDon);
-        } catch (IOException ex) {
-            ex.printStackTrace(System.out);
-        }
-        String path = "files//hoaDon//temp.pdf";
-        File file = new File(path);
-        if(file.exists()) {
-            Viewer viewer = new Viewer();
-            viewer.setupViewer();
-            viewer.getSwingGUI().getFrame().setSize(690, 768);
-            viewer.getSwingGUI().getFrame().setLocation(512, 16);
-            viewer.openDefaultFile(file.getAbsolutePath());
-        }
-        else
-            JOptionPane.showMessageDialog(null, "File Hóa Đơn không tồn tại. Vui lòng kiểm tra lại.");
+        
     }
     
     private void quayLai(){
-        if(pnlBefore != null){GUI_Main.getInstance().showPanel(pnlBefore);}
+    	
     }
 
     @SuppressWarnings("unchecked")
@@ -293,12 +247,10 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 
     private void btnXemFileHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemFileHoaDonActionPerformed
         // TODO add your handling code here:
-        xemFileHoaDon();
     }//GEN-LAST:event_btnXemFileHoaDonActionPerformed
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
         // TODO add your handling code here:
-        quayLai();
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
