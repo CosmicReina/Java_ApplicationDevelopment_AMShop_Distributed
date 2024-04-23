@@ -35,15 +35,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
 	public GUI_Main() {
 		initComponents();
-		initExtra();
 	}
 
-	private void initExtra() {
-		addButtonToList();
-		showPanel(GUI_TrangChu.newInstance());
-	}
-
-	private void addButtonToList() {
+	public void addButtonToList() {
 		resetListButton();
 		NhanVien nhanVien = Configuration_Client.getNhanVienHienTai();
 		System.out.println(nhanVien);

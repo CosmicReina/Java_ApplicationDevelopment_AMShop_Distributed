@@ -31,6 +31,7 @@ public class GUI_MainFrame extends javax.swing.JFrame {
 		pnlMain.setBounds(0, 0, 1366, 768);
 		pnlMain.setLayout(new BorderLayout());
 		pnlMain.add(GUI_Main.newInstance(), BorderLayout.CENTER);
+		GUI_Main.getInstance().addButtonToList();
 
 		lypMain.add(pnlMain, Integer.valueOf(1));
 

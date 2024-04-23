@@ -42,7 +42,7 @@ public class GUI_DangNhap extends javax.swing.JFrame {
 			}
 			JOptionPane.showMessageDialog(null, "Đăng nhập thành công.");
 			Configuration_Client.setNhanVienHienTai(nhanVien);
-			GUI_MainFrame.getInstance().setVisible(true);
+			GUI_MainFrame.newInstance().setVisible(true);
 			this.dispose();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Lỗi kết nối đến máy chủ.");
