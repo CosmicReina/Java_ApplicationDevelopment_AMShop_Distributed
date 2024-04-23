@@ -1,5 +1,7 @@
 package _01_Client;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import org.junit.jupiter.api.AfterAll;
@@ -30,7 +32,7 @@ class JTC_DonDatHang {
 	}
 
 	@Test
-	void getAllDonDatHang() throws RemoteException{
+	void getAllDonDatHang() throws MalformedURLException, RemoteException, NotBoundException{
 		System.err.println("getAllDonDatHang()");
 		
 		IService_DonDatHang service_DonDatHang = ServiceInitiator.getInstance().getServiceDonDatHang();
@@ -40,7 +42,7 @@ class JTC_DonDatHang {
 	}
 	
 	@Test
-	void getDonDatHangTheoMaDonDatHang() throws RemoteException{
+	void getDonDatHangTheoMaDonDatHang() throws MalformedURLException, RemoteException, NotBoundException{
 		System.err.println("getDonDatHangTheoMaDonDatHang()");
 		
 		IService_DonDatHang service_DonDatHang = ServiceInitiator.getInstance().getServiceDonDatHang();
@@ -50,7 +52,7 @@ class JTC_DonDatHang {
 	}
 	
 	@Test
-	void getMaDonDatHangCuoi() throws RemoteException{
+	void getMaDonDatHangCuoi() throws MalformedURLException, RemoteException, NotBoundException{
 		System.err.println("getDonDatHangCuoi()");
 		
 		IService_DonDatHang service_DonDatHang = ServiceInitiator.getInstance().getServiceDonDatHang();

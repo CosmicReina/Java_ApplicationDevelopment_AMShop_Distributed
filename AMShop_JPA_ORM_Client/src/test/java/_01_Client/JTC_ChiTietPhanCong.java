@@ -1,5 +1,7 @@
 package _01_Client;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import org.junit.jupiter.api.AfterAll;
@@ -30,7 +32,7 @@ class JTC_ChiTietPhanCong {
 	}
 
 	@Test
-	void getAllChiTietPhanCongTheoMaLichLamViec() throws RemoteException{
+	void getAllChiTietPhanCongTheoMaLichLamViec() throws MalformedURLException, RemoteException, NotBoundException{
 		System.err.println("getAllChiTietPhanCongTheoMaLichLamViec()");
 		
 		IService_ChiTietPhanCong service_ChiTietPhanCong = ServiceInitiator.getInstance().getServiceChiTietPhanCong();

@@ -1,5 +1,7 @@
 package _01_Client;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 
@@ -31,7 +33,7 @@ class JTC_NhanVien {
 	}
 
 	@Test
-	void getAllNhanVien() throws RemoteException {
+	void getAllNhanVien() throws MalformedURLException, RemoteException, NotBoundException {
 		System.err.println("getAllNhanVien()");
 		
 		IService_NhanVien service_NhanVien = ServiceInitiator.getInstance().getServiceNhanVien();
@@ -41,7 +43,7 @@ class JTC_NhanVien {
 	}
 	
 	@Test
-	void getNhanVienTheoMaNhanVien() throws RemoteException {
+	void getNhanVienTheoMaNhanVien() throws MalformedURLException, RemoteException, NotBoundException {
 		System.err.println("getNhanVienTheoMaNhanVien()");
 		
 		IService_NhanVien service_NhanVien = ServiceInitiator.getInstance().getServiceNhanVien();
@@ -51,7 +53,7 @@ class JTC_NhanVien {
 	}
 	
 	@Test
-	void getNhanVienTheoSoDienThoai() throws RemoteException {
+	void getNhanVienTheoSoDienThoai() throws MalformedURLException, RemoteException, NotBoundException{
 		System.err.println("getNhanVienTheoSoDienThoai()");
 		
 		IService_NhanVien service_NhanVien = ServiceInitiator.getInstance().getServiceNhanVien();
@@ -61,7 +63,7 @@ class JTC_NhanVien {
 	}
 	
 	@Test
-	void getNhanVienTheoCanCuocCongDan() throws RemoteException {
+	void getNhanVienTheoCanCuocCongDan() throws MalformedURLException, RemoteException, NotBoundException{
 		System.err.println("getNhanVienTheoCanCuocCongDan()");
 		
 		IService_NhanVien service_NhanVien = ServiceInitiator.getInstance().getServiceNhanVien();
@@ -71,7 +73,7 @@ class JTC_NhanVien {
 	}
 	
 	@Test
-	void getDanhSachNhanVienChuaCoTrongNgayLamViec() throws RemoteException {
+	void getDanhSachNhanVienChuaCoTrongNgayLamViec() throws MalformedURLException, RemoteException, NotBoundException {
 		System.err.println("getDanhSachNhanVienChuaCoTrongNgayLamViec()");
 		
 		IService_NhanVien service_NhanVien = ServiceInitiator.getInstance().getServiceNhanVien();
@@ -81,7 +83,7 @@ class JTC_NhanVien {
 	}
 	
 	@Test
-	void getNhanVienCuoi() throws RemoteException {
+	void getNhanVienCuoi() throws MalformedURLException, RemoteException, NotBoundException {
 		System.err.println("getNhanVienCuoi()");
 		
 		IService_NhanVien service_NhanVien = ServiceInitiator.getInstance().getServiceNhanVien();
@@ -91,7 +93,7 @@ class JTC_NhanVien {
 	}
 	
 	@Test
-	void getNhanVienTheoThongTinDangNhap() throws RemoteException {
+	void getNhanVienTheoThongTinDangNhap() throws MalformedURLException, RemoteException, NotBoundException {
 		System.err.println("getNhanVienTheoThongTinDangNhap()");
 		
 		IService_NhanVien service_NhanVien = ServiceInitiator.getInstance().getServiceNhanVien();

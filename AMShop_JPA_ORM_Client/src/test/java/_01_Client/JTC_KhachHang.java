@@ -1,5 +1,7 @@
 package _01_Client;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import org.junit.jupiter.api.AfterAll;
@@ -30,7 +32,7 @@ class JTC_KhachHang {
 	}
 
 	@Test
-	void getAllKhachHang() throws RemoteException {
+	void getAllKhachHang() throws MalformedURLException, RemoteException, NotBoundException {
 		System.err.println("getAllKhachHang()");
 		
 		IService_KhachHang service_KhachHang = ServiceInitiator.getInstance().getServiceKhachHang();
@@ -41,7 +43,7 @@ class JTC_KhachHang {
 	}
 	
 	@Test
-	void getKhachHangTheoMaKhachHang() throws RemoteException {
+	void getKhachHangTheoMaKhachHang() throws MalformedURLException, RemoteException, NotBoundException {
 		System.err.println("getKhachHangTheoMaKhachHang()");
 		
 		IService_KhachHang service_KhachHang = ServiceInitiator.getInstance().getServiceKhachHang();
@@ -52,7 +54,7 @@ class JTC_KhachHang {
 	}
 	
 	@Test
-	void getKhachHangTheoSoDienThoai() throws RemoteException {
+	void getKhachHangTheoSoDienThoai() throws MalformedURLException, RemoteException, NotBoundException {
 		System.err.println("getKhachHangTheoSoDienThoai()");
 		
 		IService_KhachHang service_KhachHang = ServiceInitiator.getInstance().getServiceKhachHang();
@@ -63,7 +65,7 @@ class JTC_KhachHang {
 	}
 	
 	@Test
-	void getKhachHangCuoi() throws RemoteException {
+	void getKhachHangCuoi() throws MalformedURLException, RemoteException, NotBoundException {
 		System.err.println("getKhachHangCuoi()");
 		
 		IService_KhachHang service_KhachHang = ServiceInitiator.getInstance().getServiceKhachHang();

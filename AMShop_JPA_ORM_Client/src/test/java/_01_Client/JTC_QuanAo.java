@@ -1,5 +1,7 @@
 package _01_Client;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import org.junit.jupiter.api.AfterAll;
@@ -30,7 +32,7 @@ class JTC_QuanAo {
 	}
 
 	@Test
-	void getAllQuanAo() throws RemoteException {
+	void getAllQuanAo() throws MalformedURLException, RemoteException, NotBoundException{
 		System.err.println("getAllQuanAo");
 		
 		IService_QuanAo service_QuanAo = ServiceInitiator.getInstance().getServiceQuanAo();
@@ -40,7 +42,7 @@ class JTC_QuanAo {
 	}
 	
 	@Test
-	void getQuanAoTheoMaQuanAo() throws RemoteException {
+	void getQuanAoTheoMaQuanAo() throws MalformedURLException, RemoteException, NotBoundException {
 		System.err.println("getQuanAoTheoMaQuanAo()");
 		
 		IService_QuanAo service_QuanAo = ServiceInitiator.getInstance().getServiceQuanAo();
@@ -50,7 +52,7 @@ class JTC_QuanAo {
 	}
 	
 	@Test
-	void getQuanAoCuoi() throws RemoteException {
+	void getQuanAoCuoi() throws MalformedURLException, RemoteException, NotBoundException {
 		System.err.println("getQuanAoCuoi()");
 		
 		IService_QuanAo service_QuanAo = ServiceInitiator.getInstance().getServiceQuanAo();
