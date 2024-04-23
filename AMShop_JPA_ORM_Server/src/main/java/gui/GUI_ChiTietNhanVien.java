@@ -3,11 +3,15 @@ package gui;
 
 import javax.swing.JPanel;
 
+import data.FormatDouble;
+import data.FormatLocalDate;
 import entity.NhanVien;
 
 public class GUI_ChiTietNhanVien extends javax.swing.JPanel {
     
-    private static GUI_ChiTietNhanVien instance = new GUI_ChiTietNhanVien();
+	private static final long serialVersionUID = -3735589732729151031L;
+
+	private static GUI_ChiTietNhanVien instance = new GUI_ChiTietNhanVien();
     
     private JPanel pnlBefore = null;
 
@@ -34,7 +38,20 @@ public class GUI_ChiTietNhanVien extends javax.swing.JPanel {
     }
     
     public void showChiTietNhanVien(NhanVien nhanVien){
-        
+    	txtMaNhanVien.setText(nhanVien.getMaNhanVien());
+        txtHoTen.setText(nhanVien.getHoTen());
+        txtSoDienThoai.setText(nhanVien.getSoDienThoai());
+        txtDiaChi.setText(nhanVien.getDiaChi());
+        txtChucVu.setText(nhanVien.getChucVu());
+        txtNgaySinh.setText(FormatLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
+        txtCCCD.setText(nhanVien.getCanCuocCongDan());
+        txtGioiTinh.setText(nhanVien.getGioiTinh());
+        txtNgayBatDauLam.setText(FormatLocalDate.fromLocalDate(nhanVien.getNgayBatDauLam()));
+        if(nhanVien.getNgayKetThucLam() != null)
+            txtNgayKetThucLam.setText(FormatLocalDate.fromLocalDate(nhanVien.getNgayKetThucLam()));
+        else
+            txtNgayKetThucLam.setText("");
+        txtLuong.setText(FormatDouble.toMoney(nhanVien.getLuong()));
     }
     
     private void xemChiTietHoaDon(){
@@ -45,7 +62,6 @@ public class GUI_ChiTietNhanVien extends javax.swing.JPanel {
        
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

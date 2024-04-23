@@ -51,7 +51,6 @@ public class GUI_MainFrame extends javax.swing.JFrame {
 			actionTaoPopup(button, listAddedButton);
 		else
 			actionXoaPopup();
-
 	}
 
 	public void actionTaoPopup(JButton_AllRound button, ArrayList<JButton_AllRound> listAddedButton) {
