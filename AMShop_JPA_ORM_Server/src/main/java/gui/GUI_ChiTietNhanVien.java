@@ -3,6 +3,8 @@ package gui;
 
 import javax.swing.JPanel;
 
+import entity.NhanVien;
+
 public class GUI_ChiTietNhanVien extends javax.swing.JPanel {
     
     private static GUI_ChiTietNhanVien instance = new GUI_ChiTietNhanVien();
@@ -31,7 +33,7 @@ public class GUI_ChiTietNhanVien extends javax.swing.JPanel {
         tblHoaDon.fixTable(scrHoaDon);
     }
     
-    public void showChiTietNhanVien(String maNhanVien){
+    public void showChiTietNhanVien(NhanVien nhanVien){
         
     }
     

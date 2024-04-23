@@ -37,7 +37,7 @@ public class GUI_MainFrame extends javax.swing.JFrame {
 		pnlPopup = null;
 	}
 
-	public void showPopup(JPanel panel, int x, int y) {
+	public void actionHienThiPopup(JPanel panel, int x, int y) {
 		lypMain.remove(panel);
 		lypMain.revalidate();
 		lypMain.repaint();
@@ -46,15 +46,15 @@ public class GUI_MainFrame extends javax.swing.JFrame {
 		panel.setLocation(x, y);
 	}
 
-	public void createPopupForButton(JButton_AllRound button, ArrayList<JButton_AllRound> listAddedButton) {
+	public void actionTaoPopupChoButton(JButton_AllRound button, ArrayList<JButton_AllRound> listAddedButton) {
 		if (pnlPopup == null)
-			createPopup(button, listAddedButton);
+			actionTaoPopup(button, listAddedButton);
 		else
-			resetPopupPanel();
+			actionXoaPopup();
 
 	}
 
-	public void createPopup(JButton_AllRound button, ArrayList<JButton_AllRound> listAddedButton) {
+	public void actionTaoPopup(JButton_AllRound button, ArrayList<JButton_AllRound> listAddedButton) {
 		int listSize = listAddedButton.size();
 		int popUpHeight = 40 * listSize;
 		pnlPopup = new JPanel_AllRound();
@@ -68,10 +68,10 @@ public class GUI_MainFrame extends javax.swing.JFrame {
 			pnlPopup.add(thisButton);
 		int x = button.getLocation().x + button.getSize().width;
 		int y = button.getLocation().y + button.getSize().height - popUpHeight / 3;
-		showPopup(pnlPopup, x, y);
+		actionHienThiPopup(pnlPopup, x, y);
 	}
 
-	public void resetPopupPanel() {
+	public void actionXoaPopup() {
 		lypMain.remove(pnlPopup);
 		lypMain.revalidate();
 		lypMain.repaint();
