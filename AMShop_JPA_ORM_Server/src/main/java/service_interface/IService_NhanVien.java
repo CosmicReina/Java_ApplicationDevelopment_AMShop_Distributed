@@ -25,4 +25,6 @@ public interface IService_NhanVien extends Remote {
 	
 	public NhanVien getNhanVienCuoi(String prefix) throws RemoteException;
 	
+	public NhanVien getNhanVienTheoThongTinDangNhap(String maNhanVien, String matKhau) throws RemoteException;
+	
 }

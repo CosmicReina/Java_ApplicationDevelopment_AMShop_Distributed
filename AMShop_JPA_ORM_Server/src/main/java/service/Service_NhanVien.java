@@ -57,4 +57,10 @@ public class Service_NhanVien extends UnicastRemoteObject implements IService_Nh
 		return DAO_NhanVien.getNhanVienCuoi(prefix);
 	}
 
+	@Override
+	public NhanVien getNhanVienTheoThongTinDangNhap(String maNhanVien, String matKhau)
+			throws RemoteException {
+		return DAO_NhanVien.getNhanVienTheoThongTinDangNhap(maNhanVien, matKhau);
+	}
+
 }

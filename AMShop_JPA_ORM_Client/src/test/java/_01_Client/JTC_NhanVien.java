@@ -89,5 +89,16 @@ class JTC_NhanVien {
 		
 		System.out.println("\n");
 	}
+	
+	@Test
+	void getNhanVienTheoThongTinDangNhap() throws RemoteException {
+		System.err.println("getNhanVienTheoThongTinDangNhap()");
+		
+		IService_NhanVien service_NhanVien = ServiceInitiator.getInstance().getServiceNhanVien();
+		System.out
+				.println(service_NhanVien.getNhanVienTheoThongTinDangNhap("NV12312312", "123"));
+
+		System.out.println("\n");
+	}
 
 }
