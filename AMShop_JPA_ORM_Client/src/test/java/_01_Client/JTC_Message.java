@@ -1,5 +1,7 @@
 package _01_Client;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import org.junit.jupiter.api.AfterAll;
@@ -31,15 +33,9 @@ class JTC_Message {
 	}
 
 	@Test
-	void sendHello() throws RemoteException {
+	void sendHello() throws MalformedURLException, RemoteException, NotBoundException {
 		IService_Message service_Message = ServiceInitiator.getInstance().getServiceMessage();
 		System.out.println(service_Message.sendHello());
 	}
 	
-	@Test
-	void getAllQuanAo() throws RemoteException {
-		IService_QuanAo service_QuanAo = ServiceInitiator.getInstance().getServiceQuanAo();
-		service_QuanAo.getAllQuanAo().forEach(System.out::println);
-	}
-
 }
