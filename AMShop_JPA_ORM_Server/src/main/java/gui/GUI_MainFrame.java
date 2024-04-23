@@ -11,7 +11,7 @@ public class GUI_MainFrame extends javax.swing.JFrame {
 
 	private static final long serialVersionUID = 1924448773125630034L;
 
-	private static GUI_MainFrame instance = new GUI_MainFrame();
+	private static GUI_MainFrame instance;
 
 	public static GUI_MainFrame getInstance() {
 		return instance;

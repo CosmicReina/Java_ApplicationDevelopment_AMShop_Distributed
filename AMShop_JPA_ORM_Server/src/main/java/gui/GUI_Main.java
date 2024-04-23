@@ -38,9 +38,7 @@ public class GUI_Main extends javax.swing.JPanel {
 	}
 
 	public void addButtonToList() {
-		resetListButton();
 		NhanVien nhanVien = Configuration_Client.getNhanVienHienTai();
-		System.out.println(nhanVien);
 		if (nhanVien.getChucVu().equals("Người Quản Lý")) {
 			listBtnNhanVien.add(btnLapHoaDon);
 			listBtnNhanVien.add(btnDanhSachDonDatHang);
@@ -87,15 +85,6 @@ public class GUI_Main extends javax.swing.JPanel {
 			btnLichLamViec.setVisible(false);
 			btnThongKe.setVisible(false);
 		}
-	}
-
-	private void resetListButton() {
-		listBtnNhanVien = new ArrayList<>();
-		listBtnKhachHang = new ArrayList<>();
-		listBtnHoaDon = new ArrayList<>();
-		listBtnQuanAo = new ArrayList<>();
-		listBtnLichLamViec = new ArrayList<>();
-		listBtnThongKe = new ArrayList<>();
 	}
 	
 	public void showPanel(JPanel panel) {
