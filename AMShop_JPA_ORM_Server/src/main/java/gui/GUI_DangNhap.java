@@ -1,7 +1,5 @@
 package gui;
 
-import java.rmi.RemoteException;
-
 import javax.swing.JOptionPane;
 
 import configuration.Configuration_Client;
@@ -28,7 +26,7 @@ public class GUI_DangNhap extends javax.swing.JFrame {
 		initComponents();
 	}
 
-	private void kiemTraDangNhap() {
+	private void actionDangNhap() {
 		try {
 			String tenDangNhap = txtTenDangNhap.getText();
 			String matKhau = new String(txtMatKhau.getPassword());
@@ -46,12 +44,16 @@ public class GUI_DangNhap extends javax.swing.JFrame {
 			Configuration_Client.setNhanVienHienTai(nhanVien);
 			GUI_MainFrame.getInstance().setVisible(true);
 			this.dispose();
-		} catch (RemoteException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Lỗi kết nối đến máy chủ.");
 		}
 	}
+	
+	private void actionThoat() {
+		System.exit(0);
+	}
 
-	private void moTraCuuChoKhachHang() {
+	private void actionTraCuu() {
 		// TODO: Mở giao diện tra cứu cho khách hàng
 	}
 
@@ -235,15 +237,15 @@ public class GUI_DangNhap extends javax.swing.JFrame {
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDangNhapActionPerformed
-		kiemTraDangNhap();
+		actionDangNhap();
 	}// GEN-LAST:event_btnDangNhapActionPerformed
 
 	private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnThoatActionPerformed
-		System.exit(0);
+		actionThoat();
 	}// GEN-LAST:event_btnThoatActionPerformed
 
 	private void btnTraCuuChoKhachHangActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnTraCuuChoKhachHangActionPerformed
-		moTraCuuChoKhachHang();
+		actionTraCuu();
 	}// GEN-LAST:event_btnTraCuuChoKhachHangActionPerformed
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables

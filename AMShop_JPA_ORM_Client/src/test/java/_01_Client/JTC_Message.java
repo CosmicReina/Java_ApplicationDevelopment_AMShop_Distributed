@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import configuration.ServiceInitiator;
 import service_interface.IService_Message;
-import service_interface.IService_QuanAo;
 
 class JTC_Message {
 
