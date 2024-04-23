@@ -2,8 +2,15 @@ package gui;
 
 
 import extended_component.JButton_AllRound;
+
+import java.awt.BorderLayout;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import configuration.Configuration_Client;
+import entity.NhanVien;
 
 public class GUI_Main extends javax.swing.JPanel {
     
@@ -38,22 +45,76 @@ public class GUI_Main extends javax.swing.JPanel {
     }
     
     private void addButtonToList(){
-        
+        NhanVien nhanVien = Configuration_Client.getNhanVienHienTai();
+        if(nhanVien.getChucVu().equals("Người Quản Lý")){
+            listBtnNhanVien.add(btnLapHoaDon);
+            listBtnNhanVien.add(btnDanhSachDonDatHang);
+            listBtnNhanVien.add(btnDanhSachNhanVien);
+            listBtnNhanVien.add(btnTimKiemNhanVien);
+            listBtnNhanVien.add(btnThemNhanVien);
+            listBtnNhanVien.add(btnCapNhatNhanVien);
+            listBtnNhanVien.add(btnThongTinNhanVien);
+
+            listBtnKhachHang.add(btnDanhSachKhachHang);
+            listBtnKhachHang.add(btnTimKiemKhachHang);
+            listBtnKhachHang.add(btnCapNhatKhachHang);
+            
+            listBtnHoaDon.add(btnDanhSachHoaDon);
+            listBtnHoaDon.add(btnTimKiemHoaDon);
+
+            listBtnQuanAo.add(btnDanhSachQuanAo);
+            listBtnQuanAo.add(btnTimKiemQuanAo);
+            listBtnQuanAo.add(btnThemQuanAo);
+            listBtnQuanAo.add(btnCapNhatQuanAo);
+
+            listBtnLichLamViec.add(btnDanhSachLichLamViec);
+            listBtnLichLamViec.add(btnTinhLuong);
+
+            listBtnThongKe.add(btnThongKeDoanhThu);
+            listBtnThongKe.add(btnThongKeKhachHang);
+            listBtnThongKe.add(btnThongKeQuanAoDaBan);
+            listBtnThongKe.add(btnThongKeQuanAoDaHet);
+        }
+        else{
+            listBtnNhanVien.add(btnLapHoaDon);
+            listBtnNhanVien.add(btnDanhSachDonDatHang);
+            listBtnNhanVien.add(btnThongTinNhanVien);
+            
+            listBtnKhachHang.add(btnDanhSachKhachHang);
+            listBtnKhachHang.add(btnTimKiemKhachHang);
+            listBtnKhachHang.add(btnCapNhatKhachHang);
+            
+            listBtnHoaDon.add(btnDanhSachHoaDon);
+            listBtnHoaDon.add(btnTimKiemHoaDon);
+            
+            listBtnQuanAo.add(btnDanhSachQuanAo);
+            listBtnQuanAo.add(btnTimKiemQuanAo);
+            
+            btnLichLamViec.setVisible(false);
+            btnThongKe.setVisible(false);
+        }
     }
     
     public void showPanel(JPanel panel){
-        
+    	pnlWork.removeAll();
+    	pnlWork.revalidate();
+    	pnlWork.repaint();
+    	pnlWork.setLayout(new BorderLayout());
+    	pnlWork.add(panel, BorderLayout.CENTER);
     }
     
-    public void tatHetChucNang(){
-        
+    public void tatChucNang(){
+        // TODO: Tắt chức năng dành cho khách hàng
     }
     
     private void dangXuat(){
-        
+    	int i = JOptionPane.showConfirmDialog(null, "Đăng Xuất Chương Trình?", "Đăng Xuất", JOptionPane.YES_NO_OPTION);
+        if(i == JOptionPane.YES_OPTION){
+            GUI_DangNhap.newInstance().setVisible(true);
+            GUI_MainFrame.getInstance().dispose();
+        }
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -553,7 +614,7 @@ public class GUI_Main extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
-        
+        dangXuat();
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void btnTrangChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrangChuActionPerformed
@@ -653,28 +714,23 @@ public class GUI_Main extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThongKeQuanAoDaHetActionPerformed
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
-        // TODO add your handling code here:
         
     }//GEN-LAST:event_btnTinhLuongActionPerformed
 
     private void btnDanhSachHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachHoaDonActionPerformed
-        // TODO add your handling code here:
         
     }//GEN-LAST:event_btnDanhSachHoaDonActionPerformed
 
     private void btnDanhSachKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachKhachHangActionPerformed
-        // TODO add your handling code here:
         
     }//GEN-LAST:event_btnDanhSachKhachHangActionPerformed
 
     private void btnDanhSachNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachNhanVienActionPerformed
-        // TODO add your handling code here:
         
     }//GEN-LAST:event_btnDanhSachNhanVienActionPerformed
 
     private void btnDanhSachQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachQuanAoActionPerformed
-        // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnDanhSachQuanAoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
