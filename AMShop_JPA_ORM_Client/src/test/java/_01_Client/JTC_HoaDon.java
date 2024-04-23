@@ -1,5 +1,7 @@
 package _01_Client;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDateTime;
 
@@ -31,7 +33,7 @@ class JTC_HoaDon {
 	}
 
 	@Test
-	void getAllHoaDon() throws RemoteException{
+	void getAllHoaDon() throws MalformedURLException, RemoteException, NotBoundException{
 		
 		System.err.println("getAllHoaDon()");
 		
@@ -42,7 +44,7 @@ class JTC_HoaDon {
 	}
 
 	@Test
-	void getAllHoaDonTrongKhoangNgay() throws RemoteException{
+	void getAllHoaDonTrongKhoangNgay() throws MalformedURLException, RemoteException, NotBoundException{
 		
 		System.err.println("getAllHoaDonTrongKhoangNgay()");
 		
@@ -53,7 +55,7 @@ class JTC_HoaDon {
 	}
 	
 	@Test
-	void getHoaDonTheoMaHoaDon() throws RemoteException{
+	void getHoaDonTheoMaHoaDon() throws MalformedURLException, RemoteException, NotBoundException{
 		
 		System.err.println("getHoaDonTheoMaHoaDon()");
 		
@@ -64,7 +66,7 @@ class JTC_HoaDon {
 	}
 	
 	@Test
-	void getHoaDonCuoi() throws RemoteException{
+	void getHoaDonCuoi() throws MalformedURLException, RemoteException, NotBoundException{
 		
 		System.err.println("getHoaDonCuoi()");
 		

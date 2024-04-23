@@ -1,5 +1,7 @@
 package _01_Client;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import org.junit.jupiter.api.AfterAll;
@@ -30,7 +32,7 @@ class JTC_LichLamViec {
 	}
 
 	@Test
-	void getAllLichLamViec() throws RemoteException {
+	void getAllLichLamViec() throws MalformedURLException, RemoteException, NotBoundException {
 		System.err.println("getAllLichLamViec()");
 		
 		IService_LichLamViec service_LichLamViec = ServiceInitiator.getInstance().getServiceLichLamViec();
@@ -40,7 +42,7 @@ class JTC_LichLamViec {
 	}
 	
 	@Test
-	void getLichLamViecTheoMaLichLamViec() throws RemoteException {
+	void getLichLamViecTheoMaLichLamViec() throws MalformedURLException, RemoteException, NotBoundException {
 		System.err.println("getLichLamViecTheoMaLichLamViec()");
 		
 		IService_LichLamViec service_LichLamViec = ServiceInitiator.getInstance().getServiceLichLamViec();
