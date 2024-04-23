@@ -21,7 +21,7 @@ import service_interface.IService_QuanAo;
 
 public class ServiceInitiator {
 
-	private static final String URL = Configuration.getURL();
+	private static final String URL = Configuration_Client.getURL();
 	private static ServiceInitiator instance = new ServiceInitiator();
 	private static IService_Message service_Message;
 	private static IService_CaLamViec service_CaLamViec;

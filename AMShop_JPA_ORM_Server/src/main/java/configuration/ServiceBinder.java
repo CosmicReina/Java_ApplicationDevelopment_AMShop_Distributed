@@ -23,7 +23,7 @@ import service.Service_QuanAo;
 
 public class ServiceBinder {
 
-	private static final String URL = Configuration.getURL();
+	private static final String URL = Configuration_Server.getURL();
 	private static ServiceBinder instance = new ServiceBinder();
 	private static Service_Message service_Message;
 	private static Service_CaLamViec service_CaLamViec;
@@ -64,7 +64,7 @@ public class ServiceBinder {
 
 			Context context = new InitialContext();
 
-			LocateRegistry.createRegistry(Configuration.getPORT());
+			LocateRegistry.createRegistry(Configuration_Server.getPORT());
 
 			context.bind(URL + "service_Message", service_Message);
 			context.bind(URL + "service_CaLamViec", service_CaLamViec);

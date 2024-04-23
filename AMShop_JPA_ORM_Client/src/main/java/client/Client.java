@@ -5,7 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import configuration.Configuration;
+import configuration.Configuration_Client;
 import service_interface.IService_Message;
 
 public class Client {
@@ -13,7 +13,7 @@ public class Client {
 	public static void main(String[] args) {
 		
 		try {
-			String URL = Configuration.getURL();
+			String URL = Configuration_Client.getURL();
 			
 			IService_Message serviceMessage = (IService_Message) Naming.lookup(URL + "serviceMessage");
 			

@@ -1,6 +1,6 @@
 package gui_initiate;
 
-import gui_old.GUI_DangNhap;
+import gui.GUI_DangNhap;
 
 public class GUI_Initiate {
 	
