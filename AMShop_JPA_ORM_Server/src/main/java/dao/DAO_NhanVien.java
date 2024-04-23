@@ -6,6 +6,7 @@ import java.util.List;
 import connection.ConnectionMSSQL;
 import entity.NhanVien;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 public class DAO_NhanVien {
 	
@@ -70,6 +71,22 @@ public class DAO_NhanVien {
 				.setParameter("prefix", prefix)
 				.getSingleResult();
 	}
-
+	
+	public static NhanVien getNhanVienTheoThongTinDangNhap(String maNhanVien, String matKhau) {
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			NhanVien nhanVien = entityManager
+					.createNamedQuery("NhanVien.getNhanVienTheoThongTinDangNhap", NhanVien.class)
+					.setParameter("maNhanVien", maNhanVien)
+					.setParameter("matKhau", matKhau)
+					.getSingleResult();
+			entityTransaction.commit();
+			return nhanVien;
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			return null;
+		}
+	}
 	
 }

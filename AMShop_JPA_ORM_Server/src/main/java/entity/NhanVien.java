@@ -30,7 +30,8 @@ import lombok.ToString;
 	@NamedQuery(name = "NhanVien.getNhanVienTheoSoDienThoai", query = "SELECT nv FROM NhanVien nv WHERE nv.soDienThoai =:soDienThoai"),
 	@NamedQuery(name = "NhanVien.getNhanVienTheoCanCuocCongDan", query = "SELECT nv FROM NhanVien nv WHERE nv.canCuocCongDan =:canCuocCongDan"),
 	@NamedQuery(name = "NhanVien.getDanhSachNhanVienChuaCoTrongNgayLamViec", query = "SELECT nv FROM NhanVien nv WHERE nv.maNhanVien NOT IN (SELECT ctpc.nhanVien.maNhanVien FROM ChiTietPhanCong ctpc JOIN LichLamViec llv on ctpc.lichLamViec.maLichLamViec = llv.maLichLamViec WHERE llv.ngayLamViec =:ngayLamViec) AND nv.ngayKetThucLam IS NULL"),
-	@NamedQuery(name = "NhanVien.getNhanVienCuoi", query = "SELECT nv FROM NhanVien nv WHERE nv.maNhanVien = (SELECT MAX(nv.maNhanVien) FROM NhanVien nv WHERE nv.maNhanVien LIKE :prefix ) ORDER BY nv.maNhanVien DESC")
+	@NamedQuery(name = "NhanVien.getNhanVienCuoi", query = "SELECT nv FROM NhanVien nv WHERE nv.maNhanVien = (SELECT MAX(nv.maNhanVien) FROM NhanVien nv WHERE nv.maNhanVien LIKE :prefix ) ORDER BY nv.maNhanVien DESC"),
+	@NamedQuery(name = "NhanVien.getNhanVienTheoThongTinDangNhap", query = "SELECT nv FROM NhanVien nv WHERE nv.maNhanVien =:maNhanVien AND nv.matKhau =:matKhau")
 })
 public class NhanVien implements Serializable {
 

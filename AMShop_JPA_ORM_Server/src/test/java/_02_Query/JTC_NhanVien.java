@@ -120,4 +120,22 @@ class JTC_NhanVien {
 		System.out.println("\n");
 	}
 	
+	@Test
+	@Order(7)
+	void getNhanVienTheoThongTinDangNhap() throws InterruptedException {
+		System.err.println("getNhanVienTheoThongTinDangNhap()");
+
+		System.err.println("query");
+		NhanVien nhanVienTTDN_1 = DAO_NhanVien.getNhanVienTheoThongTinDangNhap("NV12312312",
+				"123");
+		NhanVien nhanVienTTDN_2 = DAO_NhanVien.getNhanVienTheoThongTinDangNhap("NV12312312",
+				"123456");
+
+		System.err.println("result");
+		System.out.println("NV_1: " + nhanVienTTDN_1);
+		System.out.println("NV_2: " + nhanVienTTDN_2);
+
+		System.out.println("\n");
+	}
+	
 }
