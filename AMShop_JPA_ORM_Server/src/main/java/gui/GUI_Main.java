@@ -7,7 +7,9 @@ import javax.swing.JPanel;
 
 public class GUI_Main extends javax.swing.JPanel {
     
-    private static GUI_Main instance = new GUI_Main();
+	private static final long serialVersionUID = -7423841876363357104L;
+
+	private static GUI_Main instance = new GUI_Main();
     
     private ArrayList<JButton_AllRound> listBtnNhanVien = new ArrayList<>();
     private ArrayList<JButton_AllRound> listBtnKhachHang = new ArrayList<>();
