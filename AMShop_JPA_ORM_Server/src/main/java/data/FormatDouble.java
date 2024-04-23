@@ -5,7 +5,7 @@ import java.util.Locale;
 
 public class FormatDouble {
     
-    public static NumberFormat nbf = NumberFormat.getCurrencyInstance(new Locale("vi", "vn"));
+    public static NumberFormat nbf = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("vi-VN"));
     
     public static String toMoney(double number){
         String money = nbf.format(number);
