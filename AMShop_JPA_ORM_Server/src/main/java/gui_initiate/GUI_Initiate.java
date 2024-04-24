@@ -17,7 +17,7 @@ public class GUI_Initiate {
 //		gui_DangNhap.setVisible(true);
 		
 		Configuration_Client.setNhanVienHienTai(ServiceInitiator.getInstance().getServiceNhanVien().getNhanVienTheoMaNhanVien("NV12312312"));
-		GUI_MainFrame gui_MainFrame = GUI_MainFrame.getInstance();
+		GUI_MainFrame gui_MainFrame = GUI_MainFrame.newInstance();
 		gui_MainFrame.setVisible(true);
 	}
 	

@@ -1,9 +1,21 @@
 package gui;
 
 
+import entity.ChiTietHoaDon;
 import entity.HoaDon;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import configuration.ServiceInitiator;
+import data.FormatDouble;
+import data.FormatLocalDateTime;
 
 public class GUI_DanhSachHoaDon extends javax.swing.JPanel {
     
@@ -24,11 +36,39 @@ public class GUI_DanhSachHoaDon extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-    	
+    	try {
+			hienThiBang(ServiceInitiator.getInstance().getServiceHoaDon().getAllHoaDon());
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			JOptionPane.showMessageDialog(null, "Lỗi kết nối đến máy chủ.");
+		}
+        tblDanhSachHoaDon.fixTable(scrDanhSachHoaDon);
     }
 
-    private void hienThiBang(ArrayList<HoaDon> list){
-        
+    private void hienThiBang(List<HoaDon> list){
+    	DefaultTableModel model = (DefaultTableModel) tblDanhSachHoaDon.getModel();
+        model.getDataVector().removeAllElements();
+        tblDanhSachHoaDon.revalidate();
+        tblDanhSachHoaDon.repaint();
+        for(HoaDon thisHoaDon : list){
+            List<ChiTietHoaDon> listCTHD = new ArrayList<>();
+			try {
+				listCTHD = ServiceInitiator.getInstance().getServiceChiTietHoaDon().getAllChiTietHoaDonTheoMaHoaDon(thisHoaDon.getMaHoaDon());
+			} catch (RemoteException | MalformedURLException | NotBoundException e) {
+				JOptionPane.showMessageDialog(null, "Lỗi kết nối đến máy chủ.");
+			}
+            double tongTienThanhPhan = 0;
+            for(ChiTietHoaDon thisChiTietHoaDon : listCTHD){
+                tongTienThanhPhan += thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
+            }
+            model.addRow(new Object[]{
+                thisHoaDon.getMaHoaDon(),
+                thisHoaDon.getNhanVien().getHoTen(),
+                thisHoaDon.getKhachHang().getHoTen(),
+                thisHoaDon.getKhachHang().getSoDienThoai(),
+                FormatLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
+                FormatDouble.toMoney(tongTienThanhPhan)
+            });
+        }
     }
     
     private void xemChiTietHoaDon(){
