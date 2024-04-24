@@ -2,7 +2,9 @@ package gui;
 
 public class GUI_TrangChu extends javax.swing.JPanel {
     
-    private static GUI_TrangChu instance = new GUI_TrangChu();
+	private static final long serialVersionUID = -4976375294319308914L;
+	
+	private static GUI_TrangChu instance = new GUI_TrangChu();
 
     public static GUI_TrangChu getInstance() {
         return instance;
@@ -17,7 +19,6 @@ public class GUI_TrangChu extends javax.swing.JPanel {
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

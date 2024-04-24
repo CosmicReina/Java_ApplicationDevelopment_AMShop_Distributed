@@ -65,13 +65,10 @@ public class GUI_CapNhatQuanAo extends javax.swing.JPanel {
 	private void updateNhaSanXuat() {
 		try {
 			List<NhaSanXuat> listNhaSanXuat = ServiceInitiator.getInstance().getServiceNhaSanXuat().getAllNhaSanXuat();
-			List<String> listNhaSanXuatString = new ArrayList<>();
-			for (NhaSanXuat thisNhaSanXuat : listNhaSanXuat)
-				listNhaSanXuatString.add(thisNhaSanXuat.getTenNhaSanXuat());
 			cmbNhaSanXuat.removeAllItems();
 			cmbNhaSanXuat.addItem("Nhà Sản Xuất");
-			for (String thisNhaSanXuat : listNhaSanXuatString)
-				cmbNhaSanXuat.addItem(thisNhaSanXuat);
+			for (NhaSanXuat thisNhaSanXuat : listNhaSanXuat)
+				cmbNhaSanXuat.addItem(thisNhaSanXuat.toString());
 			cmbNhaSanXuat.addItem("-- Nhà Sản Xuất Mới --");
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			e.printStackTrace();
