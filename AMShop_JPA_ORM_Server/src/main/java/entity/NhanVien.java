@@ -74,4 +74,22 @@ public class NhanVien implements Serializable {
 	@Column(name = "MatKhau", columnDefinition = "nvarchar(32)", nullable = false)
 	private String matKhau;
 
+	public NhanVien(String maNhanVien, String hoTen, String soDienThoai, String diaChi, String chucVu,
+			String canCuocCongDan, String gioiTinh, LocalDate ngaySinh, LocalDate ngayBatDauLam,
+			LocalDate ngayKetThucLam, double luong, String matKhau) {
+		super();
+		this.maNhanVien = maNhanVien;
+		this.hoTen = hoTen;
+		this.soDienThoai = soDienThoai;
+		this.diaChi = diaChi;
+		this.chucVu = chucVu;
+		this.canCuocCongDan = canCuocCongDan;
+		this.gioiTinh = gioiTinh;
+		this.ngaySinh = ngaySinh;
+		this.ngayBatDauLam = ngayBatDauLam;
+		this.ngayKetThucLam = ngayKetThucLam;
+		this.luong = luong;
+		this.matKhau = matKhau;
+	}
+
 }
