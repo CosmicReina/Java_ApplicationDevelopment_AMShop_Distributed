@@ -3,11 +3,24 @@ package gui;
 
 import entity.NhanVien;
 
+import java.awt.HeadlessException;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import configuration.ServiceInitiator;
+import data.UtilityJTextField;
 
 public class GUI_TimKiemNhanVien extends javax.swing.JPanel {
     
-    private static GUI_TimKiemNhanVien instance = new GUI_TimKiemNhanVien();
+	private static final long serialVersionUID = -3697860528060378982L;
+	
+	private static GUI_TimKiemNhanVien instance = new GUI_TimKiemNhanVien();
 
     public static GUI_TimKiemNhanVien getInstance() {
         return instance;
@@ -24,22 +37,70 @@ public class GUI_TimKiemNhanVien extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        
+    	try {
+			updateTable(ServiceInitiator.getInstance().getServiceNhanVien().getAllNhanVien());
+			UtilityJTextField.addPlaceHolderStyle(txtMaNhanVien);
+			tblTable.fixTable(scrTable);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
     
-    private void updateTable(ArrayList<NhanVien> list){
-        
+    private void updateTable(List<NhanVien> list){
+    	DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
+        model.getDataVector().removeAllElements();
+        tblTable.revalidate();
+        tblTable.repaint();
+        for(NhanVien thisNhanVien : list){
+            model.addRow(new Object[]{
+                thisNhanVien.getMaNhanVien(),
+                thisNhanVien.getHoTen(),
+                thisNhanVien.getSoDienThoai(),
+                thisNhanVien.getCanCuocCongDan(),
+                thisNhanVien.getChucVu()
+            });
+        }
     }
     
     private void timKiemTheoMaNhanVien(){
-        
+    	try {
+			String maNhanVien = txtMaNhanVien.getText();
+			
+			List<NhanVien> list = ServiceInitiator.getInstance().getServiceNhanVien().getAllNhanVien();
+			List<NhanVien> listRemove = new ArrayList<>();
+			
+			if(!maNhanVien.equals("")){
+			    for(NhanVien thisNhanVien : list){
+			        if(!thisNhanVien.getMaNhanVien().equals(maNhanVien))
+			            listRemove.add(thisNhanVien);
+			    }
+			}
+			
+			list.removeAll(listRemove);
+			updateTable(list);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
 
     private void xemChiTietNhanVien(){
-        
+    	try {
+			int i = tblTable.getSelectedRow();
+			if(i < 0){
+			    JOptionPane.showMessageDialog(null, "Vui lòng chọn một Nhân Viên.");
+			    return;
+			}
+			String maNhanVien = tblTable.getValueAt(i, 0).toString();
+			NhanVien nhanVien = ServiceInitiator.getInstance().getServiceNhanVien().getNhanVienTheoMaNhanVien(maNhanVien);
+			
+			GUI_Main.getInstance().showPanel(GUI_ChiTietNhanVien.newInstance());
+			GUI_ChiTietNhanVien.getInstance().showChiTietNhanVien(nhanVien);
+			GUI_ChiTietNhanVien.getInstance().setPnlBefore(this);
+		} catch (HeadlessException | RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
     
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -150,23 +211,23 @@ public class GUI_TimKiemNhanVien extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        // TODO add your handling code here:
+    	timKiemTheoMaNhanVien();
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        // TODO add your handling code here:
+    	GUI_Main.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
-        // TODO add your handling code here:
+    	xemChiTietNhanVien();
     }//GEN-LAST:event_btnChiTietActionPerformed
 
     private void txtMaNhanVienFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaNhanVienFocusGained
-        // TODO add your handling code here:
+    	 UtilityJTextField.focusGained(txtMaNhanVien, "Mã Nhân Viên");
     }//GEN-LAST:event_txtMaNhanVienFocusGained
 
     private void txtMaNhanVienFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaNhanVienFocusLost
-        // TODO add your handling code here:
+    	UtilityJTextField.focusLost(txtMaNhanVien, "Mã Nhân Viên");
     }//GEN-LAST:event_txtMaNhanVienFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
