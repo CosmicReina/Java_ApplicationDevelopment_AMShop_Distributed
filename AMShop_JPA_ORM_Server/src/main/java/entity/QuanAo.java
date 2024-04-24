@@ -78,4 +78,23 @@ public class QuanAo implements Serializable {
 	@Column(name = "NgungNhap", columnDefinition = "bit", nullable = false)
 	private boolean ngungNhap;
 
+	public QuanAo(String maQuanAo, String tenQuanAo, double donGiaNhap, double donGiaBan, int soLuongTrongKho,
+			NhaSanXuat nhaSanXuat, String danhMuc, String gioiTinh, String mauSac, String kichThuoc, String chatLieu,
+			byte[] hinhAnh, boolean ngungNhap) {
+		super();
+		this.maQuanAo = maQuanAo;
+		this.tenQuanAo = tenQuanAo;
+		this.donGiaNhap = donGiaNhap;
+		this.donGiaBan = donGiaBan;
+		this.soLuongTrongKho = soLuongTrongKho;
+		this.nhaSanXuat = nhaSanXuat;
+		this.danhMuc = danhMuc;
+		this.gioiTinh = gioiTinh;
+		this.mauSac = mauSac;
+		this.kichThuoc = kichThuoc;
+		this.chatLieu = chatLieu;
+		this.hinhAnh = hinhAnh;
+		this.ngungNhap = ngungNhap;
+	}
+	
 }

@@ -8,7 +8,7 @@ import entity.NhaSanXuat;
 
 public interface IService_NhaSanXuat extends Remote{
 	
-	public void createNhaSanXuat(NhaSanXuat nhaSanXuat) throws RemoteException;
+	public boolean createNhaSanXuat(NhaSanXuat nhaSanXuat) throws RemoteException;
 
 	public List<NhaSanXuat> getAllNhaSanXuat() throws RemoteException;
 	

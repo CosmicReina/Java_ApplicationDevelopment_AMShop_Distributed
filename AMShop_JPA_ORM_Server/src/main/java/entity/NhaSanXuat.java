@@ -47,5 +47,9 @@ public class NhaSanXuat implements Serializable {
 	@ToString.Exclude
 	@OneToMany(mappedBy = "nhaSanXuat", fetch = FetchType.LAZY)
 	private List<QuanAo> listQuanAo;
+	
+	public NhaSanXuat(String tenNhaSanXuat) {
+		this.tenNhaSanXuat = tenNhaSanXuat;
+	}
 
 }
