@@ -14,35 +14,37 @@ public class DAO_ChiTietDonDatHang {
 	private DAO_ChiTietDonDatHang() {
 	}
 
-	public static void createChiTietDonDatHang(ChiTietDonDatHang chiTietDonDatHang) {
+	public static boolean createChiTietDonDatHang(ChiTietDonDatHang chiTietDonDatHang) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(chiTietDonDatHang);
 			entityManager.getTransaction().commit();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 
-	public static void deleteChiTietDonDatHang(ChiTietDonDatHang chiTietDonDatHang) {
+	public static boolean deleteChiTietDonDatHang(ChiTietDonDatHang chiTietDonDatHang) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.remove(chiTietDonDatHang);
 			entityManager.getTransaction().commit();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 
-	public static List<ChiTietDonDatHang> getAllChiTietDonDatHangTheoMaDonDatHang(
-			String maDonDatHang) {
+	public static List<ChiTietDonDatHang> getAllChiTietDonDatHangTheoMaDonDatHang(String maDonDatHang) {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		List<ChiTietDonDatHang> list = entityManager
-				.createNamedQuery("ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang",
-						ChiTietDonDatHang.class)
+				.createNamedQuery("ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang", ChiTietDonDatHang.class)
 				.setParameter("maDonDatHang", maDonDatHang)
 				.getResultList();
 		entityTransaction.commit();
