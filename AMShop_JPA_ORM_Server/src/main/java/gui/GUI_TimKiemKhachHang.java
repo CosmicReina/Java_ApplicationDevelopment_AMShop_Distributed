@@ -3,11 +3,23 @@ package gui;
 
 import entity.KhachHang;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import configuration.ServiceInitiator;
+import data.UtilityJTextField;
 
 public class GUI_TimKiemKhachHang extends javax.swing.JPanel {
     
-    private static GUI_TimKiemKhachHang instance = new GUI_TimKiemKhachHang();
+	private static final long serialVersionUID = 638559583448403109L;
+	
+	private static GUI_TimKiemKhachHang instance = new GUI_TimKiemKhachHang();
 
     public static GUI_TimKiemKhachHang getInstance() {
         return instance;
@@ -24,22 +36,65 @@ public class GUI_TimKiemKhachHang extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-
+    	try {
+			hienThiBang(ServiceInitiator.getInstance().getServiceKhachHang().getAllKhachHang());
+			UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
+			tblDanhSachKhachHang.fixTable(scrTable);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
     
-    private void hienThiBang(ArrayList<KhachHang> list){
-        
+    private void hienThiBang(List<KhachHang> list){
+    	DefaultTableModel model = (DefaultTableModel) tblDanhSachKhachHang.getModel();
+        model.getDataVector().removeAllElements();
+        tblDanhSachKhachHang.revalidate();
+        tblDanhSachKhachHang.repaint();
+        for(KhachHang thisKhachHang : list){
+            model.addRow(new Object[]{
+                thisKhachHang.getMaKhachHang(),
+                thisKhachHang.getHoTen(),
+                thisKhachHang.getSoDienThoai(),
+                thisKhachHang.getDiaChi(),
+                thisKhachHang.getNhomKhachHang()
+            });
+        }
     }
     
     private void timKiemTheoSoDienThoai(){
-        
+    	try {
+			String soDienThoai = txtSoDienThoai.getText();
+			
+			List<KhachHang> list = ServiceInitiator.getInstance().getServiceKhachHang().getAllKhachHang();
+			List<KhachHang> listRemove = new ArrayList<>();
+			
+			if(!soDienThoai.equals("")){
+			    for(KhachHang thisKhachHang : list){
+			        if(!thisKhachHang.getSoDienThoai().equals(soDienThoai))
+			            listRemove.add(thisKhachHang);
+			    }
+			}
+			
+			list.removeAll(listRemove);
+			hienThiBang(list);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
 
     private void xemChiTietKhachHang(){
+    	int i = tblDanhSachKhachHang.getSelectedRow();
+        if(i < 0){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Khách Hàng.");
+            return;
+        }
+        String maKhachHang = tblDanhSachKhachHang.getValueAt(i, 0).toString();
         
+        GUI_Main.getInstance().showPanel(GUI_ChiTietKhachHang.newInstance());
+        GUI_ChiTietKhachHang.getInstance().showThongTinKhachHang(maKhachHang);
+        GUI_ChiTietKhachHang.getInstance().setPnlBefore(this);
     }
     
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -155,23 +210,23 @@ public class GUI_TimKiemKhachHang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSoDienThoaiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusGained
-        // TODO add your handling code here:
+    	UtilityJTextField.focusGained(txtSoDienThoai, "Số Điện Thoại");
     }//GEN-LAST:event_txtSoDienThoaiFocusGained
 
     private void txtSoDienThoaiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusLost
-        // TODO add your handling code here:
+    	UtilityJTextField.focusLost(txtSoDienThoai, "Số Điện Thoại");
     }//GEN-LAST:event_txtSoDienThoaiFocusLost
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        // TODO add your handling code here:
+    	timKiemTheoSoDienThoai();
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        // TODO add your handling code here:
+    	GUI_Main.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
-        // TODO add your handling code here:
+    	xemChiTietKhachHang();
     }//GEN-LAST:event_btnChiTietActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

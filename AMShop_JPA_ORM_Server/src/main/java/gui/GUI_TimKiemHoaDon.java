@@ -1,13 +1,28 @@
 package gui;
 
 
+import entity.ChiTietHoaDon;
 import entity.HoaDon;
 
+import java.awt.HeadlessException;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import configuration.ServiceInitiator;
+import data.FormatDouble;
+import data.FormatLocalDateTime;
 
 public class GUI_TimKiemHoaDon extends javax.swing.JPanel {
     
-    private static GUI_TimKiemHoaDon instance = new GUI_TimKiemHoaDon();
+	private static final long serialVersionUID = -8502574508458921683L;
+	
+	private static GUI_TimKiemHoaDon instance = new GUI_TimKiemHoaDon();
 
     public static GUI_TimKiemHoaDon getInstance() {
         return instance;
@@ -24,22 +39,90 @@ public class GUI_TimKiemHoaDon extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        
+    	try {
+			hienThiBang(ServiceInitiator.getInstance().getServiceHoaDon().getAllHoaDon());
+			tblDanhSachHoaDon.fixTable(scrDanhSachHoaDon);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
 
-    private void hienThiBang(ArrayList<HoaDon> list){
-        
+    private void hienThiBang(List<HoaDon> list){
+    	try {
+			DefaultTableModel model = (DefaultTableModel) tblDanhSachHoaDon.getModel();
+			model.getDataVector().removeAllElements();
+			tblDanhSachHoaDon.revalidate();
+			tblDanhSachHoaDon.repaint();
+			for(HoaDon thisHoaDon : list){
+			    List<ChiTietHoaDon> listCTHD = ServiceInitiator.getInstance().getServiceChiTietHoaDon().getAllChiTietHoaDonTheoMaHoaDon(thisHoaDon.getMaHoaDon());
+			    double tongTienThanhPhan = 0;
+			    for(ChiTietHoaDon thisChiTietHoaDon : listCTHD){
+			        tongTienThanhPhan += thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
+			    }
+			    model.addRow(new Object[]{
+			        thisHoaDon.getMaHoaDon(),
+			        thisHoaDon.getNhanVien().getHoTen(),
+			        thisHoaDon.getKhachHang().getHoTen(),
+			        thisHoaDon.getKhachHang().getSoDienThoai(),
+			        FormatLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
+			        FormatDouble.toMoney(tongTienThanhPhan)
+			    });
+			}
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
 
     private void timKiemHoaDon(){
-        
+    	try {
+			String maHoaDon = txtMaHoaDon.getText();
+			String soDienThoai = txtSoDienThoai.getText();
+			
+			if(maHoaDon.equals("") && soDienThoai.equals("")){
+			    JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin tìm kiếm.");
+			}
+			
+			List<HoaDon> list = ServiceInitiator.getInstance().getServiceHoaDon().getAllHoaDon();
+			List<HoaDon> listRemove = new ArrayList<>();
+			
+			if(!maHoaDon.equals("")){
+			    for(int i = 0; i < list.size(); i++){
+			        HoaDon thisHoaDon = list.get(i);
+			        if(!thisHoaDon.getMaHoaDon().equals(maHoaDon))
+			            listRemove.add(thisHoaDon);
+			    }
+			    list.removeAll(listRemove);
+			    hienThiBang(list);
+			    return;
+			}
+			
+			if(!soDienThoai.equals("")){
+			    for(int i = 0; i < list.size(); i++){
+			        HoaDon thisHoaDon = list.get(i);
+			        if(!thisHoaDon.getKhachHang().getSoDienThoai().equals(soDienThoai))
+			            listRemove.add(thisHoaDon);
+			    }
+			    list.removeAll(listRemove);
+			    hienThiBang(list);
+			}
+		} catch (HeadlessException | RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
     
     private void xemChiTietHoaDon(){
+    	int i = tblDanhSachHoaDon.getSelectedRow();
+        if(i < 0){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Hóa Đơn");
+            return;
+        }
+        String maHoaDon = tblDanhSachHoaDon.getValueAt(i, 0).toString();
         
+        GUI_Main.getInstance().showPanel(GUI_ChiTietHoaDon.newInstance());
+        GUI_ChiTietHoaDon.getInstance().showThongTinHoaDon(maHoaDon);
+        GUI_ChiTietHoaDon.getInstance().setPnlBefore(this);
     }
     
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -162,15 +245,15 @@ public class GUI_TimKiemHoaDon extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        // TODO add your handling code here:
+    	timKiemHoaDon();
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        // TODO add your handling code here:
+    	GUI_Main.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
-        // TODO add your handling code here:
+    	xemChiTietHoaDon();
     }//GEN-LAST:event_btnXemChiTietActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
