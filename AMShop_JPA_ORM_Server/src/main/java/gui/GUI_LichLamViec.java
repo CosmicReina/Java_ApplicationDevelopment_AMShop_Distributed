@@ -1,17 +1,10 @@
 package gui;
 
 
-import data.FormatLocalDate;
-import data.FormatLocalTime;
+import java.util.ArrayList;
+
 import entity.LichLamViec;
 import entity.NhanVien;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
-import javax.swing.table.DefaultTableModel;
 
 public class GUI_LichLamViec extends javax.swing.JPanel {
     

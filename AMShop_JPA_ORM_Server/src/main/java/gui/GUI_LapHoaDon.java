@@ -1,19 +1,10 @@
 package gui;
 
 
-import data.FormatDouble;
-import data.UtilityJTextField;
+import java.util.ArrayList;
+
 import entity.ChiTietHoaDon;
 import entity.QuanAo;
-
-import java.awt.Color;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
 
 public class GUI_LapHoaDon extends javax.swing.JPanel {
     

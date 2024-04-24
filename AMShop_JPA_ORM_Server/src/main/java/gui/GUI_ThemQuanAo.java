@@ -1,17 +1,11 @@
 package gui;
 
 
-import data.FormatDouble;
-import data.UtilityImageIcon;
-import entity.QuanAo;
-
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.File;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
+import entity.QuanAo;
 
 public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
     

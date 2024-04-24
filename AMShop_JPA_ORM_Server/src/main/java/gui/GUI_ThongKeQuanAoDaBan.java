@@ -1,13 +1,7 @@
 package gui;
 
 
-import data.FormatDouble;
-import data.FormatLocalDate;
-import java.io.IOException;
 import java.time.LocalDate;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import java.sql.*;
 
 public class GUI_ThongKeQuanAoDaBan extends javax.swing.JPanel {
     
