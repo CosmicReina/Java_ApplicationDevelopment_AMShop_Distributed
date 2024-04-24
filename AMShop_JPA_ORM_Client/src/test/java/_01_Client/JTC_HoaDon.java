@@ -3,7 +3,7 @@ package _01_Client;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
@@ -61,7 +61,7 @@ class JTC_HoaDon {
 		System.err.println("getAllHoaDonTrongKhoangNgay()");
 		
 		IService_HoaDon service_HoaDon = ServiceInitiator.getInstance().getServiceHoaDon();
-		service_HoaDon.getAllHoaDonTrongKhoangNgay(LocalDateTime.of(2023, 12, 01, 0, 0), LocalDateTime.of(2023, 12, 30, 0, 0)).forEach(System.out::println);
+		service_HoaDon.getAllHoaDonTrongKhoangNgay(LocalDate.of(2023, 12, 31), LocalDate.of(2023, 12, 31));
 		
 		System.out.println("\n");
 	}

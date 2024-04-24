@@ -1,6 +1,6 @@
 package dao;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import connection.ConnectionMSSQL;
@@ -54,7 +54,7 @@ public class DAO_HoaDon {
 				.getResultList();
 	}
 	
-	public static List<HoaDon> getAllHoaDonTrongKhoangNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc){
+	public static List<HoaDon> getAllHoaDonTrongKhoangNgay(LocalDate ngayBatDau, LocalDate ngayKetThuc){
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		List<HoaDon> list = entityManager.createNamedQuery("HoaDon.getAllHoaDonTrongKhoangNgay", HoaDon.class)
