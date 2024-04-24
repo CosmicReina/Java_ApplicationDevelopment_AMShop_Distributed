@@ -17,13 +17,13 @@ public class Service_QuanAo extends UnicastRemoteObject implements IService_Quan
 	}
 	
 	@Override
-	public void createQuanAo(QuanAo quanAo) throws RemoteException {
-		DAO_QuanAo.createQuanAo(quanAo);
+	public boolean createQuanAo(QuanAo quanAo) throws RemoteException {
+		return DAO_QuanAo.createQuanAo(quanAo);
 	}
 
 	@Override
-	public void updateQuanAo(QuanAo quanAo) throws RemoteException {
-		DAO_QuanAo.updateQuanAo(quanAo);
+	public boolean updateQuanAo(QuanAo quanAo) throws RemoteException {
+		return DAO_QuanAo.updateQuanAo(quanAo);
 	}
 
 	@Override

@@ -14,25 +14,29 @@ public class DAO_QuanAo {
 	private DAO_QuanAo() {
 	}
 	
-	public static void createQuanAo(QuanAo quanAo) {
+	public static boolean createQuanAo(QuanAo quanAo) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(quanAo);
 			entityManager.getTransaction().commit();
+			return true;
 		}catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	
-	public static void updateQuanAo(QuanAo quanAo) {
+	public static boolean updateQuanAo(QuanAo quanAo) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.merge(quanAo);
 			entityManager.getTransaction().commit();
+			return true;
 		}catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	

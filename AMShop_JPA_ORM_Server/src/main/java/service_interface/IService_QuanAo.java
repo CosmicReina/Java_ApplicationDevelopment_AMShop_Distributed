@@ -8,9 +8,9 @@ import entity.QuanAo;
 
 public interface IService_QuanAo extends Remote{
 	
-	public void createQuanAo(QuanAo quanAo) throws RemoteException;
+	public boolean createQuanAo(QuanAo quanAo) throws RemoteException;
 	
-	public void updateQuanAo(QuanAo quanAo) throws RemoteException;
+	public boolean updateQuanAo(QuanAo quanAo) throws RemoteException;
 
 	public List<QuanAo> getAllQuanAo() throws RemoteException;
 	
