@@ -14,7 +14,9 @@ import javax.swing.plaf.basic.BasicTextFieldUI;
 
 public class JTextField_AllRound extends JTextField {
 
-    public int getRound() {
+	private static final long serialVersionUID = -3222404280423007777L;
+
+	public int getRound() {
         return round;
     }
 

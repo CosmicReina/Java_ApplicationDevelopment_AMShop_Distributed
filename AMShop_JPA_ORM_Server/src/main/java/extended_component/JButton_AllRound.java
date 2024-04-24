@@ -10,7 +10,9 @@ import javax.swing.JButton;
 
 public class JButton_AllRound extends JButton {
     
-    private boolean entered;
+	private static final long serialVersionUID = -7830242454342723806L;
+	
+	private boolean entered;
     private Color colorBackground;
     private Color colorBorder;
     private Color colorClick;

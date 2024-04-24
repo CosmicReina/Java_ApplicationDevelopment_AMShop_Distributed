@@ -6,7 +6,9 @@ import javax.swing.JScrollBar;
 
 public class JScrollBar_Custom extends JScrollBar {
 
-    public JScrollBar_Custom() {
+	private static final long serialVersionUID = 906638056676625528L;
+
+	public JScrollBar_Custom() {
         setUI(new BasicScrollBarUI_Modern());
         setPreferredSize(new Dimension(8, 8));
         setForeground(new Color(48, 144, 216));

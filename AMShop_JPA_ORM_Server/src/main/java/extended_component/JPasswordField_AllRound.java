@@ -14,7 +14,9 @@ import javax.swing.plaf.basic.BasicPasswordFieldUI;
 
 public class JPasswordField_AllRound extends JPasswordField {
 
-    public int getRound() {
+	private static final long serialVersionUID = 810052423659330064L;
+
+	public int getRound() {
         return round;
     }
 
