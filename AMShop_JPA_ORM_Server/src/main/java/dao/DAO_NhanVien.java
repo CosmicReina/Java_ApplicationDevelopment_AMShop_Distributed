@@ -15,25 +15,29 @@ public class DAO_NhanVien {
 	private DAO_NhanVien() {
 	}
 	
-	public static void createNhanVien(NhanVien nhanVien) {
+	public static boolean createNhanVien(NhanVien nhanVien) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(nhanVien);
 			entityManager.getTransaction().commit();
+			return true;
 		}catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	
-	public static void updateNhanVien(NhanVien nhanVien) {
+	public static boolean updateNhanVien(NhanVien nhanVien) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.merge(nhanVien);
 			entityManager.getTransaction().commit();
+			return true;
 		}catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	

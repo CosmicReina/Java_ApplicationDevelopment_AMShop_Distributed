@@ -9,9 +9,9 @@ import entity.NhanVien;
 
 public interface IService_NhanVien extends Remote {
 	
-	public void createNhanVien(NhanVien nhanVien) throws RemoteException;
+	public boolean createNhanVien(NhanVien nhanVien) throws RemoteException;
 	
-	public void updateNhanVien(NhanVien nhanVien) throws RemoteException;
+	public boolean updateNhanVien(NhanVien nhanVien) throws RemoteException;
 
 	public List<NhanVien> getAllNhanVien() throws RemoteException;
 	

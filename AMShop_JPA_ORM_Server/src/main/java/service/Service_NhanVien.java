@@ -18,13 +18,13 @@ public class Service_NhanVien extends UnicastRemoteObject implements IService_Nh
 	}
 	
 	@Override
-	public void createNhanVien(NhanVien nhanVien) throws RemoteException {
-		DAO_NhanVien.createNhanVien(nhanVien);
+	public boolean createNhanVien(NhanVien nhanVien) throws RemoteException {
+		return DAO_NhanVien.createNhanVien(nhanVien);
 	}
 
 	@Override
-	public void updateNhanVien(NhanVien nhanVien) throws RemoteException {
-		DAO_NhanVien.updateNhanVien(nhanVien);
+	public boolean updateNhanVien(NhanVien nhanVien) throws RemoteException {
+		return DAO_NhanVien.updateNhanVien(nhanVien);
 	}
 
 	@Override

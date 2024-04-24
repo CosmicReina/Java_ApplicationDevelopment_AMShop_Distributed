@@ -13,25 +13,29 @@ public class DAO_LichLamViec {
 	private DAO_LichLamViec() {
 	}
 	
-	public static void createLichLamViec(LichLamViec lichLamViec) {
+	public static boolean createLichLamViec(LichLamViec lichLamViec) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(lichLamViec);
 			entityManager.getTransaction().commit();
+			return true;
 		}catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	
-	public static void updateLichLamViec(LichLamViec lichLamViec) {
+	public static boolean updateLichLamViec(LichLamViec lichLamViec) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.merge(lichLamViec);
 			entityManager.getTransaction().commit();
+			return true;
 		}catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	

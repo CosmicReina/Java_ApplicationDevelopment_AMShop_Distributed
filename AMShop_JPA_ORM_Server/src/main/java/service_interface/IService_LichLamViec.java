@@ -8,9 +8,9 @@ import entity.LichLamViec;
 
 public interface IService_LichLamViec extends Remote {
 	
-	public void createLichLamViec(LichLamViec lichLamViec) throws RemoteException;
+	public boolean createLichLamViec(LichLamViec lichLamViec) throws RemoteException;
 	
-	public void updateLichLamViec(LichLamViec lichLamViec) throws RemoteException;
+	public boolean updateLichLamViec(LichLamViec lichLamViec) throws RemoteException;
 
 	public List<LichLamViec> getAllLichLamViec() throws RemoteException;
 	
