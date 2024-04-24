@@ -13,14 +13,16 @@ public class DAO_KhachHang {
 	private DAO_KhachHang() {
 	}
 	
-	public static void createKhachHang(KhachHang khachHang) {
+	public static boolean createKhachHang(KhachHang khachHang) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(khachHang);
 			entityManager.getTransaction().commit();
-		}catch (Exception e) {
+			return true;
+		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	

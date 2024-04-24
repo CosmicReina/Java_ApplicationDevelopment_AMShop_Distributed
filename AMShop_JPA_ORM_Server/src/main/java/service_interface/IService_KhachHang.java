@@ -8,7 +8,7 @@ import entity.KhachHang;
 
 public interface IService_KhachHang extends Remote{
 	
-	public void createKhachHang(KhachHang khachHang) throws RemoteException;
+	public boolean createKhachHang(KhachHang khachHang) throws RemoteException;
 	
 	public boolean updateKhachHang(KhachHang khachHang) throws RemoteException;
 
