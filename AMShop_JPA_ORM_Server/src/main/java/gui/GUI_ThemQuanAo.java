@@ -1,15 +1,31 @@
 package gui;
 
 
+import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.ArrayList;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.List;
 
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import configuration.ServiceInitiator;
+import data.FormatDouble;
+import data.KhoiTaoMa;
+import data.UtilityImageIcon;
+import entity.NhaSanXuat;
 import entity.QuanAo;
+import jnafilechooser.api.JnaFileChooser;
 
-public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
+public class GUI_ThemQuanAo extends javax.swing.JPanel {
     
-    private static GUI_ThemQuanAo instance = new GUI_ThemQuanAo();
+	private static final long serialVersionUID = 7483009365286552411L;
+
+	private static GUI_ThemQuanAo instance = new GUI_ThemQuanAo();
     
     private String imagePath = "";
 
@@ -29,58 +45,257 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
     }
     
     private void initExtra(){
-        
+    	try {
+			updateTable(ServiceInitiator.getInstance().getServiceQuanAo().getAllQuanAo());
+			
+			txtMaQuanAo.setText(KhoiTaoMa.generateMaQuanAo());
+			txtMaQuanAo.setEditable(false);
+			
+			updateNhaSanXuat();
+			updateDanhMuc();
+			updateChatLieu();
+			updateGioiTinh();
+			updateMauSac();
+			updateKichThuoc();
+			
+			tblTable.fixTable(scrTable);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
     
-    private void updateNhaSanXuat(){
-        
-    }
-    
-    private void updateDanhMuc(){
-        
-    }
-    
-    private void updateChatLieu(){
-        
-    }
-    
-    private void updateGioiTinh(){
-        
-    }
-    
-    private void updateMauSac(){
-         
-    }
-    
-    private void updateKichThuoc(){
-        
-    }
-    
-    private void updateTable(ArrayList<QuanAo> list){
-        
-    }
+    private void updateNhaSanXuat() {
+		try {
+			List<NhaSanXuat> listNhaSanXuat = ServiceInitiator.getInstance().getServiceNhaSanXuat().getAllNhaSanXuat();
+			cmbNhaSanXuat.removeAllItems();
+			cmbNhaSanXuat.addItem("Nhà Sản Xuất");
+			for (NhaSanXuat thisNhaSanXuat : listNhaSanXuat)
+				cmbNhaSanXuat.addItem(thisNhaSanXuat.toString());
+			cmbNhaSanXuat.addItem("-- Nhà Sản Xuất Mới --");
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void updateDanhMuc() {
+		cmbDanhMuc.removeAllItems();
+		cmbDanhMuc.addItem("Danh Mục");
+		cmbDanhMuc.addItem("Áo Khoác");
+		cmbDanhMuc.addItem("Áo sơ mi");
+		cmbDanhMuc.addItem("Áo Thun");
+		cmbDanhMuc.addItem("Quần");
+		cmbDanhMuc.addItem("Vải Chiffon");
+		cmbDanhMuc.addItem("Vải Cotton");
+		cmbDanhMuc.addItem("Vải Kate");
+		cmbDanhMuc.addItem("Vải Lụa");
+		cmbDanhMuc.addItem("Vải nỉ");
+		cmbDanhMuc.addItem("Váy");
+	}
+
+	private void updateChatLieu() {
+		cmbChatLieu.removeAllItems();
+		cmbChatLieu.addItem("Chất Liệu");
+		cmbChatLieu.addItem("Gấm");
+		cmbChatLieu.addItem("Thun");
+		cmbChatLieu.addItem("Vải Chiffon");
+		cmbChatLieu.addItem("Vải Cotton");
+		cmbChatLieu.addItem("Vải Jean");
+		cmbChatLieu.addItem("Vải Kaki");
+		cmbChatLieu.addItem("Vải Kate");
+		cmbChatLieu.addItem("Vải Lụa");
+		cmbChatLieu.addItem("Vải Nỉ");
+		cmbChatLieu.addItem("Vải thường");
+		cmbChatLieu.addItem("Vải trơn ");
+	}
+
+	private void updateGioiTinh() {
+		cmbGioiTinh.removeAllItems();
+		cmbGioiTinh.addItem("Giới Tính");
+		cmbGioiTinh.addItem("Chung");
+		cmbGioiTinh.addItem("Nam");
+		cmbGioiTinh.addItem("Nữ");
+	}
+
+	private void updateMauSac() {
+		cmbMauSac.removeAllItems();
+		cmbMauSac.addItem("Màu Sắc");
+		cmbMauSac.addItem("Cam");
+		cmbMauSac.addItem("Đen");
+		cmbMauSac.addItem("Đỏ");
+		cmbMauSac.addItem("Khác");
+		cmbMauSac.addItem("Lam");
+		cmbMauSac.addItem("Lục");
+		cmbMauSac.addItem("Tím");
+		cmbMauSac.addItem("Trắng");
+		cmbMauSac.addItem("Vàng");
+	}
+
+	private void updateKichThuoc() {
+		cmbKichThuoc.removeAllItems();
+		cmbKichThuoc.addItem("Kích Thước");
+		cmbKichThuoc.addItem("L");
+		cmbKichThuoc.addItem("M");
+		cmbKichThuoc.addItem("S");
+		cmbKichThuoc.addItem("XL");
+		cmbKichThuoc.addItem("XS");
+		cmbKichThuoc.addItem("XXL");
+		cmbKichThuoc.addItem("XXXL");
+	}
+
+	private void updateTable(List<QuanAo> list) {
+		DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
+		model.getDataVector().removeAllElements();
+		tblTable.revalidate();
+		tblTable.repaint();
+		for (QuanAo thisQuanAo : list) {
+			model.addRow(new Object[]{thisQuanAo.getMaQuanAo(), thisQuanAo.getTenQuanAo(),
+					FormatDouble.toMoney(thisQuanAo.getDonGiaNhap()), FormatDouble.toMoney(thisQuanAo.getDonGiaBan()),
+					thisQuanAo.getSoLuongTrongKho(), thisQuanAo.getNhaSanXuat(), thisQuanAo.getDanhMuc(),
+					thisQuanAo.getGioiTinh(), thisQuanAo.getMauSac(), thisQuanAo.getKichThuoc(),
+					thisQuanAo.getChatLieu()});
+		}
+	}
     
     private void themQuanAo(){
-        
-    }
-    
-    private void themNhaSanXuat(){
-        
-    }
-    
-    private void themDanhMuc(){
-        
-    }
-    
-    private void themChatLieu(){
-        
+    	try {
+			String error = "";
+			
+			String maQuanAo = txtMaQuanAo.getText();
+			String tenQuanAo = txtTenQuanAo.getText();
+			String donGiaNhapString = txtDonGiaNhap.getText();
+			String donGiaBanString = txtDonGiaBan.getText();
+			String soLuongString = txtSoLuong.getText();
+			String nhaSanXuat = cmbNhaSanXuat.getSelectedItem().toString();
+			String danhMuc = cmbDanhMuc.getSelectedItem().toString();
+			String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+			String mauSac = cmbMauSac.getSelectedItem().toString();
+			String kichThuoc = cmbKichThuoc.getSelectedItem().toString();
+			String chatLieu = cmbChatLieu.getSelectedItem().toString();
+			
+			double donGiaNhap = 0;
+			double donGiaBan = 0;
+			int soLuong = 0;
+			ImageIcon hinhAnh = UtilityImageIcon.fromStringPath(imagePath, 196, 270);
+			byte[] hinhAnhByte = UtilityImageIcon.toBytes(hinhAnh);
+			
+			if(tenQuanAo.equals(""))
+			    error += "\n- Vui lòng nhập Tên Quần Áo.";
+			
+			try{
+			    donGiaNhap = Double.parseDouble(donGiaNhapString);
+			    if(donGiaNhap < 0)
+			        error += "\n- Đơn Giá Nhập phải lớn hơn 0.";
+			}
+			catch(NumberFormatException e){
+			    error += "\n- Vui lòng nhập Đơn Giá Nhập hợp lệ.";
+			}
+			
+			try{
+			    donGiaBan = Double.parseDouble(donGiaBanString);
+			    if(donGiaBan < 0)
+			        error += "\n- Đơn Giá Bán phải lớn hơn 0.";
+			    else
+			        if(donGiaBan < donGiaNhap)
+			            error += "\n- Đơn Giá Bán phải lớn hơn Đơn Giá Nhập.";
+			}
+			catch(NumberFormatException e){
+			    error += "\n- Vui lòng nhập Đơn Giá Bán hợp lệ.";
+			}
+			
+			try{
+			    soLuong = Integer.parseInt(soLuongString);
+			    if(soLuong < 0)
+			        error += "\n- Số Lượng phải lớn hơn 0.";
+			}
+			catch(NumberFormatException e){
+			    error += "\n- Vui lòng nhập Số Lượng hợp lệ.";
+			}
+			
+			if(nhaSanXuat.equals("Nhà Sản Xuất"))
+			    error += "\n -Vui lòng chọn Nhà Sản Xuất.";
+			
+			if(danhMuc.equals("Danh Mục"))
+			    error += "\n -Vui lòng chọn Danh Mục.";
+			
+			if(chatLieu.equals("Chất Liệu"))
+			    error += "\n -Vui lòng chọn Chất Liệu.";
+			
+			if(mauSac.equals("Màu Sắc"))
+			    error += "\n -Vui lòng chọn Màu Sắc.";
+			
+			if(kichThuoc.equals("Kích Thước"))
+			    error += "\n -Vui lòng chọn Kích Thước.";
+			
+			if(gioiTinh.equals("Giới Tính"))
+			    error += "\n -Vui lòng chọn Giới Tính.";
+			
+			if(imagePath.equals(""))
+			    error += "\n -Vui lòng chọn Hình Ảnh.";
+			
+			if(error.equals("")){
+			    QuanAo quanAo = new QuanAo(maQuanAo, tenQuanAo, donGiaNhap, donGiaBan, soLuong,
+						ServiceInitiator.getInstance().getServiceNhaSanXuat().kiemTraTonTai(nhaSanXuat), danhMuc,
+						gioiTinh, mauSac, kichThuoc, chatLieu, hinhAnhByte, false);
+			    if(ServiceInitiator.getInstance().getServiceQuanAo().createQuanAo(quanAo) == true){
+			        JOptionPane.showMessageDialog(null, "Thêm Quần Áo thành công.");
+			        GUI_Main.getInstance().showPanel(newInstance());
+			    }
+			    else{
+			        JOptionPane.showMessageDialog(null, "Thêm Quần Áo thất bại.");
+			    }
+			}
+			else{
+			    String throwMessage = "Lỗi nhập liệu: " + error;
+			    JOptionPane.showMessageDialog(null, throwMessage);
+			}
+		} catch (HeadlessException | RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
     
     private void chonHinhAnh(){
-        
+        JnaFileChooser fileChooser = new JnaFileChooser();
+        File directory = new File("files//hinhAnh//");
+        fileChooser.setCurrentDirectory(directory.getAbsolutePath());
+        boolean action = fileChooser.showOpenDialog(null);
+        if(action){
+            imagePath = fileChooser.getSelectedFile().getAbsolutePath();
+            lblIMG.setText("");
+            lblIMG.setIcon(UtilityImageIcon.fromStringPath(imagePath, 194, 270));
+        }
     }
-
-    @SuppressWarnings("unchecked")
+    
+    private void themNhaSanXuat(){
+    	try {
+			String tenNhaSanXuat = JOptionPane.showInputDialog(null, "Thêm Nhà Sản Xuất Mới",
+					"Nhập Tên Nhà Sản Xuất Mới:", JOptionPane.YES_NO_CANCEL_OPTION);
+			if (tenNhaSanXuat == null || tenNhaSanXuat.equals("")) {
+				cmbNhaSanXuat.setSelectedItem("Nhà Sản Xuất");
+				return;
+			}
+			NhaSanXuat nhaSanXuatCheck = ServiceInitiator.getInstance()
+					.getServiceNhaSanXuat()
+					.kiemTraTonTai(tenNhaSanXuat);
+			if (nhaSanXuatCheck != null) {
+				JOptionPane.showMessageDialog(null, "Nhà Sản Xuất này đã tồn tại.");
+				cmbNhaSanXuat.setSelectedItem("Nhà Sản Xuất");
+			} else {
+				NhaSanXuat nhaSanXuat = new NhaSanXuat(tenNhaSanXuat);
+				boolean kiemTra = ServiceInitiator.getInstance().getServiceNhaSanXuat().createNhaSanXuat(nhaSanXuat);
+				if (kiemTra) {
+					JOptionPane.showMessageDialog(null, "Thêm Nhà Sản Xuất thành công.");
+					updateNhaSanXuat();
+					cmbNhaSanXuat.setSelectedItem(tenNhaSanXuat);
+				} else {
+					JOptionPane.showMessageDialog(null, "Thêm Nhà Sản Xuất thất bại.");
+					cmbNhaSanXuat.setSelectedItem("Nhà Sản Xuất");
+				}
+			}
+		} catch (HeadlessException | RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -384,27 +599,31 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemQuanAoActionPerformed
-        // TODO add your handling code here:
+    	themQuanAo();
     }//GEN-LAST:event_btnThemQuanAoActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        // TODO add your handling code here:
+    	GUI_Main.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void cmbNhaSanXuatItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbNhaSanXuatItemStateChanged
-        // TODO add your handling code here:
+    	if(evt.getStateChange() == ItemEvent.SELECTED){
+            if(cmbNhaSanXuat.getSelectedItem().toString().equals("-- Nhà Sản Xuất Mới --")){
+                themNhaSanXuat();
+            }
+        }
     }//GEN-LAST:event_cmbNhaSanXuatItemStateChanged
 
     private void cmbDanhMucItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDanhMucItemStateChanged
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_cmbDanhMucItemStateChanged
 
     private void cmbChatLieuItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbChatLieuItemStateChanged
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_cmbChatLieuItemStateChanged
 
     private void btnHinhAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHinhAnhActionPerformed
-        // TODO add your handling code here:
+    	chonHinhAnh();
     }//GEN-LAST:event_btnHinhAnhActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -442,9 +661,5 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
     private extended_component.JTextField_AllRound txtTenQuanAo;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-        
-    }
 
 }

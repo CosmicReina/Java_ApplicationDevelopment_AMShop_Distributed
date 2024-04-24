@@ -1,12 +1,23 @@
 package gui;
 
 
-import java.util.ArrayList;
+import java.awt.HeadlessException;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import configuration.ServiceInitiator;
 import entity.NhanVien;
 
 public class GUI_DanhSachNhanVien extends javax.swing.JPanel {
     
-    private static GUI_DanhSachNhanVien instance = new GUI_DanhSachNhanVien();
+	private static final long serialVersionUID = 9129108097974058889L;
+	
+	private static GUI_DanhSachNhanVien instance = new GUI_DanhSachNhanVien();
 
     public static GUI_DanhSachNhanVien getInstance() {
         return instance;
@@ -23,18 +34,48 @@ public class GUI_DanhSachNhanVien extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        
+    	try {
+			updateTable(ServiceInitiator.getInstance().getServiceNhanVien().getAllNhanVien());
+			tblTable.fixTable(scrTable);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
     
-    private void updateTable(ArrayList<NhanVien> list){
-        
+    private void updateTable(List<NhanVien> list){
+    	DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
+        model.getDataVector().removeAllElements();
+        tblTable.revalidate();
+        tblTable.repaint();
+        for(NhanVien thisNhanVien : list){
+            model.addRow(new Object[]{
+                thisNhanVien.getMaNhanVien(),
+                thisNhanVien.getHoTen(),
+                thisNhanVien.getSoDienThoai(),
+                thisNhanVien.getCanCuocCongDan(),
+                thisNhanVien.getChucVu()
+            });
+        }
     }
 
     private void xemChiTietNhanVien(){
-        
+    	try {
+			int i = tblTable.getSelectedRow();
+			if(i < 0){
+			    JOptionPane.showMessageDialog(null, "Vui lòng chọn một Nhân Viên.");
+			    return;
+			}
+			String maNhanVien = tblTable.getValueAt(i, 0).toString();
+			NhanVien nhanVien = ServiceInitiator.getInstance().getServiceNhanVien().getNhanVienTheoMaNhanVien(maNhanVien);
+			
+			GUI_Main.getInstance().showPanel(GUI_ChiTietNhanVien.newInstance());
+			GUI_ChiTietNhanVien.getInstance().showChiTietNhanVien(nhanVien);
+			GUI_ChiTietNhanVien.getInstance().setPnlBefore(this);
+		} catch (HeadlessException | RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
     
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -99,7 +140,7 @@ public class GUI_DanhSachNhanVien extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
-        // TODO add your handling code here:
+    	xemChiTietNhanVien();
     }//GEN-LAST:event_btnChiTietActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
