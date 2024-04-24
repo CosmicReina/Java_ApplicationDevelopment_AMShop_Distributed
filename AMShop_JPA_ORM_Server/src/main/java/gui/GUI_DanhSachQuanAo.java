@@ -1,13 +1,23 @@
 package gui;
 
 
-import entity.QuanAo;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.List;
 
-import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
+import configuration.ServiceInitiator;
+import data.FormatDouble;
+import data.UtilityImageIcon;
+import entity.QuanAo;
 
 public class GUI_DanhSachQuanAo extends javax.swing.JPanel {
     
-    private static GUI_DanhSachQuanAo instance = new GUI_DanhSachQuanAo();
+	private static final long serialVersionUID = 7403599211447402244L;
+	
+	private static GUI_DanhSachQuanAo instance = new GUI_DanhSachQuanAo();
 
     public static GUI_DanhSachQuanAo getInstance() {
         return instance;
@@ -28,18 +38,49 @@ public class GUI_DanhSachQuanAo extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        
+    	try {
+			updateTableQuanAo(ServiceInitiator.getInstance().getServiceQuanAo().getAllQuanAo());
+			tblQuanAo.fixTable(scrQuanAo);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
     
-    private void updateTableQuanAo(ArrayList<QuanAo> list){
-        
+    private void updateTableQuanAo(List<QuanAo> list){
+    	DefaultTableModel model = (DefaultTableModel) tblQuanAo.getModel();
+        model.getDataVector().removeAllElements();
+        tblQuanAo.revalidate();
+        tblQuanAo.repaint();
+        for(QuanAo thisQuanAo : list){
+            model.addRow(new Object[]{
+                thisQuanAo.getMaQuanAo(),
+                thisQuanAo.getTenQuanAo(),
+                FormatDouble.toMoney(thisQuanAo.getDonGiaBan()),
+                thisQuanAo.getSoLuongTrongKho(),
+                thisQuanAo.getNhaSanXuat(),
+                thisQuanAo.getDanhMuc(),
+                thisQuanAo.getGioiTinh(),
+                thisQuanAo.getMauSac(),
+                thisQuanAo.getKichThuoc(),
+                thisQuanAo.getChatLieu()
+            });
+        }
     }
     
     private void updateHinhAnh(){
-        
+    	try {
+			int i = tblQuanAo.getSelectedRow();
+			if(i < 0) return;
+			String maQuanAo = tblQuanAo.getValueAt(i, 0).toString();
+			QuanAo quanAo = ServiceInitiator.getInstance().getServiceQuanAo().getQuanAoTheoMaQuanAo(maQuanAo);
+
+			lblHinhAnh.setText("");
+			lblHinhAnh.setIcon(UtilityImageIcon.fromBytes(quanAo.getHinhAnh()));
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
     
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -110,7 +151,7 @@ public class GUI_DanhSachQuanAo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblQuanAoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuanAoMouseClicked
-        // TODO add your handling code here:
+    	updateHinhAnh();
     }//GEN-LAST:event_tblQuanAoMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
