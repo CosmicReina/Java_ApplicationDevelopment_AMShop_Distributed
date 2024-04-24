@@ -14,14 +14,16 @@ public class DAO_ChiTietHoaDon {
 	private DAO_ChiTietHoaDon(){
 	}
 	
-	public static void createChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) {
+	public static boolean createChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.persist(chiTietHoaDon);
-			entityManager.getTransaction().commit();
-		}catch (Exception e) {
+			entityTransaction.commit();
+			return true;
+		} catch (Exception e) {
 			e.printStackTrace();
-			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	
