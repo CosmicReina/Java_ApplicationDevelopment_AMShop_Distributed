@@ -24,14 +24,16 @@ public class DAO_KhachHang {
 		}
 	}
 	
-	public static void updateKhachHang(KhachHang khachHang) {
+	public static boolean updateKhachHang(KhachHang khachHang) {
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.merge(khachHang);
-			entityManager.getTransaction().commit();
-		}catch (Exception e) {
+            entityManager.merge(khachHang);
+            entityManager.getTransaction().commit();
+            return true;
+		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 

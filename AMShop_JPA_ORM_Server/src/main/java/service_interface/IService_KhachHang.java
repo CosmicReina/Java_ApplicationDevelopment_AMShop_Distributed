@@ -10,7 +10,7 @@ public interface IService_KhachHang extends Remote{
 	
 	public void createKhachHang(KhachHang khachHang) throws RemoteException;
 	
-	public void updateKhachHang(KhachHang khachHang) throws RemoteException;
+	public boolean updateKhachHang(KhachHang khachHang) throws RemoteException;
 
 	public List<KhachHang> getAllKhachHang() throws RemoteException;
 	
