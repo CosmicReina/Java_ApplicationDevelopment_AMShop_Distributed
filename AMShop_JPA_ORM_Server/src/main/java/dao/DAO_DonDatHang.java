@@ -14,36 +14,42 @@ public class DAO_DonDatHang {
 	private DAO_DonDatHang() {
 	}
 	
-	public static void createDonDatHang(DonDatHang donDatHang) {
+	public static boolean createDonDatHang(DonDatHang donDatHang) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(donDatHang);
 			entityManager.getTransaction().commit();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	
-	public static void updateDonDatHang(DonDatHang donDatHang) {
+	public static boolean updateDonDatHang(DonDatHang donDatHang) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.merge(donDatHang);
 			entityManager.getTransaction().commit();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	
-	public static void deleteDonDatHang(DonDatHang donDatHang) {
+	public static boolean deleteDonDatHang(DonDatHang donDatHang) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.remove(donDatHang);
 			entityManager.getTransaction().commit();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	

@@ -17,18 +17,18 @@ public class Service_DonDatHang extends UnicastRemoteObject implements IService_
 	}
 	
 	@Override
-	public void createDonDatHang(DonDatHang donDatHang) throws RemoteException {
-		DAO_DonDatHang.createDonDatHang(donDatHang);
+	public boolean createDonDatHang(DonDatHang donDatHang) throws RemoteException {
+		return DAO_DonDatHang.createDonDatHang(donDatHang);
 	}
 
 	@Override
-	public void updateDonDatHang(DonDatHang donDatHang) throws RemoteException {	
-		DAO_DonDatHang.updateDonDatHang(donDatHang);
+	public boolean updateDonDatHang(DonDatHang donDatHang) throws RemoteException {	
+		return DAO_DonDatHang.updateDonDatHang(donDatHang);
 	}
 
 	@Override
-	public void deleteDonDatHang(DonDatHang donDatHang) throws RemoteException {
-		DAO_DonDatHang.deleteDonDatHang(donDatHang);
+	public boolean deleteDonDatHang(DonDatHang donDatHang) throws RemoteException {
+		return DAO_DonDatHang.deleteDonDatHang(donDatHang);
 	}
 	
 	@Override
