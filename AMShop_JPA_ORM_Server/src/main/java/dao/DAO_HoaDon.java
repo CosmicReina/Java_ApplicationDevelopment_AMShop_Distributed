@@ -15,36 +15,42 @@ public class DAO_HoaDon {
 	private DAO_HoaDon() {
 	}
 	
-	public static void createHoaDon(HoaDon hoaDon) {
+	public static boolean createHoaDon(HoaDon hoaDon) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(hoaDon);
 			entityManager.getTransaction().commit();
-		}catch(Exception e) {
+			return true;
+		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	
-	public static void updateHoaDon(HoaDon hoaDon) {
+	public static boolean updateHoaDon(HoaDon hoaDon) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.merge(hoaDon);
 			entityManager.getTransaction().commit();
+			return true;
 		}catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	
-	public static void deleteHoaDon(HoaDon hoaDon) {
+	public static boolean deleteHoaDon(HoaDon hoaDon) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.remove(hoaDon);
 			entityManager.getTransaction().commit();
+			return true;
 		}catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
 	

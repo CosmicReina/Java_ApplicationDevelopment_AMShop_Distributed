@@ -16,13 +16,26 @@ public class DAO_ChiTietHoaDon {
 	
 	public static boolean createChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) {
 		try {
-			EntityTransaction entityTransaction = entityManager.getTransaction();
-			entityTransaction.begin();
+			entityManager.getTransaction().begin();
 			entityManager.persist(chiTietHoaDon);
-			entityTransaction.commit();
+			entityManager.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			return false;
+		}
+	}
+	
+	public static boolean removeChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.remove(chiTietHoaDon);
+			entityManager.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
 			return false;
 		}
 	}

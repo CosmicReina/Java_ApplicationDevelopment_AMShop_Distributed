@@ -9,11 +9,11 @@ import entity.HoaDon;
 
 public interface IService_HoaDon extends Remote{
 	
-	public void createHoaDon(HoaDon hoaDon) throws RemoteException;
+	public boolean createHoaDon(HoaDon hoaDon) throws RemoteException;
 	
-	public void updateHoaDon(HoaDon hoaDon) throws RemoteException;
+	public boolean updateHoaDon(HoaDon hoaDon) throws RemoteException;
 	
-	public void deleteHoaDon(HoaDon hoaDon) throws RemoteException;
+	public boolean deleteHoaDon(HoaDon hoaDon) throws RemoteException;
 
 	public List<HoaDon> getAllHoaDon() throws RemoteException;
 	

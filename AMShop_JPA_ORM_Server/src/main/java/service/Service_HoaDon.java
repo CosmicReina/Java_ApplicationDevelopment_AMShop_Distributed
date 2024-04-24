@@ -18,18 +18,18 @@ public class Service_HoaDon extends UnicastRemoteObject implements IService_HoaD
 	}
 	
 	@Override
-	public void createHoaDon(HoaDon hoaDon) throws RemoteException {
-		DAO_HoaDon.createHoaDon(hoaDon);
+	public boolean createHoaDon(HoaDon hoaDon) throws RemoteException {
+		return DAO_HoaDon.createHoaDon(hoaDon);
 	}
 
 	@Override
-	public void updateHoaDon(HoaDon hoaDon) throws RemoteException {
-		DAO_HoaDon.updateHoaDon(hoaDon);
+	public boolean updateHoaDon(HoaDon hoaDon) throws RemoteException {
+		return DAO_HoaDon.updateHoaDon(hoaDon);
 	}
 	
 	@Override
-	public void deleteHoaDon(HoaDon hoaDon) throws RemoteException {
-		DAO_HoaDon.deleteHoaDon(hoaDon);
+	public boolean deleteHoaDon(HoaDon hoaDon) throws RemoteException {
+		return DAO_HoaDon.deleteHoaDon(hoaDon);
 	}
 
 	@Override
