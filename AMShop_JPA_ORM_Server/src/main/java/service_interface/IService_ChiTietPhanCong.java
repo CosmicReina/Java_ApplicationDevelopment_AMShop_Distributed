@@ -8,11 +8,11 @@ import entity.ChiTietPhanCong;
 
 public interface IService_ChiTietPhanCong extends Remote {
 	
-	public void createChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) throws RemoteException;
+	public boolean createChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) throws RemoteException;
 	
-	public void updateChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) throws RemoteException;
+	public boolean updateChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) throws RemoteException;
 	
-	public void deleteChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) throws RemoteException;
+	public boolean deleteChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) throws RemoteException;
 
 	public List<ChiTietPhanCong> getAllChiTietPhanCongTheoMaLichLamViec(String maLichLamViec) throws RemoteException;
 	

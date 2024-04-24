@@ -10,47 +10,54 @@ import jakarta.persistence.EntityTransaction;
 public class DAO_ChiTietPhanCong {
 
 	private static EntityManager entityManager = ConnectionMSSQL.getEntityManager();
-	
+
 	private DAO_ChiTietPhanCong() {
 	}
-	
-	public static void createChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) {
+
+	public static boolean createChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(chiTietPhanCong);
 			entityManager.getTransaction().commit();
-		}catch (Exception e) {
+			return true;
+		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
-	
-	public static void updateChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) {
+
+	public static boolean updateChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.merge(chiTietPhanCong);
 			entityManager.getTransaction().commit();
-		}catch (Exception e) {
+			return true;
+		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
-	
-	public static void deleteChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) {
+
+	public static boolean deleteChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.remove(chiTietPhanCong);
 			entityManager.getTransaction().commit();
-		}catch (Exception e) {
+			return true;
+		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
+			return false;
 		}
 	}
-	
-	public static List<ChiTietPhanCong> getAllChiTietPhanCongTheoMaLichLamViec(String maLichLamViec){
+
+	public static List<ChiTietPhanCong> getAllChiTietPhanCongTheoMaLichLamViec(String maLichLamViec) {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		List<ChiTietPhanCong> list = entityManager.createNamedQuery("ChiTietPhanCong.getAllChiTietPhanCongTheoMaLichLamViec", ChiTietPhanCong.class)
+		List<ChiTietPhanCong> list = entityManager
+				.createNamedQuery("ChiTietPhanCong.getAllChiTietPhanCongTheoMaLichLamViec", ChiTietPhanCong.class)
 				.setParameter("maLichLamViec", maLichLamViec)
 				.getResultList();
 		entityTransaction.commit();
