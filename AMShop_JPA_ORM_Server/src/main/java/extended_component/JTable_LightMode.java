@@ -34,7 +34,6 @@ public class JTable_LightMode extends JTable {
 		private static final long serialVersionUID = 5004031694366974002L;
 
 		@Override
-        @SuppressWarnings("null")
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             if(component instanceof JLabel)
