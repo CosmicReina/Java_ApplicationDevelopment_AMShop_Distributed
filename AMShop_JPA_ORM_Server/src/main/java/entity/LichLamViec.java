@@ -34,10 +34,6 @@ import lombok.ToString;
 public class LichLamViec implements Serializable {
 
 	private static final long serialVersionUID = -1434004774413758052L;
-
-//	MaLichLamViec nvarchar(9) NOT NULL,
-//	NgayLamViec date,
-//	MaCaLamViec int NOT NULL
 	
 	@Id
 	@Column(name = "MaLichLamViec", columnDefinition = "nvarchar(9)", nullable = false)

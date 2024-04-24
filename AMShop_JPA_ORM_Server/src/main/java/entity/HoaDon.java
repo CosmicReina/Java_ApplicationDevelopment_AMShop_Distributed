@@ -42,17 +42,17 @@ public class HoaDon implements Serializable {
 	private String maHoaDon;
 
 	@ToString.Exclude
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MaCuaHang")
 	private CuaHang cuaHang;
 
 	@ToString.Exclude
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MaNhanVien")
 	private NhanVien nhanVien;
 
 	@ToString.Exclude
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MaKhachHang")
 	private KhachHang khachHang;
 

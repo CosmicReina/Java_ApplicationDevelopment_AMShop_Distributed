@@ -35,12 +35,12 @@ public class ChiTietPhanCong implements Serializable {
 	private static final long serialVersionUID = 3976431803293809833L;
 	
 	@Id
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MaLichLamViec")
 	private LichLamViec lichLamViec;
 	
 	@Id
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MaNhanVien")
 	private NhanVien nhanVien;
 	

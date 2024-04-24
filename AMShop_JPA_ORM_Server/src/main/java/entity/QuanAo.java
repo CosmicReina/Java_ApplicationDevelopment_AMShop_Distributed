@@ -52,7 +52,7 @@ public class QuanAo implements Serializable {
 	private int soLuongTrongKho;
 	
 	@ToString.Exclude
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MaNhaSanXuat", nullable = false)
 	private NhaSanXuat nhaSanXuat;
 	

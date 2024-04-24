@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -12,6 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import configuration.ServiceInitiator;
+import entity.HoaDon;
+import entity.KhachHang;
+import entity.NhanVien;
 import service_interface.IService_HoaDon;
 
 class JTC_HoaDon {
@@ -38,7 +42,15 @@ class JTC_HoaDon {
 		System.err.println("getAllHoaDon()");
 		
 		IService_HoaDon service_HoaDon = ServiceInitiator.getInstance().getServiceHoaDon();
-		service_HoaDon.getAllHoaDon().forEach(System.out::println);
+		List<HoaDon> list = service_HoaDon.getAllHoaDon();
+		list.forEach(System.out::println);
+		
+		HoaDon hoaDon = list.get(0);
+		NhanVien nhanvien = hoaDon.getNhanVien();
+		KhachHang khachhang = hoaDon.getKhachHang();
+		
+		System.out.println("NhanVien: " + nhanvien);
+		System.out.println("KhachHang: " + khachhang);
 		
 		System.out.println("\n");
 	}

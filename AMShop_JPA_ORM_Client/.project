@@ -20,16 +20,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src_amshop</name>
-			<type>2</type>
-			<locationURI>WORKSPACE_LOC/ApplicationDevelopment_AMShop/src</locationURI>
-		</link>
-		<link>
-			<name>src_gui</name>
-			<type>2</type>
-			<locationURI>WORKSPACE_LOC/AMShop_JPA_ORM_GUI/src</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

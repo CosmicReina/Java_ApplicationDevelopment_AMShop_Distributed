@@ -41,12 +41,12 @@ public class DonDatHang implements Serializable {
 	private String maDonDatHang;
 	
 	@ToString.Exclude
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MaNhanVien")
 	private NhanVien nhanVien;
 	
 	@ToString.Exclude
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MaKhachHang")
 	private KhachHang khachHang;
 	
