@@ -77,102 +77,108 @@ public class GUI_CapNhatNhanVien extends javax.swing.JPanel {
 	}
 
 	private void capNhatNhanVien() {
-		if (tblTable.getSelectedRow() < 0) {
-			JOptionPane.showMessageDialog(null, "Vui lòng chọn Nhân Viên.");
-			return;
-		}
-
-		String error = "";
-
-		String maNhanVien = txtMaNhanVien.getText();
-		String hoTen = txtHoTen.getText();
-		String canCuocCongDan = txtCCCD.getText();
-		String soDienThoai = txtSoDienThoai.getText();
-		String ngaySinhString = txtNgaySinh.getText();
-		String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
-		String chucVu = cmbChucVu.getSelectedItem().toString();
-		String luongString = txtLuong.getText();
-		String diaChi = txtDiaChi.getText();
-		String matKhau = new String(txtMauKhau.getPassword());
-		LocalDate ngayBatDauLam = LocalDate.now();
-		LocalDate ngayKetThucLam = null;
-
-		NhanVien nhanVienCapNhat = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
-
-		if (hoTen.equals("Họ Tên")) // Kiểm tra rỗng
-			error += "\n- Vui lòng nhập Họ Tên.";
-		else if (!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$")) // Kiểm tra Biểu thức chính quy
-			error += "\n- Vui lòng nhập Họ Tên hợp lệ.";
-
-		if (canCuocCongDan.equals("Căn Cước Công Dân")) // Kiểm tra rỗng
-			error += "\n- Vui lòng nhập Căn Cước Công Dân.";
-		else if (!canCuocCongDan.matches("[0-9]{12}")) // Kiểm tra biểu thức chính quy
-			error += "\n- Vui lòng nhập Căn Cước Công Dân hợp lệ.";
-		else if (!nhanVienCapNhat.getCanCuocCongDan().equals(canCuocCongDan))
-			if (DAO_NhanVien.getNhanVienTheoCanCuocCongDan(canCuocCongDan) != null) // Kiểm tra đã tồn tại
-				error += "\n- Số Căn Cước Công Dân đã tồn tại.";
-
-		if (soDienThoai.equals("Số Điện Thoại")) // Kiểm tra rỗng
-			error += "\n- Vui lòng nhập Số Điện Thoại.";
-		else if (!soDienThoai.matches("0{1}[0-9]{9}")) // Kiểm tra biểu thức chính quy
-			error += "\n- Vui lòng nhập Số Điện Thoại hợp lệ.";
-		else if (!nhanVienCapNhat.getSoDienThoai().equals(soDienThoai))
-			if (DAO_NhanVien.getNhanVienTheoSoDienThoai(soDienThoai) != null) // Kiểm tra đã tồn tại
-				error += "\n- Số Điện Thoại đã tồn tại";
-
-		LocalDate ngaySinh = null;
-		if (ngaySinhString.equals("Ngày Sinh (DD/MM/YYYY)")) // Kiểm tra rỗng
-			error += "\n- Vui lòng nhập Ngày Sinh.";
-		else
-			try {
-				ngaySinh = FormatLocalDate.toLocalDate(ngaySinhString); // Kiểm tra chuyển đổi
-				if (LocalDate.now().getYear() - ngaySinh.getYear() < 18)
-					error += "\n- Ngày Sinh phải có năm sinh lớn hơn hoặc bằng 18.";
-			} catch (Exception e) {
-				error += "\n- Vui lòng nhập Ngày Sinh hợp lệ.";
+		try {
+			if (tblTable.getSelectedRow() < 0) {
+				JOptionPane.showMessageDialog(null, "Vui lòng chọn Nhân Viên.");
+				return;
 			}
 
-		if (gioiTinh.equals("Giới Tính")) // Kiểm tra chọn
-			error += "\n- Vui lòng chọn Giới Tính.";
+			String error = "";
 
-		if (chucVu.equals("Chức Vụ")) // Kiểm tra chọn
-			error += "\n- Vui lòng chọn Chức Vụ.";
+			String maNhanVien = txtMaNhanVien.getText();
+			String hoTen = txtHoTen.getText();
+			String canCuocCongDan = txtCCCD.getText();
+			String soDienThoai = txtSoDienThoai.getText();
+			String ngaySinhString = txtNgaySinh.getText();
+			String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+			String chucVu = cmbChucVu.getSelectedItem().toString();
+			String luongString = txtLuong.getText();
+			String diaChi = txtDiaChi.getText();
+			String matKhau = new String(txtMauKhau.getPassword());
+			LocalDate ngayBatDauLam = LocalDate.now();
+			LocalDate ngayKetThucLam = null;
 
-		double luong = 0;
-		if (luongString.equals("Mức Lương")) // Kiểm tra rỗng
-			error += "\n- Vui lòng nhập Mức Lương";
-		else
-			try {
-				luong = Double.parseDouble(luongString); // Kiểm tra chuyển đổi
-				if (luong <= 0)
-					error += "\n- Vui lòng nhập Mức Lương lớn hơn 0";
-			} catch (NumberFormatException e) {
-				error += "\n- Vui lòng nhập Mức Lương hợp lệ.";
-			}
+			NhanVien nhanVienCapNhat = ServiceInitiator.getInstance()
+					.getServiceNhanVien()
+					.getNhanVienTheoMaNhanVien(maNhanVien);
 
-		if (diaChi.equals("Địa Chỉ")) // Kiểm tra rỗng
-			error += "\n- Vui lòng nhập Địa Chỉ.";
+			if (hoTen.equals("Họ Tên")) // Kiểm tra rỗng
+				error += "\n- Vui lòng nhập Họ Tên.";
+			else if (!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$")) // Kiểm tra Biểu thức chính quy
+				error += "\n- Vui lòng nhập Họ Tên hợp lệ.";
 
-		if (matKhau.equals("")) // Kiểm tra rỗng
-			error += "\n- Vui lòng nhập Mật Khẩu.";
+			if (canCuocCongDan.equals("Căn Cước Công Dân")) // Kiểm tra rỗng
+				error += "\n- Vui lòng nhập Căn Cước Công Dân.";
+			else if (!canCuocCongDan.matches("[0-9]{12}")) // Kiểm tra biểu thức chính quy
+				error += "\n- Vui lòng nhập Căn Cước Công Dân hợp lệ.";
+			else if (!nhanVienCapNhat.getCanCuocCongDan().equals(canCuocCongDan))
+				if (DAO_NhanVien.getNhanVienTheoCanCuocCongDan(canCuocCongDan) != null) // Kiểm tra đã tồn tại
+					error += "\n- Số Căn Cước Công Dân đã tồn tại.";
 
-		if (nhanVienCapNhat.getNgayKetThucLam() == null && chkNghiLam.isSelected())
-			ngayKetThucLam = LocalDate.now();
-		if (nhanVienCapNhat.getNgayKetThucLam() != null && !chkNghiLam.isSelected())
-			ngayKetThucLam = null;
+			if (soDienThoai.equals("Số Điện Thoại")) // Kiểm tra rỗng
+				error += "\n- Vui lòng nhập Số Điện Thoại.";
+			else if (!soDienThoai.matches("0{1}[0-9]{9}")) // Kiểm tra biểu thức chính quy
+				error += "\n- Vui lòng nhập Số Điện Thoại hợp lệ.";
+			else if (!nhanVienCapNhat.getSoDienThoai().equals(soDienThoai))
+				if (DAO_NhanVien.getNhanVienTheoSoDienThoai(soDienThoai) != null) // Kiểm tra đã tồn tại
+					error += "\n- Số Điện Thoại đã tồn tại";
 
-		if (error.equals("")) {
-			NhanVien nhanVien = new NhanVien(maNhanVien, hoTen, soDienThoai, diaChi, chucVu, canCuocCongDan, gioiTinh,
-					ngaySinh, ngayBatDauLam, ngayKetThucLam, luong, matKhau);
-			if (DAO_NhanVien.updateNhanVien(nhanVien) == true) {
-				JOptionPane.showMessageDialog(null, "Cập Nhật Nhân Viên thành công.");
-				GUI_Main.getInstance().showPanel(newInstance());
+			LocalDate ngaySinh = null;
+			if (ngaySinhString.equals("Ngày Sinh (DD/MM/YYYY)")) // Kiểm tra rỗng
+				error += "\n- Vui lòng nhập Ngày Sinh.";
+			else
+				try {
+					ngaySinh = FormatLocalDate.toLocalDate(ngaySinhString); // Kiểm tra chuyển đổi
+					if (LocalDate.now().getYear() - ngaySinh.getYear() < 18)
+						error += "\n- Ngày Sinh phải có năm sinh lớn hơn hoặc bằng 18.";
+				} catch (Exception e) {
+					error += "\n- Vui lòng nhập Ngày Sinh hợp lệ.";
+				}
+
+			if (gioiTinh.equals("Giới Tính")) // Kiểm tra chọn
+				error += "\n- Vui lòng chọn Giới Tính.";
+
+			if (chucVu.equals("Chức Vụ")) // Kiểm tra chọn
+				error += "\n- Vui lòng chọn Chức Vụ.";
+
+			double luong = 0;
+			if (luongString.equals("Mức Lương")) // Kiểm tra rỗng
+				error += "\n- Vui lòng nhập Mức Lương";
+			else
+				try {
+					luong = Double.parseDouble(luongString); // Kiểm tra chuyển đổi
+					if (luong <= 0)
+						error += "\n- Vui lòng nhập Mức Lương lớn hơn 0";
+				} catch (NumberFormatException e) {
+					error += "\n- Vui lòng nhập Mức Lương hợp lệ.";
+				}
+
+			if (diaChi.equals("Địa Chỉ")) // Kiểm tra rỗng
+				error += "\n- Vui lòng nhập Địa Chỉ.";
+
+			if (matKhau.equals("")) // Kiểm tra rỗng
+				error += "\n- Vui lòng nhập Mật Khẩu.";
+
+			if (nhanVienCapNhat.getNgayKetThucLam() == null && chkNghiLam.isSelected())
+				ngayKetThucLam = LocalDate.now();
+			if (nhanVienCapNhat.getNgayKetThucLam() != null && !chkNghiLam.isSelected())
+				ngayKetThucLam = null;
+
+			if (error.equals("")) {
+				NhanVien nhanVien = new NhanVien(maNhanVien, hoTen, soDienThoai, diaChi, chucVu, canCuocCongDan, gioiTinh,
+						ngaySinh, ngayBatDauLam, ngayKetThucLam, luong, matKhau);
+				if (ServiceInitiator.getInstance().getServiceNhanVien().updateNhanVien(nhanVien) == true) {
+					JOptionPane.showMessageDialog(null, "Cập Nhật Nhân Viên thành công.");
+					GUI_Main.getInstance().showPanel(newInstance());
+				} else {
+					JOptionPane.showMessageDialog(null, "Cập Nhật Nhân Viên thất bại.");
+				}
 			} else {
-				JOptionPane.showMessageDialog(null, "Cập Nhật Nhân Viên thất bại.");
+				String throwMessage = "Lỗi nhập liệu: " + error;
+				JOptionPane.showMessageDialog(null, throwMessage);
 			}
-		} else {
-			String throwMessage = "Lỗi nhập liệu: " + error;
-			JOptionPane.showMessageDialog(null, throwMessage);
+		} catch (HeadlessException | RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
 		}
 	}
 
