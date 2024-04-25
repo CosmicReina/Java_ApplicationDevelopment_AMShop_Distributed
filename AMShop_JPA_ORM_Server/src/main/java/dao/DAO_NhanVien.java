@@ -2,6 +2,8 @@ package dao;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import connection.ConnectionMSSQL;
 import entity.NhanVien;
@@ -9,12 +11,12 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
 public class DAO_NhanVien {
-	
+
 	private static EntityManager entityManager = ConnectionMSSQL.getEntityManager();
-	
+
 	private DAO_NhanVien() {
 	}
-	
+
 	public static boolean createNhanVien(NhanVien nhanVien) {
 		try {
 			EntityTransaction entityTransaction = entityManager.getTransaction();
@@ -22,13 +24,13 @@ public class DAO_NhanVien {
 			entityManager.persist(nhanVien);
 			entityTransaction.commit();
 			return true;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
 			return false;
 		}
 	}
-	
+
 	public static boolean updateNhanVien(NhanVien nhanVien) {
 		try {
 			EntityTransaction entityTransaction = entityManager.getTransaction();
@@ -36,14 +38,14 @@ public class DAO_NhanVien {
 			entityManager.merge(nhanVien);
 			entityTransaction.commit();
 			return true;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
 			return false;
 		}
 	}
-	
-	public static List<NhanVien> getAllNhanVien(){
+
+	public static List<NhanVien> getAllNhanVien() {
 		try {
 			EntityTransaction entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
@@ -56,22 +58,22 @@ public class DAO_NhanVien {
 			return null;
 		}
 	}
-	
+
 	public static NhanVien getNhanVienTheoMaNhanVien(String maNhanVien) {
 		try {
 			EntityTransaction entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
 			NhanVien nhanVien = entityManager.createNamedQuery("NhanVien.getNhanVienTheoMaNhanVien", NhanVien.class)
-                    .setParameter("maNhanVien", maNhanVien)
-                    .getSingleResult();
+					.setParameter("maNhanVien", maNhanVien)
+					.getSingleResult();
 			entityTransaction.commit();
 			return nhanVien;
 		} catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            return null;
-        }
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
-	
+
 	public static NhanVien getNhanVienTheoSoDienThoai(String soDienThoai) {
 		try {
 			EntityTransaction entityTransaction = entityManager.getTransaction();
@@ -102,7 +104,7 @@ public class DAO_NhanVien {
 		}
 	}
 
-	public static List<NhanVien> getDanhSachNhanVienChuaCoTrongNgayLamViec(LocalDate ngayLamViec){
+	public static List<NhanVien> getDanhSachNhanVienChuaCoTrongNgayLamViec(LocalDate ngayLamViec) {
 		try {
 			EntityTransaction entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
@@ -123,10 +125,9 @@ public class DAO_NhanVien {
 			EntityTransaction entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
 			prefix = prefix + "%";
-			NhanVien nhanVien = entityManager
-                    .createNamedQuery("NhanVien.getNhanVienCuoi", NhanVien.class)
-                    .setParameter("prefix", prefix)
-                    .getSingleResult();
+			NhanVien nhanVien = entityManager.createNamedQuery("NhanVien.getNhanVienCuoi", NhanVien.class)
+					.setParameter("prefix", prefix)
+					.getSingleResult();
 			entityTransaction.commit();
 			return nhanVien;
 		} catch (Exception e) {
@@ -134,7 +135,7 @@ public class DAO_NhanVien {
 			return null;
 		}
 	}
-	
+
 	public static NhanVien getNhanVienTheoThongTinDangNhap(String maNhanVien, String matKhau) {
 		try {
 			EntityTransaction entityTransaction = entityManager.getTransaction();
@@ -151,5 +152,25 @@ public class DAO_NhanVien {
 			return null;
 		}
 	}
-	
+
+	public static Map<NhanVien, Integer> getTongThoiGianLamViecTheoThang(int year, int month) {
+		try {
+			List<?> list = entityManager.createNativeQuery(
+					"SELECT MaNhanVien, SUM(DATEDIFF(SECOND, '00:00:00', CONVERT(DATETIME, ThoiGianRaCa - ThoiGianVaoCa))) AS TotalSeconds "
+							+ "FROM LichLamViec L JOIN ChiTietPhanCong CT ON L.MaLichLamViec = CT.MaLichLamViec "
+							+ "WHERE YEAR(NgayLamViec) = :year AND MONTH(NgayLamViec) = :month "
+							+ "GROUP BY MaNhanVien "
+							+ "ORDER BY MaNhanVien ASC")
+					.setParameter("year", year)
+					.setParameter("month", month)
+					.getResultList();
+			Map<NhanVien, Integer> map = list.stream()
+					.collect(Collectors.toMap(o -> getNhanVienTheoMaNhanVien((String) ((Object[]) o)[0]),
+							o -> (Integer) ((Object[]) o)[1]));
+			return map;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 }

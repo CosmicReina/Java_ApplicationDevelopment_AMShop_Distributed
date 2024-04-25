@@ -1,8 +1,24 @@
 package gui;
 
+import java.awt.HeadlessException;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.time.Duration;
+import java.util.Map;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import configuration.ServiceInitiator;
+import data.FormatDouble;
+import entity.NhanVien;
+
 public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
     
-    private static GUI_TinhLuongNhanVien instance = new GUI_TinhLuongNhanVien();
+	private static final long serialVersionUID = 105976010591067741L;
+	
+	private static GUI_TinhLuongNhanVien instance = new GUI_TinhLuongNhanVien();
     
     public static GUI_TinhLuongNhanVien getInstance() {
         return instance;
@@ -20,10 +36,44 @@ public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
     }
     
     private void tinhLuongNhanVien(){
-        
+    	try {
+			int nam;
+			int thang;
+			try{
+			    nam = Integer.parseInt(txtNam.getText());
+			    thang = Integer.parseInt(txtThang.getText());
+			} catch(NumberFormatException ex){
+			    JOptionPane.showMessageDialog(null, "Vui lòng nhập Năm và Tháng hợp lệ");
+			    return;
+			}
+			Map<NhanVien, Integer> map = ServiceInitiator.getInstance().getServiceNhanVien().getTongThoiGianLamViecTheoThang(nam, thang);
+			if (map == null) {
+				JOptionPane.showMessageDialog(null, "Không có dữ liệu");
+				return;
+			}
+			DefaultTableModel model = (DefaultTableModel) tblLuong.getModel();
+			model.getDataVector().removeAllElements();
+			tblLuong.revalidate();
+			tblLuong.repaint();
+			map.forEach((nhanVien, thoiGianLam) -> {
+				Duration duration = Duration.ofSeconds(thoiGianLam);
+				long gio = duration.toHours();
+				long phut = duration.toMinutesPart();
+				long giay = duration.toSecondsPart();
+
+				double thoiGianLamViec = gio + phut / 60 + giay / 3600;
+
+				model.addRow(new Object[]{nhanVien.getMaNhanVien(), nhanVien.getHoTen(), nhanVien.getChucVu(),
+						nhanVien.getLuong(), thoiGianLamViec, FormatDouble.toMoney(nhanVien.getLuong() * thoiGianLamViec)});
+			});
+			
+			if(tblLuong.getModel().getRowCount() == 0)
+			    JOptionPane.showMessageDialog(null, "Không có dữ liệu");
+		} catch (HeadlessException | RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
     
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -124,7 +174,7 @@ public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
-        // TODO add your handling code here:
+        tinhLuongNhanVien();
     }//GEN-LAST:event_btnTinhLuongActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

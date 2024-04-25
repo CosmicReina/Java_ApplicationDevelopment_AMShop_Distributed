@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import dao.DAO_NhanVien;
 import entity.NhanVien;
@@ -61,6 +62,11 @@ public class Service_NhanVien extends UnicastRemoteObject implements IService_Nh
 	public NhanVien getNhanVienTheoThongTinDangNhap(String maNhanVien, String matKhau)
 			throws RemoteException {
 		return DAO_NhanVien.getNhanVienTheoThongTinDangNhap(maNhanVien, matKhau);
+	}
+
+	@Override
+	public Map<NhanVien, Integer> getTongThoiGianLamViecTheoThang(int year, int month) throws RemoteException {
+		return DAO_NhanVien.getTongThoiGianLamViecTheoThang(year, month);
 	}
 
 }

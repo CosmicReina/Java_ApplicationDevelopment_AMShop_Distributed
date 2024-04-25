@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import entity.NhanVien;
 
@@ -26,5 +27,7 @@ public interface IService_NhanVien extends Remote {
 	public NhanVien getNhanVienCuoi(String prefix) throws RemoteException;
 	
 	public NhanVien getNhanVienTheoThongTinDangNhap(String maNhanVien, String matKhau) throws RemoteException;
+	
+	public Map<NhanVien, Integer> getTongThoiGianLamViecTheoThang(int year, int month) throws RemoteException;
 	
 }

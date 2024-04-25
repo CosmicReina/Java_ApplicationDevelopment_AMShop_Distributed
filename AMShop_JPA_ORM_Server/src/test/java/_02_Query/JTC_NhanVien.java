@@ -2,6 +2,7 @@ package _02_Query;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.testing.junit4.CustomParameterized.Order;
 import org.junit.jupiter.api.AfterAll;
@@ -134,6 +135,22 @@ class JTC_NhanVien {
 		System.err.println("result");
 		System.out.println("NV_1: " + nhanVienTTDN_1);
 		System.out.println("NV_2: " + nhanVienTTDN_2);
+
+		System.out.println("\n");
+	}
+	
+	@Test
+	@Order(8)
+	void getTongThoiGianLamViecTheoThang() throws InterruptedException {
+		System.err.println("getTongThoiGianLamViecTheoThang()");
+
+		System.err.println("query");
+		Map<NhanVien, Integer> map = DAO_NhanVien.getTongThoiGianLamViecTheoThang(2023, 12);
+
+		System.err.println("result");
+		map.forEach((k, v) -> {
+			System.out.println(k + " - " + v);
+		});
 
 		System.out.println("\n");
 	}
