@@ -77,7 +77,7 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 			txtTongTien.setText(FormatDouble.toMoney(tongTien));
 			txtTienKhachDua.setText(FormatDouble.toMoney(hoaDon.getTienKhachDua()));
 			txtTienThua.setText(FormatDouble.toMoney(hoaDon.getTienKhachDua() - tongTien));
-			
+
 			LocalDateTime thoiGianTao = hoaDon.getThoiGianTao();
 			LocalDateTime thoiGianTaoSau24h = thoiGianTao.plusHours(24);
 			LocalDateTime thoiGianHienTai = LocalDateTime.now();
@@ -97,15 +97,7 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 		}
 		String path = "files//hoaDon//temp.pdf";
 		File file = new File(path);
-		// if(file.exists()) {
-		// Viewer viewer = new Viewer();
-		// viewer.setupViewer();
-		// viewer.getSwingGUI().getFrame().setSize(690, 768);
-		// viewer.getSwingGUI().getFrame().setLocation(512, 16);
-		// viewer.openDefaultFile(file.getAbsolutePath());
-		// }
-		// else
-		// JOptionPane.showMessageDialog(null, "File Hóa Đơn không tồn tại. Vui lòng kiểm tra lại.");
+
 		if (Desktop.isDesktopSupported()) {
 			Desktop desktop = Desktop.getDesktop();
 			try {
@@ -115,6 +107,33 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 			}
 		} else {
 			System.out.println("Desktop is not supported.");
+		}
+	}
+
+	private void traHang() {
+		try {
+			HoaDon hoaDon = ServiceInitiator.getInstance().getServiceHoaDon().getHoaDonTheoMaHoaDon(maHoaDon);
+			if (hoaDon == null)
+				return;
+			List<ChiTietHoaDon> list = ServiceInitiator.getInstance()
+					.getServiceChiTietHoaDon()
+					.getAllChiTietHoaDonTheoMaHoaDon(maHoaDon);
+			for (ChiTietHoaDon thisChiTietHoaDon : list) {
+				QuanAo quanAo = thisChiTietHoaDon.getQuanAo();
+				quanAo.setSoLuongTrongKho(quanAo.getSoLuongTrongKho() + thisChiTietHoaDon.getSoLuong());
+				ServiceInitiator.getInstance().getServiceQuanAo().updateQuanAo(quanAo);
+
+				ServiceInitiator.getInstance().getServiceChiTietHoaDon().removeChiTietHoaDon(thisChiTietHoaDon);
+			}
+			boolean removeHoaDon = ServiceInitiator.getInstance().getServiceHoaDon().deleteHoaDon(hoaDon);
+			if (removeHoaDon) {
+				JOptionPane.showMessageDialog(null, "Trả hàng thành công.");
+				GUI_Main.getInstance().showPanel(GUI_DanhSachHoaDon.newInstance());
+			} else {
+				JOptionPane.showMessageDialog(null, "Trả hàng không thành công.");
+			}
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			JOptionPane.showMessageDialog(null, "Lỗi kết nối đến máy chủ.");
 		}
 	}
 
@@ -386,7 +405,7 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void btnTraHangActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnTraHangActionPerformed
-		// TODO add your handling code here:
+		traHang();
 	}// GEN-LAST:event_btnTraHangActionPerformed
 
 	private void btnXemFileHoaDonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnXemFileHoaDonActionPerformed

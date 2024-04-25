@@ -47,7 +47,7 @@ public class DAO_HoaDon {
 		try {
 			EntityTransaction entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
-			entityManager.remove(hoaDon);
+			entityManager.remove(entityManager.contains(hoaDon) ? hoaDon : entityManager.merge(hoaDon));
 			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
@@ -115,7 +115,6 @@ public class DAO_HoaDon {
 			entityTransaction.commit();
 			return hoaDon;
 		} catch (Exception e) {
-			e.printStackTrace();
 			entityManager.getTransaction().rollback();
 			return null;
 		}

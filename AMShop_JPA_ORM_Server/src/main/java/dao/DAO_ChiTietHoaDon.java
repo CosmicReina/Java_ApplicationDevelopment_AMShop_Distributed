@@ -32,7 +32,7 @@ public class DAO_ChiTietHoaDon {
 		try {
 			EntityTransaction entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
-			entityManager.remove(chiTietHoaDon);
+			entityManager.remove(entityManager.contains(chiTietHoaDon) ? chiTietHoaDon : entityManager.merge(chiTietHoaDon));
 			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
