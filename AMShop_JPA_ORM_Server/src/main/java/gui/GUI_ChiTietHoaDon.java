@@ -136,6 +136,7 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 		txtTienThua = new extended_component.JTextField_AllRound();
 		btnXemFileHoaDon = new extended_component.JButton_AllRound();
 		btnQuayLai = new extended_component.JButton_AllRound();
+		btnTraHang = new extended_component.JButton_AllRound();
 		scrQuanAo = new javax.swing.JScrollPane();
 		tblQuanAo = new extended_component.JTable_LightMode();
 
@@ -222,6 +223,19 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 			}
 		});
 
+		btnTraHang.setBackground(new java.awt.Color(255, 102, 102));
+		btnTraHang.setText("Trả Hàng");
+		btnTraHang.setBorderRadius(30);
+		btnTraHang.setColorBackground(new java.awt.Color(170, 238, 255));
+		btnTraHang.setColorBorder(new java.awt.Color(255, 255, 255));
+		btnTraHang.setColorClick(new java.awt.Color(119, 204, 255));
+		btnTraHang.setColorEnter(new java.awt.Color(119, 238, 255));
+		btnTraHang.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnTraHangActionPerformed(evt);
+			}
+		});
+
 		javax.swing.GroupLayout pnlThongTinHoaDonLayout = new javax.swing.GroupLayout(pnlThongTinHoaDon);
 		pnlThongTinHoaDon.setLayout(pnlThongTinHoaDonLayout);
 		pnlThongTinHoaDonLayout.setHorizontalGroup(pnlThongTinHoaDonLayout
@@ -283,6 +297,8 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 								.addComponent(btnXemFileHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnQuayLai, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnTraHang, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addContainerGap()));
 		pnlThongTinHoaDonLayout.setVerticalGroup(pnlThongTinHoaDonLayout
@@ -332,7 +348,10 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtTienThua, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+						.addComponent(btnTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(18, 18, 18)
 						.addComponent(btnXemFileHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
 								javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addGap(18, 18, 18)
@@ -358,6 +377,10 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 		add(scrQuanAo, java.awt.BorderLayout.CENTER);
 	}// </editor-fold>//GEN-END:initComponents
 
+	private void btnTraHangActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnTraHangActionPerformed
+		// TODO add your handling code here:
+	}// GEN-LAST:event_btnTraHangActionPerformed
+
 	private void btnXemFileHoaDonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnXemFileHoaDonActionPerformed
 		xemFileHoaDon();
 	}// GEN-LAST:event_btnXemFileHoaDonActionPerformed
@@ -368,6 +391,7 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private extended_component.JButton_AllRound btnQuayLai;
+	private extended_component.JButton_AllRound btnTraHang;
 	private extended_component.JButton_AllRound btnXemFileHoaDon;
 	private javax.swing.JLabel lblKhachHang;
 	private javax.swing.JLabel lblMaHoaDon;
