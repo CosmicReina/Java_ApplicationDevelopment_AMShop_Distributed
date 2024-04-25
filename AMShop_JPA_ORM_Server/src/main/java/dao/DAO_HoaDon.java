@@ -82,6 +82,7 @@ public class DAO_HoaDon {
 	}
 	
 	public static HoaDon getHoaDonCuoi(String prefix) {
+		prefix = prefix + "%";
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		HoaDon hoaDon = entityManager.createNamedQuery("HoaDon.getHoaDonCuoi", HoaDon.class)

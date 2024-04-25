@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.time.LocalDate;
 
 import configuration.ServiceInitiator;
+import entity.NhanVien;
 
 public class KhoiTaoMa {
     public static String generateMaNhanVien(){
@@ -19,14 +20,15 @@ public class KhoiTaoMa {
 			String day = String.format("%02d", localDate.getDayOfMonth());
 			
 			String prefix = "NV" + year + month + day;
+			System.out.println(prefix);
 			
-			String maNhanVienCuoi = ServiceInitiator.getInstance().getServiceNhanVien().getNhanVienCuoi(prefix).getMaNhanVien();
-			if(maNhanVienCuoi == null){
+			NhanVien nhanVienCuoi = ServiceInitiator.getInstance().getServiceNhanVien().getNhanVienCuoi(prefix);
+			if(nhanVienCuoi == null){
 			    soNhanVien = 1;
 			    maNhanVien = prefix + String.format("%02d", soNhanVien);
 			}
 			else{
-			    soNhanVien = Integer.parseInt(maNhanVienCuoi.substring(8)) + 1;
+			    soNhanVien = Integer.parseInt(nhanVienCuoi.getMaNhanVien().substring(8)) + 1;
 			    maNhanVien = prefix + String.format("%02d", soNhanVien);
 			}
 			return maNhanVien;

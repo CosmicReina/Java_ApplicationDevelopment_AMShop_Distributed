@@ -59,6 +59,7 @@ public class DAO_KhachHang {
 	}
 	
 	public static KhachHang getKhachHangCuoi(String prefix) {
+		prefix = prefix + "%";
 		return entityManager
 				.createNamedQuery("KhachHang.getKhachHangCuoi", KhachHang.class)
 				.setParameter("prefix", prefix)

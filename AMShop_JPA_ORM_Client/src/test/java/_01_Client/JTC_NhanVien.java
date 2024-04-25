@@ -87,7 +87,7 @@ class JTC_NhanVien {
 		System.err.println("getNhanVienCuoi()");
 		
 		IService_NhanVien service_NhanVien = ServiceInitiator.getInstance().getServiceNhanVien();
-		System.out.println(service_NhanVien.getNhanVienCuoi("NV231213%"));
+		System.out.println(service_NhanVien.getNhanVienCuoi("NV231213"));
 		
 		System.out.println("\n");
 	}

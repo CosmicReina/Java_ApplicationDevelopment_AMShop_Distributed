@@ -71,9 +71,20 @@ public class DAO_NhanVien {
 	}
 
 	public static NhanVien getNhanVienCuoi(String prefix) {
-		return entityManager.createNamedQuery("NhanVien.getNhanVienCuoi", NhanVien.class)
-				.setParameter("prefix", prefix)
-				.getSingleResult();
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			prefix = prefix + "%";
+			NhanVien nhanVien = entityManager
+                    .createNamedQuery("NhanVien.getNhanVienCuoi", NhanVien.class)
+                    .setParameter("prefix", prefix)
+                    .getSingleResult();
+			entityTransaction.commit();
+			return nhanVien;
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
 	
 	public static NhanVien getNhanVienTheoThongTinDangNhap(String maNhanVien, String matKhau) {

@@ -70,6 +70,7 @@ public class DAO_DonDatHang {
 	}
 
 	public static DonDatHang getDonDatHangCuoi(String prefix) {
+		prefix = prefix + "%";
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		DonDatHang donDatHang =  entityManager.createNamedQuery("DonDatHang.getDonDatHangCuoi", DonDatHang.class)
