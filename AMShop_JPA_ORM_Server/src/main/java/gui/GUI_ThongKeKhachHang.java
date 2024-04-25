@@ -106,9 +106,11 @@ public class GUI_ThongKeKhachHang extends javax.swing.JPanel {
 				model.addRow(new Object[]{maKhachHang, khachHang.getHoTen(), khachHang.getNhomKhachHang(), row[1],
 						row[2], FormatDouble.toMoney(tongDoanhThuKhachHangDouble)});
 
-				txtTongSoKhachHang.setText(Integer.toString(tongSoKhachHang));
-				txtTongSoDoanhThu.setText(FormatDouble.toMoney(tongDoanhThu));
+				tongDoanhThu += tongDoanhThuKhachHangDouble;
 			}
+			
+			txtTongSoKhachHang.setText(Integer.toString(tongSoKhachHang));
+			txtTongSoDoanhThu.setText(FormatDouble.toMoney(tongDoanhThu));
 		} catch (HeadlessException | RemoteException | MalformedURLException | NotBoundException e) {
 			e.printStackTrace();
 		}
@@ -298,7 +300,7 @@ public class GUI_ThongKeKhachHang extends javax.swing.JPanel {
 	}// GEN-LAST:event_btnThongKeActionPerformed
 
 	private void btnInBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnInBaoCaoActionPerformed
-        inBaoCaoThongKe();
+		inBaoCaoThongKe();
 	}// GEN-LAST:event_btnInBaoCaoActionPerformed
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables

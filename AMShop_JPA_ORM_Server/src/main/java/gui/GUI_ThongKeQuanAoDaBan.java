@@ -1,11 +1,29 @@
 package gui;
 
 
+import java.awt.HeadlessException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import configuration.ServiceInitiator;
+import data.FormatDouble;
+import data.FormatLocalDate;
+import data.InBaoCaoQuanAoDaBan;
+import entity.QuanAo;
 
 public class GUI_ThongKeQuanAoDaBan extends javax.swing.JPanel {
     
-    private static GUI_ThongKeQuanAoDaBan instance = new GUI_ThongKeQuanAoDaBan();
+	private static final long serialVersionUID = -3192561160743696016L;
+
+	private static GUI_ThongKeQuanAoDaBan instance = new GUI_ThongKeQuanAoDaBan();
     
     private LocalDate ngayBatDau;
     private LocalDate ngayKetThuc;
@@ -26,14 +44,99 @@ public class GUI_ThongKeQuanAoDaBan extends javax.swing.JPanel {
     }
     
     private void updateTable(){
-        
+    	try {
+			String ngayBatDauString = txtNgayBatDau.getText();
+			String ngayKetThucString = txtNgayKetThuc.getText();
+			
+			ngayBatDau = LocalDate.now();
+			ngayKetThuc = LocalDate.now();
+			
+			String error = "";
+			
+			if(ngayBatDauString.isBlank())
+			    error += "\n- Vui lòng nhập Ngày Bắt Đầu thống kê.";
+			else{
+			    try{
+			        ngayBatDau = FormatLocalDate.toLocalDate(ngayBatDauString); // Kiểm tra chuyển đổi
+			    }
+			    catch(Exception e){
+			        error += "\n- Vui lòng nhập Ngày Bắt Đầu hợp lệ (DD/MM/YYYY).";
+			    }
+			}
+			
+			if(ngayKetThucString.isBlank())
+			    error += "\n- Vui lòng nhập Ngày Kết Thúc thống kê.";
+			else{
+			    try{
+			        ngayKetThuc = FormatLocalDate.toLocalDate(ngayKetThucString); // Kiểm tra chuyển đổi
+			        if(ngayBatDau.isAfter(ngayKetThuc))
+			            error += "\n- Ngày Kết Thúc Thống kê phải lớn hơn Ngày Bắt Đầu.";
+			    }
+			    catch(Exception e){
+			        error += "\n- Vui lòng nhập Ngày Kết Thúc hợp lệ (DD/MM/YYYY).";
+			    }
+			}
+			
+			if(!error.equals("")){
+			    String throwMessage = "Lỗi nhập liệu: " + error;
+			    JOptionPane.showMessageDialog(null, throwMessage);
+			    return;
+			}
+			
+			DefaultTableModel model = (DefaultTableModel) tblQuanAo.getModel();
+			model.getDataVector().removeAllElements();
+			tblQuanAo.revalidate();
+			tblQuanAo.repaint();
+
+			int tongQuanAo = 0;
+			double tongDoanhThu = 0;
+			double tongDoanhThuThuan = 0;
+			
+			List<?> listQuanAo = ServiceInitiator.getInstance().getServiceQuanAo().getQuanAoDaBanTrongKhoangNgay(LocalDateTime.of(ngayBatDau, LocalDateTime.MAX.toLocalTime()), LocalDateTime.of(ngayKetThuc, LocalDateTime.MAX.toLocalTime()));
+			for (Object object : listQuanAo) {
+				Object[] obj = (Object[]) object;
+				String maQuanAo = (String) obj[0];
+				QuanAo quanAo = ServiceInitiator.getInstance().getServiceQuanAo().getQuanAoTheoMaQuanAo(maQuanAo);
+				int soLuong = (int) obj[1];
+				double doanhThuThanhPhan = soLuong * quanAo.getDonGiaBan();
+				double doanhThuThuanThanhPhan = soLuong * (quanAo.getDonGiaBan() - quanAo.getDonGiaNhap());
+				model.addRow(new Object[] {
+					maQuanAo,
+					quanAo.getTenQuanAo(),
+					soLuong,
+					FormatDouble.toMoney(doanhThuThanhPhan),
+					FormatDouble.toMoney(doanhThuThuanThanhPhan)
+				});
+				tongQuanAo += soLuong;
+                tongDoanhThu += doanhThuThanhPhan;
+                tongDoanhThuThuan += doanhThuThuanThanhPhan;
+			}
+			
+			txtTongSoQuanAo.setText(Integer.toString(tongQuanAo));
+			txtTongSoDoanhThu.setText(FormatDouble.toMoney(tongDoanhThu));
+			txtTongSoDoanhThuThuan.setText(FormatDouble.toMoney(tongDoanhThuThuan));
+		} catch (HeadlessException | RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
     }
     
     private void inBaoCaoThongKe(){
-        
+    	try {
+            if(tblQuanAo.getModel().getRowCount() == 0){
+                JOptionPane.showMessageDialog(null, "Vui lòng Tạo Thống Kê trước.");
+                return;
+            }
+            if(InBaoCaoQuanAoDaBan.createBaoCaoQuanAoDaBan(ngayBatDau, ngayKetThuc) == true){
+                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Quần Áo đã bán thành công.");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Quần Áo đã bán thất bại.");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace(System.out);
+        }
     }
     
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -201,11 +304,11 @@ public class GUI_ThongKeQuanAoDaBan extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
-        // TODO add your handling code here:
+        updateTable();
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnInBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInBaoCaoActionPerformed
-        // TODO add your handling code here:
+        inBaoCaoThongKe();
     }//GEN-LAST:event_btnInBaoCaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

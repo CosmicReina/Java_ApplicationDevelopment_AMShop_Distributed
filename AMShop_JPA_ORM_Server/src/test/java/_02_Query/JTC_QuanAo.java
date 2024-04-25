@@ -77,5 +77,19 @@ class JTC_QuanAo {
 		
 		System.out.println("\n");
 	}
+	
+	@Test
+	@Order(4)
+	void getQuanAoDaHetHang() throws InterruptedException {
+		System.err.println("getQuanAoDaHetHang");
+
+		System.err.println("query");
+		List<QuanAo> list = DAO_QuanAo.getQuanAoDaHetHang();
+
+		System.err.println("result");
+		list.forEach(System.out::println);
+
+		System.out.println("\n\n");
+	}
 
 }

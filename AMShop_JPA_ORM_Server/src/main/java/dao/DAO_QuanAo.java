@@ -1,5 +1,6 @@
 package dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import connection.ConnectionMSSQL;
@@ -84,4 +85,33 @@ public class DAO_QuanAo {
 		}
 	}
 
+	public static List<?> getQuanAoDaBanTrongKhoangNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
+		try {
+			List<?> list = entityManager.createNativeQuery(""
+					+ "SELECT QA.MaQuanAo, SUM(CTHD.SoLuong) AS TongSoLuongDaBan "
+					+ "FROM (HoaDon HD JOIN ChiTietHoaDon CTHD ON HD.MaHoaDon = CTHD.MaHoaDon) JOIN QuanAo QA ON CTHD.MaQuanAo = QA.MaQuanAo "
+					+ "WHERE HD.ThoiGianTao BETWEEN :ngayBatDau AND :ngayKetThuc " + "GROUP BY QA.MaQuanAo")
+					.setParameter("ngayBatDau", ngayBatDau)
+					.setParameter("ngayKetThuc", ngayKetThuc)
+					.getResultList();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static List<QuanAo> getQuanAoDaHetHang() {
+		try {
+			List<QuanAo> list = entityManager
+					.createQuery(
+							"SELECT QA " + "FROM QuanAo QA " + "WHERE QA.soLuongTrongKho = 0 AND QA.ngungNhap = false",
+							QuanAo.class)
+					.getResultList();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

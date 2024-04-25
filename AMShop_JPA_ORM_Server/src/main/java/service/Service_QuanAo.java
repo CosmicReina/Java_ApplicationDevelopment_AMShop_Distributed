@@ -2,6 +2,7 @@ package service;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import dao.DAO_QuanAo;
@@ -39,6 +40,17 @@ public class Service_QuanAo extends UnicastRemoteObject implements IService_Quan
 	@Override
 	public QuanAo getQuanAoCuoi() throws RemoteException {
 		return DAO_QuanAo.getQuanAoCuoi();
+	}
+
+	@Override
+	public List<?> getQuanAoDaBanTrongKhoangNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc)
+			throws RemoteException {
+		return DAO_QuanAo.getQuanAoDaBanTrongKhoangNgay(ngayBatDau, ngayKetThuc);
+	}
+
+	@Override
+	public List<QuanAo> getQuanAoDaHetHang() throws RemoteException {
+		return DAO_QuanAo.getQuanAoDaHetHang();
 	}
 
 }
