@@ -250,32 +250,36 @@ public class GUI_CapNhatNhanVien extends javax.swing.JPanel {
 	}
 
 	private void updateField() {
-		int i = tblTable.getSelectedRow();
-		String maNhanVien = tblTable.getValueAt(i, 0).toString();
-		NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
+		try {
+			int i = tblTable.getSelectedRow();
+			String maNhanVien = tblTable.getValueAt(i, 0).toString();
+			NhanVien nhanVien = ServiceInitiator.getInstance().getServiceNhanVien().getNhanVienTheoMaNhanVien(maNhanVien);
 
-		txtMaNhanVien.setText(nhanVien.getMaNhanVien());
-		txtHoTen.setText(nhanVien.getHoTen());
-		txtCCCD.setText(nhanVien.getCanCuocCongDan());
-		txtSoDienThoai.setText(nhanVien.getSoDienThoai());
-		txtNgaySinh.setText(FormatLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
-		cmbGioiTinh.setSelectedItem(nhanVien.getGioiTinh());
-		cmbChucVu.setSelectedItem(nhanVien.getChucVu());
-		txtLuong.setText(String.format("%.0f", nhanVien.getLuong()));
-		txtDiaChi.setText(nhanVien.getDiaChi());
-		txtTenDangNhap.setText(nhanVien.getMaNhanVien());
-		txtMauKhau.setText(nhanVien.getMatKhau());
-		if (nhanVien.getNgayKetThucLam() == null)
-			chkNghiLam.setSelected(false);
-		else
-			chkNghiLam.setSelected(true);
+			txtMaNhanVien.setText(nhanVien.getMaNhanVien());
+			txtHoTen.setText(nhanVien.getHoTen());
+			txtCCCD.setText(nhanVien.getCanCuocCongDan());
+			txtSoDienThoai.setText(nhanVien.getSoDienThoai());
+			txtNgaySinh.setText(FormatLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
+			cmbGioiTinh.setSelectedItem(nhanVien.getGioiTinh());
+			cmbChucVu.setSelectedItem(nhanVien.getChucVu());
+			txtLuong.setText(String.format("%.0f", nhanVien.getLuong()));
+			txtDiaChi.setText(nhanVien.getDiaChi());
+			txtTenDangNhap.setText(nhanVien.getMaNhanVien());
+			txtMauKhau.setText(nhanVien.getMatKhau());
+			if (nhanVien.getNgayKetThucLam() == null)
+				chkNghiLam.setSelected(false);
+			else
+				chkNghiLam.setSelected(true);
 
-		UtilityJTextField.addPlaceHolderStyle(txtHoTen);
-		UtilityJTextField.addPlaceHolderStyle(txtCCCD);
-		UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
-		UtilityJTextField.addPlaceHolderStyle(txtNgaySinh);
-		UtilityJTextField.addPlaceHolderStyle(txtLuong);
-		UtilityJTextField.addPlaceHolderStyle(txtDiaChi);
+			UtilityJTextField.addPlaceHolderStyle(txtHoTen);
+			UtilityJTextField.addPlaceHolderStyle(txtCCCD);
+			UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
+			UtilityJTextField.addPlaceHolderStyle(txtNgaySinh);
+			UtilityJTextField.addPlaceHolderStyle(txtLuong);
+			UtilityJTextField.addPlaceHolderStyle(txtDiaChi);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
