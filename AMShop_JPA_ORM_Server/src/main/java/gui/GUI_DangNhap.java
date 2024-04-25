@@ -54,7 +54,9 @@ public class GUI_DangNhap extends javax.swing.JFrame {
 	}
 
 	private void actionTraCuu() {
-		// TODO: Mở giao diện tra cứu cho khách hàng
+		GUI_MainFrame.newInstance().setVisible(true);
+        GUI_Main.getInstance().tatChucNang();
+        dispose();
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

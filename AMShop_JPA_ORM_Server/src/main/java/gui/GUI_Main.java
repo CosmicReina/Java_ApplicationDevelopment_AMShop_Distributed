@@ -39,6 +39,10 @@ public class GUI_Main extends javax.swing.JPanel {
 
 	public void addButtonToList() {
 		NhanVien nhanVien = Configuration_Client.getNhanVienHienTai();
+		if (nhanVien == null) {
+			tatChucNang();
+			return;
+		}
 		if (nhanVien.getChucVu().equals("Người Quản Lý")) {
 			listBtnNhanVien.add(btnLapHoaDon);
 			listBtnNhanVien.add(btnDanhSachDonDatHang);
@@ -96,7 +100,15 @@ public class GUI_Main extends javax.swing.JPanel {
 	}
 
 	public void tatChucNang() {
-		// TODO: Tắt chức năng dành cho khách hàng
+		btnTrangChu.setVisible(false);
+        btnNhanVien.setVisible(false);
+        btnKhachHang.setVisible(false);
+        btnHoaDon.setVisible(false);
+        btnQuanAo.setVisible(false);
+        btnLichLamViec.setVisible(false);
+        btnThongKe.setVisible(false);
+        
+        showPanel(GUI_TimKiemQuanAo.newInstance());
 	}
 
 	private void dangXuat() {
