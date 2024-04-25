@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -76,6 +77,13 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 			txtTongTien.setText(FormatDouble.toMoney(tongTien));
 			txtTienKhachDua.setText(FormatDouble.toMoney(hoaDon.getTienKhachDua()));
 			txtTienThua.setText(FormatDouble.toMoney(hoaDon.getTienKhachDua() - tongTien));
+			
+			LocalDateTime thoiGianTao = hoaDon.getThoiGianTao();
+			LocalDateTime thoiGianTaoSau24h = thoiGianTao.plusHours(24);
+			LocalDateTime thoiGianHienTai = LocalDateTime.now();
+			if (thoiGianHienTai.isAfter(thoiGianTaoSau24h)) {
+				btnTraHang.setVisible(false);
+			}
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			JOptionPane.showMessageDialog(null, "Lỗi kết nối đến máy chủ.");
 		}
