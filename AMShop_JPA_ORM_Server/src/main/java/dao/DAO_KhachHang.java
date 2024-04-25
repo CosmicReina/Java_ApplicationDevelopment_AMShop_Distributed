@@ -1,5 +1,6 @@
 package dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import connection.ConnectionMSSQL;
@@ -122,6 +123,23 @@ public class DAO_KhachHang {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
 			return 0;
+		}
+	}
+
+	public static List<?> getKhachHangTheoKhoangNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) {
+		try {
+			List<?> listKhachHang = entityManager.createNativeQuery(""
+					+ "SELECT HD.MaKhachHang, COUNT(HD.MaHoaDon) AS SoHoaDon, SUM(CTHD.SoLuong) AS SoHangHoaDaMua, SUM(CTHD.DonGia) AS TongTienDaMua "
+					+ "FROM (HoaDon HD JOIN ChiTietHoaDon CTHD ON HD.MaHoaDon = CTHD.MaHoaDon) JOIN KhachHang KH ON HD.MaKhachHang = KH.MaKhachHang "
+					+ "WHERE HD.ThoiGianTao BETWEEN :ngayBatDau AND :ngayKetThuc "
+					+ "GROUP BY HD.MaKhachHang")
+					.setParameter("ngayBatDau", ngayBatDau)
+					.setParameter("ngayKetThuc", ngayKetThuc)
+					.getResultList();
+			return listKhachHang;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 

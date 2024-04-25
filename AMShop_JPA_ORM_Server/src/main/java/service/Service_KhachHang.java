@@ -2,6 +2,7 @@ package service;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import dao.DAO_KhachHang;
@@ -49,6 +50,12 @@ public class Service_KhachHang extends UnicastRemoteObject implements IService_K
 	@Override
 	public double getSoTienKhachHangDaThanhToanTheoMaKhachHang(String maKhachHang) throws RemoteException {
 		return DAO_KhachHang.getSoTienKhachHangDaThanhToanTheoMaKhachHang(maKhachHang);
+	}
+
+	@Override
+	public List<?> getKhachHangTheoKhoangNgay(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc)
+			throws RemoteException {
+		return DAO_KhachHang.getKhachHangTheoKhoangNgay(ngayBatDau, ngayKetThuc);
 	}
 
 }
