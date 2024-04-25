@@ -27,24 +27,29 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "LichLamViec")
-@NamedQueries({
-	@NamedQuery(name = "LichLamViec.getAllLichLamViec", query = "SELECT llv FROM LichLamViec llv"),
-	@NamedQuery(name = "LichLamViec.getLichLamViecTheoMaLichLamViec", query = "SELECT llv FROM LichLamViec llv WHERE llv.maLichLamViec =:maLichLamViec")
-})
+@NamedQueries({@NamedQuery(name = "LichLamViec.getAllLichLamViec", query = "SELECT llv FROM LichLamViec llv"),
+		@NamedQuery(name = "LichLamViec.getLichLamViecTheoMaLichLamViec", query = "SELECT llv FROM LichLamViec llv WHERE llv.maLichLamViec =:maLichLamViec")})
 public class LichLamViec implements Serializable {
 
 	private static final long serialVersionUID = -1434004774413758052L;
-	
+
 	@Id
 	@Column(name = "MaLichLamViec", columnDefinition = "nvarchar(9)", nullable = false)
 	private String maLichLamViec;
-	
+
 	@Column(name = "NgayLamViec", columnDefinition = "date", nullable = false)
 	private LocalDate ngayLamViec;
-	
+
 	@ToString.Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MaCaLamViec")
 	private CaLamViec caLamViec;
+
+	public LichLamViec(String maLichLamViec, LocalDate ngayLamViec, CaLamViec caLamViec) {
+		super();
+		this.maLichLamViec = maLichLamViec;
+		this.ngayLamViec = ngayLamViec;
+		this.caLamViec = caLamViec;
+	}
 
 }

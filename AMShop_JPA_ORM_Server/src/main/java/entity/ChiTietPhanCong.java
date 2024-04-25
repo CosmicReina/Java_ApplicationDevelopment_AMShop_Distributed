@@ -50,4 +50,13 @@ public class ChiTietPhanCong implements Serializable {
 	@Column(name = "ThoiGianRaCa", columnDefinition = "datetime")
 	private LocalDateTime thoiGianRaCa;
 
+	public ChiTietPhanCong(LichLamViec lichLamViec, NhanVien nhanVien, LocalDateTime thoiGianVaoCa,
+			LocalDateTime thoiGianRaCa) {
+		super();
+		this.lichLamViec = lichLamViec;
+		this.nhanVien = nhanVien;
+		this.thoiGianVaoCa = thoiGianVaoCa;
+		this.thoiGianRaCa = thoiGianRaCa;
+	}
+
 }

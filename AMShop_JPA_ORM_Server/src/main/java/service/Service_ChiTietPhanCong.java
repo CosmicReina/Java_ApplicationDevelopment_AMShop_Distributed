@@ -6,6 +6,8 @@ import java.util.List;
 
 import dao.DAO_ChiTietPhanCong;
 import entity.ChiTietPhanCong;
+import entity.LichLamViec;
+import entity.NhanVien;
 import service_interface.IService_ChiTietPhanCong;
 
 public class Service_ChiTietPhanCong extends UnicastRemoteObject implements IService_ChiTietPhanCong {
@@ -27,8 +29,8 @@ public class Service_ChiTietPhanCong extends UnicastRemoteObject implements ISer
 	}
 
 	@Override
-	public boolean deleteChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) throws RemoteException {
-		return DAO_ChiTietPhanCong.deleteChiTietPhanCong(chiTietPhanCong);
+	public boolean deleteChiTietPhanCong(LichLamViec lichLamViec, NhanVien nhanVien) throws RemoteException {
+		return DAO_ChiTietPhanCong.deleteChiTietPhanCong(lichLamViec, nhanVien);
 	}
 
 	@Override

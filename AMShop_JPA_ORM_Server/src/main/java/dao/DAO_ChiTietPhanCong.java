@@ -4,6 +4,8 @@ import java.util.List;
 
 import connection.ConnectionMSSQL;
 import entity.ChiTietPhanCong;
+import entity.LichLamViec;
+import entity.NhanVien;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -42,10 +44,15 @@ public class DAO_ChiTietPhanCong {
 		}
 	}
 
-	public static boolean deleteChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) {
+	public static boolean deleteChiTietPhanCong(LichLamViec lichLamViec, NhanVien nhanVien) {
 		try {
 			EntityTransaction entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
+			ChiTietPhanCong chiTietPhanCong = entityManager
+					.createNamedQuery("SELECT c FROM ChiTietPhanCong c WHERE c.lichLamViec = :lichLamViec AND c.nhanVien = :nhanVien", ChiTietPhanCong.class)
+					.setParameter("lichLamViec", lichLamViec)
+					.setParameter("nhanVien", nhanVien)
+					.getSingleResult();
 			entityManager.remove(chiTietPhanCong);
 			entityTransaction.commit();
 			return true;
