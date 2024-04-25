@@ -24,13 +24,12 @@ import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 
 import configuration.ServiceInitiator;
-import dao.DAO_HoaDon;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 
 public class InHoaDon {
     public static void createAMShopInvoice(String maHoaDon) throws IOException, NotBoundException{
-        HoaDon hoaDon = DAO_HoaDon.getHoaDonTheoMaHoaDon(maHoaDon);
+        HoaDon hoaDon = ServiceInitiator.getInstance().getServiceHoaDon().getHoaDonTheoMaHoaDon(maHoaDon);
         List<ChiTietHoaDon> list = ServiceInitiator.getInstance().getServiceChiTietHoaDon().getAllChiTietHoaDonTheoMaHoaDon(maHoaDon);
         double tienKhachDua = hoaDon.getTienKhachDua();
         
