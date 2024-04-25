@@ -70,7 +70,7 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel {
 			cmbNhaSanXuat.removeAllItems();
 			cmbNhaSanXuat.addItem("Nhà Sản Xuất");
 			for (NhaSanXuat thisNhaSanXuat : listNhaSanXuat)
-				cmbNhaSanXuat.addItem(thisNhaSanXuat.toString());
+				cmbNhaSanXuat.addItem(thisNhaSanXuat.getTenNhaSanXuat());
 			cmbNhaSanXuat.addItem("-- Nhà Sản Xuất Mới --");
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			e.printStackTrace();
@@ -150,7 +150,7 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel {
 		for (QuanAo thisQuanAo : list) {
 			model.addRow(new Object[]{thisQuanAo.getMaQuanAo(), thisQuanAo.getTenQuanAo(),
 					FormatDouble.toMoney(thisQuanAo.getDonGiaNhap()), FormatDouble.toMoney(thisQuanAo.getDonGiaBan()),
-					thisQuanAo.getSoLuongTrongKho(), thisQuanAo.getNhaSanXuat(), thisQuanAo.getDanhMuc(),
+					thisQuanAo.getSoLuongTrongKho(), thisQuanAo.getNhaSanXuat().getTenNhaSanXuat(), thisQuanAo.getDanhMuc(),
 					thisQuanAo.getGioiTinh(), thisQuanAo.getMauSac(), thisQuanAo.getKichThuoc(),
 					thisQuanAo.getChatLieu()});
 		}
@@ -175,8 +175,7 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel {
 			double donGiaNhap = 0;
 			double donGiaBan = 0;
 			int soLuong = 0;
-			ImageIcon hinhAnh = UtilityImageIcon.fromStringPath(imagePath, 196, 270);
-			byte[] hinhAnhByte = UtilityImageIcon.toBytes(hinhAnh);
+			
 			
 			if(tenQuanAo.equals(""))
 			    error += "\n- Vui lòng nhập Tên Quần Áo.";
@@ -233,6 +232,8 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel {
 			    error += "\n -Vui lòng chọn Hình Ảnh.";
 			
 			if(error.equals("")){
+				ImageIcon hinhAnh = UtilityImageIcon.fromStringPath(imagePath, 196, 270);
+				byte[] hinhAnhByte = UtilityImageIcon.toBytes(hinhAnh);
 			    QuanAo quanAo = new QuanAo(maQuanAo, tenQuanAo, donGiaNhap, donGiaBan, soLuong,
 						ServiceInitiator.getInstance().getServiceNhaSanXuat().kiemTraTonTai(nhaSanXuat), danhMuc,
 						gioiTinh, mauSac, kichThuoc, chatLieu, hinhAnhByte, false);

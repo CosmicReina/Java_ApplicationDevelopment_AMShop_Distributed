@@ -68,7 +68,7 @@ public class GUI_CapNhatQuanAo extends javax.swing.JPanel {
 			cmbNhaSanXuat.removeAllItems();
 			cmbNhaSanXuat.addItem("Nhà Sản Xuất");
 			for (NhaSanXuat thisNhaSanXuat : listNhaSanXuat)
-				cmbNhaSanXuat.addItem(thisNhaSanXuat.toString());
+				cmbNhaSanXuat.addItem(thisNhaSanXuat.getTenNhaSanXuat());
 			cmbNhaSanXuat.addItem("-- Nhà Sản Xuất Mới --");
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			e.printStackTrace();
@@ -148,7 +148,7 @@ public class GUI_CapNhatQuanAo extends javax.swing.JPanel {
 		for (QuanAo thisQuanAo : list) {
 			model.addRow(new Object[]{thisQuanAo.getMaQuanAo(), thisQuanAo.getTenQuanAo(),
 					FormatDouble.toMoney(thisQuanAo.getDonGiaNhap()), FormatDouble.toMoney(thisQuanAo.getDonGiaBan()),
-					thisQuanAo.getSoLuongTrongKho(), thisQuanAo.getNhaSanXuat(), thisQuanAo.getDanhMuc(),
+					thisQuanAo.getSoLuongTrongKho(), thisQuanAo.getNhaSanXuat().getTenNhaSanXuat(), thisQuanAo.getDanhMuc(),
 					thisQuanAo.getGioiTinh(), thisQuanAo.getMauSac(), thisQuanAo.getKichThuoc(),
 					thisQuanAo.getChatLieu()});
 		}
@@ -413,7 +413,7 @@ public class GUI_CapNhatQuanAo extends javax.swing.JPanel {
 			txtDonGiaNhap.setText(String.format("%.0f", quanAo.getDonGiaNhap()));
 			txtDonGiaBan.setText(String.format("%.0f", quanAo.getDonGiaBan()));
 			txtSoLuong.setText(Integer.toString(quanAo.getSoLuongTrongKho()));
-			cmbNhaSanXuat.setSelectedItem(quanAo.getNhaSanXuat());
+			cmbNhaSanXuat.setSelectedItem(quanAo.getNhaSanXuat().getTenNhaSanXuat());
 			cmbDanhMuc.setSelectedItem(quanAo.getDanhMuc());
 			cmbChatLieu.setSelectedItem(quanAo.getChatLieu());
 			cmbMauSac.setSelectedItem(quanAo.getMauSac());
@@ -422,6 +422,7 @@ public class GUI_CapNhatQuanAo extends javax.swing.JPanel {
 			chkNgungNhap.setSelected(quanAo.isNgungNhap());
 
 			lblIMG.setText("");
+			lblIMG.setIcon(UtilityImageIcon.fromBytes(quanAo.getHinhAnh()));
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			e.printStackTrace();
 		}
