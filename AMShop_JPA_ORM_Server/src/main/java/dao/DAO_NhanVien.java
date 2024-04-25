@@ -1,6 +1,7 @@
 package dao;
 
 import java.time.LocalDate;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -164,9 +165,9 @@ public class DAO_NhanVien {
 					.setParameter("year", year)
 					.setParameter("month", month)
 					.getResultList();
-			Map<NhanVien, Integer> map = list.stream()
+			LinkedHashMap<NhanVien, Integer> map = list.stream()
 					.collect(Collectors.toMap(o -> getNhanVienTheoMaNhanVien((String) ((Object[]) o)[0]),
-							o -> (Integer) ((Object[]) o)[1]));
+							o -> (Integer) ((Object[]) o)[1], (o1, o2) -> o1, LinkedHashMap::new));
 			return map;
 		} catch (Exception e) {
 			return null;
