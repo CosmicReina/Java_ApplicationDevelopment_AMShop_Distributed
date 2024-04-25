@@ -17,9 +17,10 @@ public class DAO_NhanVien {
 	
 	public static boolean createNhanVien(NhanVien nhanVien) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.persist(nhanVien);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -30,9 +31,10 @@ public class DAO_NhanVien {
 	
 	public static boolean updateNhanVien(NhanVien nhanVien) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.merge(nhanVien);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -42,32 +44,78 @@ public class DAO_NhanVien {
 	}
 	
 	public static List<NhanVien> getAllNhanVien(){
-		return entityManager.createNamedQuery("NhanVien.getAllNhanVien", NhanVien.class)
-				.getResultList();
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			List<NhanVien> danhSachNhanVien = entityManager.createNamedQuery("NhanVien.getAllNhanVien", NhanVien.class)
+					.getResultList();
+			entityTransaction.commit();
+			return danhSachNhanVien;
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
 	
 	public static NhanVien getNhanVienTheoMaNhanVien(String maNhanVien) {
-		return entityManager.createNamedQuery("NhanVien.getNhanVienTheoMaNhanVien", NhanVien.class)
-				.setParameter("maNhanVien", maNhanVien)
-				.getSingleResult();
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			NhanVien nhanVien = entityManager.createNamedQuery("NhanVien.getNhanVienTheoMaNhanVien", NhanVien.class)
+                    .setParameter("maNhanVien", maNhanVien)
+                    .getSingleResult();
+			entityTransaction.commit();
+			return nhanVien;
+		} catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            return null;
+        }
 	}
 	
 	public static NhanVien getNhanVienTheoSoDienThoai(String soDienThoai) {
-		return entityManager.createNamedQuery("NhanVien.getNhanVienTheoSoDienThoai", NhanVien.class)
-				.setParameter("soDienThoai", soDienThoai)
-				.getSingleResult();
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			NhanVien nhanVien = entityManager.createNamedQuery("NhanVien.getNhanVienTheoSoDienThoai", NhanVien.class)
+					.setParameter("soDienThoai", soDienThoai)
+					.getSingleResult();
+			entityTransaction.commit();
+			return nhanVien;
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
 
 	public static NhanVien getNhanVienTheoCanCuocCongDan(String canCuocCongDan) {
-		return entityManager.createNamedQuery("NhanVien.getNhanVienTheoCanCuocCongDan", NhanVien.class)
-				.setParameter("canCuocCongDan", canCuocCongDan)
-				.getSingleResult();
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			NhanVien nhanVien = entityManager.createNamedQuery("NhanVien.getNhanVienTheoCanCuocCongDan", NhanVien.class)
+					.setParameter("canCuocCongDan", canCuocCongDan)
+					.getSingleResult();
+			entityTransaction.commit();
+			return nhanVien;
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
 
 	public static List<NhanVien> getDanhSachNhanVienChuaCoTrongNgayLamViec(LocalDate ngayLamViec){
-		return entityManager.createNamedQuery("NhanVien.getDanhSachNhanVienChuaCoTrongNgayLamViec", NhanVien.class)
-				.setParameter("ngayLamViec", ngayLamViec)
-				.getResultList();
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			List<NhanVien> danhSachNhanVien = entityManager
+					.createNamedQuery("NhanVien.getDanhSachNhanVienChuaCoTrongNgayLamViec", NhanVien.class)
+					.setParameter("ngayLamViec", ngayLamViec)
+					.getResultList();
+			entityTransaction.commit();
+			return danhSachNhanVien;
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
 
 	public static NhanVien getNhanVienCuoi(String prefix) {
