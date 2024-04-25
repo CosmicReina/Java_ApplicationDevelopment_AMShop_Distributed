@@ -16,9 +16,10 @@ public class DAO_ChiTietDonDatHang {
 
 	public static boolean createChiTietDonDatHang(ChiTietDonDatHang chiTietDonDatHang) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.persist(chiTietDonDatHang);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -29,9 +30,10 @@ public class DAO_ChiTietDonDatHang {
 
 	public static boolean deleteChiTietDonDatHang(ChiTietDonDatHang chiTietDonDatHang) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.remove(chiTietDonDatHang);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,13 +43,19 @@ public class DAO_ChiTietDonDatHang {
 	}
 
 	public static List<ChiTietDonDatHang> getAllChiTietDonDatHangTheoMaDonDatHang(String maDonDatHang) {
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-		List<ChiTietDonDatHang> list = entityManager
-				.createNamedQuery("ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang", ChiTietDonDatHang.class)
-				.setParameter("maDonDatHang", maDonDatHang)
-				.getResultList();
-		entityTransaction.commit();
-		return list;
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			List<ChiTietDonDatHang> list = entityManager
+					.createNamedQuery("ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang",
+							ChiTietDonDatHang.class)
+					.setParameter("maDonDatHang", maDonDatHang)
+					.getResultList();
+			entityTransaction.commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

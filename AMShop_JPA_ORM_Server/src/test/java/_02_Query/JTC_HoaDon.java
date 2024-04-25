@@ -1,6 +1,6 @@
 package _02_Query;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.testing.junit4.CustomParameterized.Order;
@@ -57,7 +57,7 @@ class JTC_HoaDon {
 		System.err.println("getAllHoaDonTrongKhoangNgay()");
 		
 		System.err.println("query");
-		List<HoaDon> list_day = DAO_HoaDon.getAllHoaDonTrongKhoangNgay(LocalDate.of(2023, 12, 9), LocalDate.of(2023, 12, 14));
+		List<HoaDon> list_day = DAO_HoaDon.getAllHoaDonTrongKhoangNgay(LocalDateTime.of(2022, 12, 9, 0, 0), LocalDateTime.of(2024, 12, 9, 23, 59));
 		
 		System.err.println("result");
 		list_day.forEach(System.out::println);

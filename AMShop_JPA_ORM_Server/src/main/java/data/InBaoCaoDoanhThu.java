@@ -22,7 +22,7 @@ import entity.ChiTietHoaDon;
 import entity.HoaDon;
 
 public class InBaoCaoDoanhThu {
-    public static boolean createBaoCaoDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws IOException, NotBoundException{
+    public static boolean createBaoCaoDoanhThu(LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc) throws IOException, NotBoundException{
         String baocao_file_path = "files//baoCao//" + "baoCaoDoanhThu.pdf";
         PdfWriter pdfWriter = new PdfWriter(baocao_file_path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
@@ -62,9 +62,9 @@ public class InBaoCaoDoanhThu {
         
         Paragraph prgKhoangThoiGian = new Paragraph();
         prgKhoangThoiGian.add(new Text("Thống kê từ: ").setBold());
-        prgKhoangThoiGian.add(new Text(FormatLocalDate.fromLocalDate(ngayBatDau)));
+        prgKhoangThoiGian.add(new Text(FormatLocalDateTime.toFormattedLocalDateTime(ngayBatDau)));
         prgKhoangThoiGian.add(new Text(" đến ").setBold());
-        prgKhoangThoiGian.add(new Text(FormatLocalDate.fromLocalDate(ngayKetThuc)));
+        prgKhoangThoiGian.add(new Text(FormatLocalDateTime.toFormattedLocalDateTime(ngayKetThuc)));
         prgKhoangThoiGian.setMarginLeft(50);
         
         Paragraph prgThoiGianThongKe = new Paragraph();

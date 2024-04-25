@@ -5,6 +5,7 @@ import java.util.List;
 import connection.ConnectionMSSQL;
 import entity.KhachHang;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 public class DAO_KhachHang {
 
@@ -12,12 +13,13 @@ public class DAO_KhachHang {
 
 	private DAO_KhachHang() {
 	}
-	
+
 	public static boolean createKhachHang(KhachHang khachHang) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.persist(khachHang);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -25,13 +27,14 @@ public class DAO_KhachHang {
 			return false;
 		}
 	}
-	
+
 	public static boolean updateKhachHang(KhachHang khachHang) {
 		try {
-			entityManager.getTransaction().begin();
-            entityManager.merge(khachHang);
-            entityManager.getTransaction().commit();
-            return true;
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			entityManager.merge(khachHang);
+			entityTransaction.commit();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
@@ -40,37 +43,86 @@ public class DAO_KhachHang {
 	}
 
 	public static List<KhachHang> getAllKhachHang() {
-		return entityManager.createNamedQuery("KhachHang.getAllKhachHang", KhachHang.class)
-				.getResultList();
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			List<KhachHang> listKhachHang = entityManager.createNamedQuery("KhachHang.getAllKhachHang", KhachHang.class)
+					.getResultList();
+			entityTransaction.commit();
+			return listKhachHang;
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
 
 	public static KhachHang getKhachHangTheoMaKhachHang(String maKhachHang) {
-		return entityManager
-				.createNamedQuery("KhachHang.getKhachHangTheoMaKhachHang", KhachHang.class)
-				.setParameter("maKhachHang", maKhachHang)
-				.getSingleResult();
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			KhachHang khachHang = entityManager
+					.createNamedQuery("KhachHang.getKhachHangTheoMaKhachHang", KhachHang.class)
+					.setParameter("maKhachHang", maKhachHang)
+					.getSingleResult();
+			entityTransaction.commit();
+			return khachHang;
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
-	
+
 	public static KhachHang getKhachHangTheoSoDienThoai(String soDienThoai) {
-		return entityManager
-				.createNamedQuery("KhachHang.getKhachHangTheoSoDienThoai", KhachHang.class)
-				.setParameter("soDienThoai", soDienThoai)
-				.getSingleResult();
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			KhachHang khachHang = entityManager
+					.createNamedQuery("KhachHang.getKhachHangTheoSoDienThoai", KhachHang.class)
+					.setParameter("soDienThoai", soDienThoai)
+					.getSingleResult();
+			entityTransaction.commit();
+			return khachHang;
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
-	
+
 	public static KhachHang getKhachHangCuoi(String prefix) {
-		prefix = prefix + "%";
-		return entityManager
-				.createNamedQuery("KhachHang.getKhachHangCuoi", KhachHang.class)
-				.setParameter("prefix", prefix)
-				.getSingleResult();
+		try {
+			prefix = prefix + "%";
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			KhachHang khachHang = entityManager.createNamedQuery("KhachHang.getKhachHangCuoi", KhachHang.class)
+					.setParameter("prefix", prefix)
+					.getSingleResult();
+			entityTransaction.commit();
+			return khachHang;
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
-	
+
 	public static double getSoTienKhachHangDaThanhToanTheoMaKhachHang(String maKhachHang) {
-		return entityManager
-                .createNamedQuery("KhachHang.getSoTienKhachHangDaThanhToanTheoMaKhachHang", Double.class)
-                .setParameter("maKhachHang", maKhachHang)
-                .getSingleResult();    
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			double soTien = entityManager
+					.createNamedQuery("KhachHang.getSoTienKhachHangDaThanhToanTheoMaKhachHang", Double.class)
+					.setParameter("maKhachHang", maKhachHang)
+					.getSingleResult();
+			entityTransaction.commit();
+			return soTien;
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			return 0;
+		}
 	}
 
 }

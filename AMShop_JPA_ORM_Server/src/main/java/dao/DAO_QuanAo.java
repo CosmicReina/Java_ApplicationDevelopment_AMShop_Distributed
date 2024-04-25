@@ -10,58 +10,78 @@ import jakarta.persistence.EntityTransaction;
 public class DAO_QuanAo {
 
 	private static EntityManager entityManager = ConnectionMSSQL.getEntityManager();
-	
+
 	private DAO_QuanAo() {
 	}
-	
+
 	public static boolean createQuanAo(QuanAo quanAo) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.persist(quanAo);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
 			return false;
 		}
 	}
-	
+
 	public static boolean updateQuanAo(QuanAo quanAo) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.merge(quanAo);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
 			return false;
 		}
 	}
-	
+
 	public static List<QuanAo> getAllQuanAo() {
-		List<QuanAo> list = entityManager.createNamedQuery("QuanAo.getAllQuanAo", QuanAo.class).getResultList();
-		return list;
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			List<QuanAo> danhSachQuanAo = entityManager.createNamedQuery("QuanAo.getAllQuanAo", QuanAo.class)
+					.getResultList();
+			entityTransaction.commit();
+			return danhSachQuanAo;
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
-	
+
 	public static QuanAo getQuanAoTheoMaQuanAo(String maQuanAo) {
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-		QuanAo quanAo =  entityManager.createNamedQuery("QuanAo.getQuanAoTheoMaQuanAo", QuanAo.class)
-				.setParameter("maQuanAo", maQuanAo)
-				.getSingleResult();
-		entityTransaction.commit();
-		return quanAo;
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			QuanAo quanAo = entityManager.createNamedQuery("QuanAo.getQuanAoTheoMaQuanAo", QuanAo.class)
+					.setParameter("maQuanAo", maQuanAo)
+					.getSingleResult();
+			entityTransaction.commit();
+			return quanAo;
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
-	
+
 	public static QuanAo getQuanAoCuoi() {
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-		QuanAo quanAo = entityManager.createNamedQuery("QuanAo.getQuanAoCuoi", QuanAo.class)
-				.getSingleResult();
-		entityTransaction.commit();
-		return quanAo;
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			QuanAo quanAo = entityManager.createNamedQuery("QuanAo.getQuanAoCuoi", QuanAo.class).getSingleResult();
+			entityTransaction.commit();
+			return quanAo;
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
-	
+
 }

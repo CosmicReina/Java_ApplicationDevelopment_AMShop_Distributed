@@ -16,9 +16,10 @@ public class DAO_ChiTietHoaDon {
 	
 	public static boolean createChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.persist(chiTietHoaDon);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -29,9 +30,10 @@ public class DAO_ChiTietHoaDon {
 	
 	public static boolean removeChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.remove(chiTietHoaDon);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

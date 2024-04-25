@@ -16,9 +16,10 @@ public class DAO_ChiTietPhanCong {
 
 	public static boolean createChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.persist(chiTietPhanCong);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -29,9 +30,10 @@ public class DAO_ChiTietPhanCong {
 
 	public static boolean updateChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.merge(chiTietPhanCong);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -42,9 +44,10 @@ public class DAO_ChiTietPhanCong {
 
 	public static boolean deleteChiTietPhanCong(ChiTietPhanCong chiTietPhanCong) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.remove(chiTietPhanCong);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,13 +57,19 @@ public class DAO_ChiTietPhanCong {
 	}
 
 	public static List<ChiTietPhanCong> getAllChiTietPhanCongTheoMaLichLamViec(String maLichLamViec) {
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-		List<ChiTietPhanCong> list = entityManager
-				.createNamedQuery("ChiTietPhanCong.getAllChiTietPhanCongTheoMaLichLamViec", ChiTietPhanCong.class)
-				.setParameter("maLichLamViec", maLichLamViec)
-				.getResultList();
-		entityTransaction.commit();
-		return list;
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			List<ChiTietPhanCong> list = entityManager
+					.createNamedQuery("ChiTietPhanCong.getAllChiTietPhanCongTheoMaLichLamViec", ChiTietPhanCong.class)
+					.setParameter("maLichLamViec", maLichLamViec)
+					.getResultList();
+			entityTransaction.commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
 }

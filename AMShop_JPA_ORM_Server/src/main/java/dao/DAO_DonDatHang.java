@@ -8,17 +8,18 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
 public class DAO_DonDatHang {
-	
+
 	private static EntityManager entityManager = ConnectionMSSQL.getEntityManager();
-	
+
 	private DAO_DonDatHang() {
 	}
-	
+
 	public static boolean createDonDatHang(DonDatHang donDatHang) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.persist(donDatHang);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -26,12 +27,13 @@ public class DAO_DonDatHang {
 			return false;
 		}
 	}
-	
+
 	public static boolean updateDonDatHang(DonDatHang donDatHang) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.merge(donDatHang);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,12 +41,13 @@ public class DAO_DonDatHang {
 			return false;
 		}
 	}
-	
+
 	public static boolean deleteDonDatHang(DonDatHang donDatHang) {
 		try {
-			entityManager.getTransaction().begin();
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
 			entityManager.remove(donDatHang);
-			entityManager.getTransaction().commit();
+			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,32 +55,55 @@ public class DAO_DonDatHang {
 			return false;
 		}
 	}
-	
-	public static List<DonDatHang> getAllDonDatHang(){
-		return entityManager.createNamedQuery("DonDatHang.getAllDonDatHang", DonDatHang.class)
-				.getResultList();
+
+	public static List<DonDatHang> getAllDonDatHang() {
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			List<DonDatHang> listDonDatHang = entityManager
+					.createNamedQuery("DonDatHang.getAllDonDatHang", DonDatHang.class)
+					.getResultList();
+			entityTransaction.commit();
+			return listDonDatHang;
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
-	
+
 	public static DonDatHang getDonDatHangTheoMaDonDatHang(String maDonDatHang) {
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-		DonDatHang donDatHang = entityManager
-				.createNamedQuery("DonDatHang.getDonDatHangTheoMaDonDatHang", DonDatHang.class)
-				.setParameter("maDonDatHang", maDonDatHang)
-				.getSingleResult();
-		entityTransaction.commit();
-		return donDatHang;
+		try {
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			DonDatHang donDatHang = entityManager
+					.createNamedQuery("DonDatHang.getDonDatHangTheoMaDonDatHang", DonDatHang.class)
+					.setParameter("maDonDatHang", maDonDatHang)
+					.getSingleResult();
+			entityTransaction.commit();
+			return donDatHang;
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
 
 	public static DonDatHang getDonDatHangCuoi(String prefix) {
-		prefix = prefix + "%";
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-		DonDatHang donDatHang =  entityManager.createNamedQuery("DonDatHang.getDonDatHangCuoi", DonDatHang.class)
-				.setParameter("prefix", prefix)
-				.getSingleResult();
-		entityTransaction.commit();
-		return donDatHang;
+		try {
+			prefix = prefix + "%";
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			DonDatHang donDatHang = entityManager.createNamedQuery("DonDatHang.getDonDatHangCuoi", DonDatHang.class)
+					.setParameter("prefix", prefix)
+					.getSingleResult();
+			entityTransaction.commit();
+			return donDatHang;
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			return null;
+		}
 	}
-	
+
 }

@@ -3,7 +3,7 @@ package _01_Client;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
@@ -37,55 +37,57 @@ class JTC_HoaDon {
 	}
 
 	@Test
-	void getAllHoaDon() throws MalformedURLException, RemoteException, NotBoundException{
-		
+	void getAllHoaDon() throws MalformedURLException, RemoteException, NotBoundException {
+
 		System.err.println("getAllHoaDon()");
-		
+
 		IService_HoaDon service_HoaDon = ServiceInitiator.getInstance().getServiceHoaDon();
 		List<HoaDon> list = service_HoaDon.getAllHoaDon();
 		list.forEach(System.out::println);
-		
+
 		HoaDon hoaDon = list.get(0);
 		NhanVien nhanvien = hoaDon.getNhanVien();
 		KhachHang khachhang = hoaDon.getKhachHang();
-		
+
 		System.out.println("NhanVien: " + nhanvien);
 		System.out.println("KhachHang: " + khachhang);
-		
+
 		System.out.println("\n");
 	}
 
 	@Test
-	void getAllHoaDonTrongKhoangNgay() throws MalformedURLException, RemoteException, NotBoundException{
-		
+	void getAllHoaDonTrongKhoangNgay() throws MalformedURLException, RemoteException, NotBoundException {
+
 		System.err.println("getAllHoaDonTrongKhoangNgay()");
-		
+
 		IService_HoaDon service_HoaDon = ServiceInitiator.getInstance().getServiceHoaDon();
-		service_HoaDon.getAllHoaDonTrongKhoangNgay(LocalDate.of(2023, 12, 31), LocalDate.of(2023, 12, 31));
-		
+		service_HoaDon
+				.getAllHoaDonTrongKhoangNgay(LocalDateTime.of(2022, 12, 9, 0, 0), LocalDateTime.of(2024, 12, 9, 23, 59))
+				.forEach(System.out::println);
+
 		System.out.println("\n");
 	}
-	
+
 	@Test
-	void getHoaDonTheoMaHoaDon() throws MalformedURLException, RemoteException, NotBoundException{
-		
+	void getHoaDonTheoMaHoaDon() throws MalformedURLException, RemoteException, NotBoundException {
+
 		System.err.println("getHoaDonTheoMaHoaDon()");
-		
+
 		IService_HoaDon service_HoaDon = ServiceInitiator.getInstance().getServiceHoaDon();
 		System.out.println(service_HoaDon.getHoaDonTheoMaHoaDon("HD2312090001"));
-		
+
 		System.out.println("\n");
 	}
-	
+
 	@Test
-	void getHoaDonCuoi() throws MalformedURLException, RemoteException, NotBoundException{
-		
+	void getHoaDonCuoi() throws MalformedURLException, RemoteException, NotBoundException {
+
 		System.err.println("getHoaDonCuoi()");
-		
+
 		IService_HoaDon service_HoaDon = ServiceInitiator.getInstance().getServiceHoaDon();
 		System.out.println(service_HoaDon.getHoaDonCuoi("HD23121400%"));
-		
+
 		System.out.println("\n");
 	}
-	
+
 }
