@@ -91,5 +91,19 @@ class JTC_KhachHang {
 		
 		System.out.println("\n");
 	}
+	
+	@Test
+	@Order(5)
+	void getSoTienKhachHangDaThanhToanTheoMaKhachHang() throws InterruptedException {
+		System.err.println("getSoTienKhachHangDaThanhToanTheoMaKhachHang()");
+
+		System.err.println("query");
+		Double soTienKhachHangDaThanhToan = DAO_KhachHang.getSoTienKhachHangDaThanhToanTheoMaKhachHang("KH23000001");
+
+		System.err.println("result");
+		System.out.println(soTienKhachHangDaThanhToan);
+
+		System.out.println("\n");
+	}
 
 }

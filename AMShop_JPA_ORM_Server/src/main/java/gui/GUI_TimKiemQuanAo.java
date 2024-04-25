@@ -152,7 +152,7 @@ public class GUI_TimKiemQuanAo extends javax.swing.JPanel {
 			if(!cmbNhaSanXuat.getSelectedItem().toString().equals("Nhà Sản Xuất")){
 			    for(int i = 0; i < list.size(); i ++){
 			        QuanAo thisQuanAo = list.get(i);
-			        if(!thisQuanAo.getNhaSanXuat().equals(cmbNhaSanXuat.getSelectedItem().toString()))
+			        if(!thisQuanAo.getNhaSanXuat().getTenNhaSanXuat().equals(cmbNhaSanXuat.getSelectedItem().toString()))
 			            listRemove.add(thisQuanAo);
 			    }
 			}

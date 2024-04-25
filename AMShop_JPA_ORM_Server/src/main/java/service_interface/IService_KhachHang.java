@@ -19,4 +19,6 @@ public interface IService_KhachHang extends Remote{
 	public KhachHang getKhachHangTheoSoDienThoai(String soDienThoai) throws RemoteException;
 	
 	public KhachHang getKhachHangCuoi(String prefix) throws RemoteException;
+	
+	public double getSoTienKhachHangDaThanhToanTheoMaKhachHang(String maKhachHang) throws RemoteException;
 }

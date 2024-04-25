@@ -65,5 +65,12 @@ public class DAO_KhachHang {
 				.setParameter("prefix", prefix)
 				.getSingleResult();
 	}
+	
+	public static double getSoTienKhachHangDaThanhToanTheoMaKhachHang(String maKhachHang) {
+		return entityManager
+                .createNamedQuery("KhachHang.getSoTienKhachHangDaThanhToanTheoMaKhachHang", Double.class)
+                .setParameter("maKhachHang", maKhachHang)
+                .getSingleResult();    
+	}
 
 }

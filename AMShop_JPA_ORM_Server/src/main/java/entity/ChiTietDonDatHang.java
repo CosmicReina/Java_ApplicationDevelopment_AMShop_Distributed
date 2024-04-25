@@ -46,4 +46,11 @@ public class ChiTietDonDatHang implements Serializable {
 	@Column(name = "SoLuong", columnDefinition = "int", nullable = false)
 	private int soLuong;
 
+	public ChiTietDonDatHang(DonDatHang donDatHang, QuanAo quanAo, int soLuong) {
+		super();
+		this.donDatHang = donDatHang;
+		this.quanAo = quanAo;
+		this.soLuong = soLuong;
+	}
+
 }

@@ -49,4 +49,12 @@ public class ChiTietHoaDon implements Serializable {
 	@Column(name = "DonGia", columnDefinition = "decimal", nullable = false)
 	private double donGia;
 
+	public ChiTietHoaDon(HoaDon hoaDon, QuanAo quanAo, int soLuong, double donGia) {
+		super();
+		this.hoaDon = hoaDon;
+		this.quanAo = quanAo;
+		this.soLuong = soLuong;
+		this.donGia = donGia;
+	}
+
 }

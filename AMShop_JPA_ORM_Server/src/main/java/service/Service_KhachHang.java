@@ -46,4 +46,9 @@ public class Service_KhachHang extends UnicastRemoteObject implements IService_K
 		return DAO_KhachHang.getKhachHangCuoi(prefix);
 	}
 
+	@Override
+	public double getSoTienKhachHangDaThanhToanTheoMaKhachHang(String maKhachHang) throws RemoteException {
+		return DAO_KhachHang.getSoTienKhachHangDaThanhToanTheoMaKhachHang(maKhachHang);
+	}
+
 }

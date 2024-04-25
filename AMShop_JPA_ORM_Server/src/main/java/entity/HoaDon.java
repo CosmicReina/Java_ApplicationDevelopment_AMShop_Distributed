@@ -27,12 +27,10 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "HoaDon")
-@NamedQueries({
-		@NamedQuery(name = "HoaDon.getAllHoaDon", query = "SELECT hd FROM HoaDon hd"),
+@NamedQueries({@NamedQuery(name = "HoaDon.getAllHoaDon", query = "SELECT hd FROM HoaDon hd"),
 		@NamedQuery(name = "HoaDon.getAllHoaDonTrongKhoangNgay", query = "SELECT hd FROM HoaDon hd WHERE hd.thoiGianTao BETWEEN :ngayBatDau AND :ngayKetThuc"),
 		@NamedQuery(name = "HoaDon.getHoaDonTheoMaHoaDon", query = "SELECT hd FROM HoaDon hd WHERE hd.maHoaDon =:maHoaDon"),
-		@NamedQuery(name = "HoaDon.getHoaDonCuoi", query = "SELECT hd FROM HoaDon hd WHERE hd.maHoaDon = (SELECT MAX(hd.maHoaDon) FROM HoaDon hd WHERE hd.maHoaDon Like :prefix) ORDER BY hd.maHoaDon DESC")
-})
+		@NamedQuery(name = "HoaDon.getHoaDonCuoi", query = "SELECT hd FROM HoaDon hd WHERE hd.maHoaDon = (SELECT MAX(hd.maHoaDon) FROM HoaDon hd WHERE hd.maHoaDon Like :prefix) ORDER BY hd.maHoaDon DESC")})
 public class HoaDon implements Serializable {
 
 	private static final long serialVersionUID = -3005357045012742305L;
@@ -61,5 +59,16 @@ public class HoaDon implements Serializable {
 
 	@Column(name = "ThoiGianTao", columnDefinition = "datetime", nullable = false)
 	private LocalDateTime thoiGianTao;
+
+	public HoaDon(String maHoaDon, CuaHang cuaHang, NhanVien nhanVien, KhachHang khachHang, double tienKhachDua,
+			LocalDateTime thoiGianTao) {
+		super();
+		this.maHoaDon = maHoaDon;
+		this.cuaHang = cuaHang;
+		this.nhanVien = nhanVien;
+		this.khachHang = khachHang;
+		this.tienKhachDua = tienKhachDua;
+		this.thoiGianTao = thoiGianTao;
+	}
 
 }

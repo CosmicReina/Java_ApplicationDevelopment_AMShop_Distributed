@@ -56,4 +56,14 @@ public class DonDatHang implements Serializable {
 	@Column(name = "TrangThaiThanhToan", columnDefinition = "bit", nullable = false)
 	private boolean trangThaiThanhToan;
 
+	public DonDatHang(String maDonDatHang, NhanVien nhanVien, KhachHang khachHang, LocalDateTime thoiGianTao,
+			boolean trangThaiThanhToan) {
+		super();
+		this.maDonDatHang = maDonDatHang;
+		this.nhanVien = nhanVien;
+		this.khachHang = khachHang;
+		this.thoiGianTao = thoiGianTao;
+		this.trangThaiThanhToan = trangThaiThanhToan;
+	}
+
 }
