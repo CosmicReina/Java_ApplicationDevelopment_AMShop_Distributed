@@ -29,7 +29,7 @@ import lombok.ToString;
 @NamedQueries({
 	@NamedQuery(name = "QuanAo.getAllQuanAo", query = "SELECT qa FROM QuanAo qa"),
 	@NamedQuery(name = "QuanAo.getQuanAoTheoMaQuanAo", query = "SELECT qa FROM QuanAo qa WHERE qa.maQuanAo = :maQuanAo"),
-	@NamedQuery(name = "QuanAo.getQuanAoCuoi", query = "SELECT qa FROM QuanAo qa WHERE qa.maQuanAo = (SELECT MAX(qa.maQuanAo) FROM QuanAo qa WHERE qa.maQuanAo LIKE :prefix ) ORDER BY qa.maQuanAo DESC")
+	@NamedQuery(name = "QuanAo.getQuanAoCuoi", query = "SELECT qa FROM QuanAo qa WHERE qa.maQuanAo = (SELECT MAX(qa2.maQuanAo) FROM QuanAo qa2)"),
 })
 public class QuanAo implements Serializable {
 	

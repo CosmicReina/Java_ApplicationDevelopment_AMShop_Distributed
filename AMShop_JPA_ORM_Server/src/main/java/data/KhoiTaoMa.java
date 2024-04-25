@@ -69,7 +69,7 @@ public class KhoiTaoMa {
 			
 			String prefix = "QA";
 			
-			String maQuanAoCuoi = ServiceInitiator.getInstance().getServiceQuanAo().getQuanAoCuoi(prefix).getMaQuanAo();
+			String maQuanAoCuoi = ServiceInitiator.getInstance().getServiceQuanAo().getQuanAoCuoi().getMaQuanAo();
 			if(maQuanAoCuoi == null){
 			    soQuanAo = 1;
 			    maQuanAo = prefix + String.format("%06d", soQuanAo);

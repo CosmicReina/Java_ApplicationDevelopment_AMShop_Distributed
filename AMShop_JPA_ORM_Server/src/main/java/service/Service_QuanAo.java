@@ -37,8 +37,8 @@ public class Service_QuanAo extends UnicastRemoteObject implements IService_Quan
 	}
 
 	@Override
-	public QuanAo getQuanAoCuoi(String prefix) throws RemoteException {
-		return DAO_QuanAo.getQuanAoCuoi(prefix);
+	public QuanAo getQuanAoCuoi() throws RemoteException {
+		return DAO_QuanAo.getQuanAoCuoi();
 	}
 
 }

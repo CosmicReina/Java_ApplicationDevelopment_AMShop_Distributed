@@ -56,7 +56,7 @@ class JTC_QuanAo {
 		System.err.println("getQuanAoCuoi()");
 		
 		IService_QuanAo service_QuanAo = ServiceInitiator.getInstance().getServiceQuanAo();
-		System.out.println(service_QuanAo.getQuanAoCuoi("QA0000%"));
+		System.out.println(service_QuanAo.getQuanAoCuoi());
 		
 		System.out.println("\n");
 	}

@@ -16,6 +16,6 @@ public interface IService_QuanAo extends Remote{
 	
 	public QuanAo getQuanAoTheoMaQuanAo(String maQuanAo) throws RemoteException;
 	
-	public QuanAo getQuanAoCuoi(String prefix) throws RemoteException;
+	public QuanAo getQuanAoCuoi() throws RemoteException;
 	
 }

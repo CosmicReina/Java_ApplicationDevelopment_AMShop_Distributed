@@ -55,11 +55,10 @@ public class DAO_QuanAo {
 		return quanAo;
 	}
 	
-	public static QuanAo getQuanAoCuoi(String prefix) {
+	public static QuanAo getQuanAoCuoi() {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		QuanAo quanAo = entityManager.createNamedQuery("QuanAo.getQuanAoCuoi", QuanAo.class)
-				.setParameter("prefix", prefix)
 				.getSingleResult();
 		entityTransaction.commit();
 		return quanAo;

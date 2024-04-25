@@ -70,7 +70,7 @@ class JTC_QuanAo {
 		System.err.println("getQuanAoCuoi");
 		
 		System.err.println("query");
-		QuanAo quanAoCuoi = DAO_QuanAo.getQuanAoCuoi("QA0000%");
+		QuanAo quanAoCuoi = DAO_QuanAo.getQuanAoCuoi();
 		
 		System.err.println("result");
 		System.out.println(quanAoCuoi);
