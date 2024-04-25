@@ -57,7 +57,7 @@ public class GUI_DanhSachQuanAo extends javax.swing.JPanel {
                 thisQuanAo.getTenQuanAo(),
                 FormatDouble.toMoney(thisQuanAo.getDonGiaBan()),
                 thisQuanAo.getSoLuongTrongKho(),
-                thisQuanAo.getNhaSanXuat(),
+                thisQuanAo.getNhaSanXuat().getTenNhaSanXuat(),
                 thisQuanAo.getDanhMuc(),
                 thisQuanAo.getGioiTinh(),
                 thisQuanAo.getMauSac(),

@@ -54,7 +54,7 @@ public class GUI_TimKiemQuanAo extends javax.swing.JPanel {
 			cmbNhaSanXuat.removeAllItems();
 			cmbNhaSanXuat.addItem("Nhà Sản Xuất");
 			for (NhaSanXuat thisNhaSanXuat : listNhaSanXuat)
-				cmbNhaSanXuat.addItem(thisNhaSanXuat.toString());
+				cmbNhaSanXuat.addItem(thisNhaSanXuat.getTenNhaSanXuat());
 
 			cmbDanhMuc.removeAllItems();
 			cmbDanhMuc.addItem("Danh Mục");
@@ -123,7 +123,7 @@ public class GUI_TimKiemQuanAo extends javax.swing.JPanel {
 		for (QuanAo thisQuanAo : list) {
 			model.addRow(new Object[]{thisQuanAo.getMaQuanAo(), thisQuanAo.getTenQuanAo(),
 					FormatDouble.toMoney(thisQuanAo.getDonGiaBan()), thisQuanAo.getSoLuongTrongKho(),
-					thisQuanAo.getNhaSanXuat(), thisQuanAo.getDanhMuc(), thisQuanAo.getGioiTinh(),
+					thisQuanAo.getNhaSanXuat().getTenNhaSanXuat(), thisQuanAo.getDanhMuc(), thisQuanAo.getGioiTinh(),
 					thisQuanAo.getMauSac(), thisQuanAo.getKichThuoc(), thisQuanAo.getChatLieu()});
 		}
 	}
