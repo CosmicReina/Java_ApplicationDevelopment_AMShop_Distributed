@@ -46,7 +46,7 @@ public class DAO_DonDatHang {
 		try {
 			EntityTransaction entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
-			entityManager.remove(donDatHang);
+			entityManager.remove(entityManager.contains(donDatHang) ? donDatHang : entityManager.merge(donDatHang));
 			entityTransaction.commit();
 			return true;
 		} catch (Exception e) {
