@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -10,8 +11,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-
-import org.jpedal.examples.viewer.Viewer;
 
 import configuration.ServiceInitiator;
 import data.FormatDouble;
@@ -84,21 +83,31 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 
 	private void xemFileHoaDon() {
 		try {
-            InHoaDon.createTempAMShopInvoice(maHoaDon);
-        } catch (IOException | NotBoundException ex) {
-            ex.printStackTrace(System.out);
-        }
-        String path = "files//hoaDon//temp.pdf";
-        File file = new File(path);
-        if(file.exists()) {
-            Viewer viewer = new Viewer();
-            viewer.setupViewer();
-            viewer.getSwingGUI().getFrame().setSize(690, 768);
-            viewer.getSwingGUI().getFrame().setLocation(512, 16);
-            viewer.openDefaultFile(file.getAbsolutePath());
-        }
-        else
-            JOptionPane.showMessageDialog(null, "File Hóa Đơn không tồn tại. Vui lòng kiểm tra lại.");
+			InHoaDon.createTempAMShopInvoice(maHoaDon);
+		} catch (IOException | NotBoundException ex) {
+			ex.printStackTrace(System.out);
+		}
+		String path = "files//hoaDon//temp.pdf";
+		File file = new File(path);
+		// if(file.exists()) {
+		// Viewer viewer = new Viewer();
+		// viewer.setupViewer();
+		// viewer.getSwingGUI().getFrame().setSize(690, 768);
+		// viewer.getSwingGUI().getFrame().setLocation(512, 16);
+		// viewer.openDefaultFile(file.getAbsolutePath());
+		// }
+		// else
+		// JOptionPane.showMessageDialog(null, "File Hóa Đơn không tồn tại. Vui lòng kiểm tra lại.");
+		if (Desktop.isDesktopSupported()) {
+			Desktop desktop = Desktop.getDesktop();
+			try {
+				desktop.open(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("Desktop is not supported.");
+		}
 	}
 
 	private void quayLai() {
