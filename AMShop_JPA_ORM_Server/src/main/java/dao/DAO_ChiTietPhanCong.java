@@ -49,7 +49,7 @@ public class DAO_ChiTietPhanCong {
 			EntityTransaction entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
 			ChiTietPhanCong chiTietPhanCong = entityManager
-					.createNamedQuery("SELECT c FROM ChiTietPhanCong c WHERE c.lichLamViec = :lichLamViec AND c.nhanVien = :nhanVien", ChiTietPhanCong.class)
+					.createQuery("SELECT c FROM ChiTietPhanCong c WHERE c.lichLamViec = :lichLamViec AND c.nhanVien = :nhanVien", ChiTietPhanCong.class)
 					.setParameter("lichLamViec", lichLamViec)
 					.setParameter("nhanVien", nhanVien)
 					.getSingleResult();
