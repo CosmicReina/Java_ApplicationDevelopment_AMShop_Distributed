@@ -6,12 +6,9 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedNativeQueries;
-import jakarta.persistence.NamedNativeQuery;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,11 +30,6 @@ import lombok.ToString;
 		@NamedQuery(name = "NhanVien.getDanhSachNhanVienChuaCoTrongNgayLamViec", query = "SELECT nv FROM NhanVien nv WHERE nv.maNhanVien NOT IN ( SELECT c.nhanVien.maNhanVien FROM ChiTietPhanCong c WHERE c.lichLamViec.ngayLamViec =:ngayLamViec)"),
 		@NamedQuery(name = "NhanVien.getNhanVienCuoi", query = "SELECT nv FROM NhanVien nv WHERE nv.maNhanVien = (SELECT MAX(nv.maNhanVien) FROM NhanVien nv WHERE nv.maNhanVien LIKE :prefix ) ORDER BY nv.maNhanVien DESC"),
 		@NamedQuery(name = "NhanVien.getNhanVienTheoThongTinDangNhap", query = "SELECT nv FROM NhanVien nv WHERE nv.maNhanVien =:maNhanVien AND nv.matKhau =:matKhau"),})
-@NamedNativeQueries({
-		@NamedNativeQuery(name = "NhanVien.getTongThoiGianLamViecTheoThang", query = 
-		"SELECT MaNhanVien, SUM(DATEDIFF(SECOND, '00:00:00', CONVERT(DATETIME, ThoiGianRaCa - ThoiGianVaoCa))) AS TotalSeconds "
-				+ "FROM LichLamViec L JOIN ChiTietPhanCong CT ON L.MaLichLamViec = CT.MaLichLamViec "
-				+ "WHERE YEAR(NgayLamViec) = :year AND MONTH(NgayLamViec) = :month " + "GROUP BY MaNhanVien")})
 public class NhanVien implements Serializable {
 
 	private static final long serialVersionUID = -105740186557329773L;
