@@ -24,7 +24,6 @@ public class KhoiTaoMa {
 			String day = String.format("%02d", localDate.getDayOfMonth());
 			
 			String prefix = "NV" + year + month + day;
-			System.out.println(prefix);
 			
 			NhanVien nhanVienCuoi = ServiceInitiator.getInstance().getServiceNhanVien().getNhanVienCuoi(prefix);
 			if(nhanVienCuoi == null){
