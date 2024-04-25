@@ -1,161 +1,205 @@
 package gui;
 
-
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import configuration.ServiceInitiator;
+import data.InBaoCaoQuanAoDaHet;
+import entity.QuanAo;
 
 public class GUI_ThongKeQuanAoDaHet extends javax.swing.JPanel {
-    
-    private static GUI_ThongKeQuanAoDaHet instance = new GUI_ThongKeQuanAoDaHet();
-    
-    private LocalDate ngayBatDau;
-    private LocalDate ngayKetThuc;
 
-    public static GUI_ThongKeQuanAoDaHet getInstance() {
-        return instance;
-    }
-    
-    public static GUI_ThongKeQuanAoDaHet newInstance() {
-        instance = new GUI_ThongKeQuanAoDaHet();
-        return instance;
-    }
-    
-    public GUI_ThongKeQuanAoDaHet() {
-        initComponents();
-        tblQuanAo.fixTable(scrQuanAo);
-        
-    }
-    
-    private void updateTable(){
-        
-    }
-    
-    private void inBaoCaoThongKe(){
-        
-    }
-    
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+	private static final long serialVersionUID = 5694322905213971562L;
 
-        pnlHoaDon = new javax.swing.JPanel();
-        scrQuanAo = new javax.swing.JScrollPane();
-        tblQuanAo = new extended_component.JTable_LightMode();
-        pnlThongKe = new javax.swing.JPanel();
-        lblTongSoQuanAo = new javax.swing.JLabel();
-        txtTongSoQuanAo = new extended_component.JTextField_AllRound();
-        btnThongKe = new extended_component.JButton_AllRound();
-        btnInBaoCao = new extended_component.JButton_AllRound();
+	private static GUI_ThongKeQuanAoDaHet instance = new GUI_ThongKeQuanAoDaHet();
 
-        setBackground(new java.awt.Color(68, 136, 255));
-        setLayout(new java.awt.BorderLayout());
+	private LocalDate ngayBatDau;
+	private LocalDate ngayKetThuc;
 
-        pnlHoaDon.setOpaque(false);
-        pnlHoaDon.setPreferredSize(new java.awt.Dimension(600, 700));
-        pnlHoaDon.setLayout(new java.awt.BorderLayout());
+	public static GUI_ThongKeQuanAoDaHet getInstance() {
+		return instance;
+	}
 
-        scrQuanAo.setBackground(new java.awt.Color(68, 136, 255));
-        scrQuanAo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh Sách Quần Áo Đã Hết", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+	public static GUI_ThongKeQuanAoDaHet newInstance() {
+		instance = new GUI_ThongKeQuanAoDaHet();
+		return instance;
+	}
 
-        tblQuanAo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+	public GUI_ThongKeQuanAoDaHet() {
+		initComponents();
+		tblQuanAo.fixTable(scrQuanAo);
 
-            },
-            new String [] {
-                "Mã Quần Áo", "Tên Quần Áo"
-            }
-        ));
-        scrQuanAo.setViewportView(tblQuanAo);
-        if (tblQuanAo.getColumnModel().getColumnCount() > 0) {
-            tblQuanAo.getColumnModel().getColumn(1).setPreferredWidth(400);
-        }
+	}
 
-        pnlHoaDon.add(scrQuanAo, java.awt.BorderLayout.CENTER);
+	private void updateTable() {
+		try {
+			DefaultTableModel model = (DefaultTableModel) tblQuanAo.getModel();
+			model.getDataVector().removeAllElements();
+			tblQuanAo.revalidate();
+			tblQuanAo.repaint();
 
-        add(pnlHoaDon, java.awt.BorderLayout.CENTER);
+			int tongQuanAo = 0;
 
-        pnlThongKe.setBackground(new java.awt.Color(68, 136, 255));
-        pnlThongKe.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thống Kê Quần Áo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
-        pnlThongKe.setPreferredSize(new java.awt.Dimension(300, 700));
+			List<QuanAo> list = ServiceInitiator.getInstance().getServiceQuanAo().getQuanAoDaHetHang();
+			for (QuanAo quanAo : list) {
+				model.addRow(new Object[]{quanAo.getMaQuanAo(), quanAo.getTenQuanAo()});
+				tongQuanAo++;
+			}
 
-        lblTongSoQuanAo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblTongSoQuanAo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTongSoQuanAo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTongSoQuanAo.setText("Tổng số quần áo đã hết");
+			txtTongSoQuanAo.setText(Integer.toString(tongQuanAo));
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			e.printStackTrace();
+		}
+	}
 
-        txtTongSoQuanAo.setEditable(false);
-        txtTongSoQuanAo.setBackground(new java.awt.Color(224, 224, 224));
-        txtTongSoQuanAo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+	private void inBaoCaoThongKe() {
+		try {
+			if (tblQuanAo.getModel().getRowCount() == 0) {
+				JOptionPane.showMessageDialog(null, "Vui lòng Tạo Thống Kê trước.");
+				return;
+			}
+			if (InBaoCaoQuanAoDaHet.createBaoCaoQuanAoDaHet(ngayBatDau, ngayKetThuc) == true) {
+				JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Quần Áo đã hết thành công.");
+			} else {
+				JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Quần Áo đã hết thất bại.");
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace(System.out);
+		}
+	}
 
-        btnThongKe.setText("Thống Kê");
-        btnThongKe.setBorderRadius(30);
-        btnThongKe.setColorBackground(new java.awt.Color(170, 238, 255));
-        btnThongKe.setColorBorder(new java.awt.Color(255, 255, 255));
-        btnThongKe.setColorClick(new java.awt.Color(119, 204, 255));
-        btnThongKe.setColorEnter(new java.awt.Color(119, 238, 255));
-        btnThongKe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThongKeActionPerformed(evt);
-            }
-        });
+	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+	private void initComponents() {
 
-        btnInBaoCao.setText("In Báo Cáo");
-        btnInBaoCao.setBorderRadius(30);
-        btnInBaoCao.setColorBackground(new java.awt.Color(170, 238, 255));
-        btnInBaoCao.setColorBorder(new java.awt.Color(255, 255, 255));
-        btnInBaoCao.setColorClick(new java.awt.Color(119, 204, 255));
-        btnInBaoCao.setColorEnter(new java.awt.Color(119, 238, 255));
-        btnInBaoCao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInBaoCaoActionPerformed(evt);
-            }
-        });
+		pnlHoaDon = new javax.swing.JPanel();
+		scrQuanAo = new javax.swing.JScrollPane();
+		tblQuanAo = new extended_component.JTable_LightMode();
+		pnlThongKe = new javax.swing.JPanel();
+		lblTongSoQuanAo = new javax.swing.JLabel();
+		txtTongSoQuanAo = new extended_component.JTextField_AllRound();
+		btnThongKe = new extended_component.JButton_AllRound();
+		btnInBaoCao = new extended_component.JButton_AllRound();
 
-        javax.swing.GroupLayout pnlThongKeLayout = new javax.swing.GroupLayout(pnlThongKe);
-        pnlThongKe.setLayout(pnlThongKeLayout);
-        pnlThongKeLayout.setHorizontalGroup(
-            pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtTongSoQuanAo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(pnlThongKeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnInBaoCao, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
-                    .addComponent(btnThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTongSoQuanAo, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        pnlThongKeLayout.setVerticalGroup(
-            pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlThongKeLayout.createSequentialGroup()
-                .addComponent(lblTongSoQuanAo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTongSoQuanAo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 491, Short.MAX_VALUE)
-                .addComponent(btnThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnInBaoCao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+		setBackground(new java.awt.Color(68, 136, 255));
+		setLayout(new java.awt.BorderLayout());
 
-        add(pnlThongKe, java.awt.BorderLayout.EAST);
-    }// </editor-fold>//GEN-END:initComponents
+		pnlHoaDon.setOpaque(false);
+		pnlHoaDon.setPreferredSize(new java.awt.Dimension(600, 700));
+		pnlHoaDon.setLayout(new java.awt.BorderLayout());
 
-    private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThongKeActionPerformed
+		scrQuanAo.setBackground(new java.awt.Color(68, 136, 255));
+		scrQuanAo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh Sách Quần Áo Đã Hết",
+				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP,
+				new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
 
-    private void btnInBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInBaoCaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnInBaoCaoActionPerformed
+		tblQuanAo.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private extended_component.JButton_AllRound btnInBaoCao;
-    private extended_component.JButton_AllRound btnThongKe;
-    private javax.swing.JLabel lblTongSoQuanAo;
-    private javax.swing.JPanel pnlHoaDon;
-    private javax.swing.JPanel pnlThongKe;
-    private javax.swing.JScrollPane scrQuanAo;
-    private extended_component.JTable_LightMode tblQuanAo;
-    private extended_component.JTextField_AllRound txtTongSoQuanAo;
-    // End of variables declaration//GEN-END:variables
+		}, new String[]{"Mã Quần Áo", "Tên Quần Áo"}));
+		scrQuanAo.setViewportView(tblQuanAo);
+		if (tblQuanAo.getColumnModel().getColumnCount() > 0) {
+			tblQuanAo.getColumnModel().getColumn(1).setPreferredWidth(400);
+		}
+
+		pnlHoaDon.add(scrQuanAo, java.awt.BorderLayout.CENTER);
+
+		add(pnlHoaDon, java.awt.BorderLayout.CENTER);
+
+		pnlThongKe.setBackground(new java.awt.Color(68, 136, 255));
+		pnlThongKe.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thống Kê Quần Áo",
+				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP,
+				new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+		pnlThongKe.setPreferredSize(new java.awt.Dimension(300, 700));
+
+		lblTongSoQuanAo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+		lblTongSoQuanAo.setForeground(new java.awt.Color(255, 255, 255));
+		lblTongSoQuanAo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		lblTongSoQuanAo.setText("Tổng số quần áo đã hết");
+
+		txtTongSoQuanAo.setEditable(false);
+		txtTongSoQuanAo.setBackground(new java.awt.Color(224, 224, 224));
+		txtTongSoQuanAo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+		btnThongKe.setText("Thống Kê");
+		btnThongKe.setBorderRadius(30);
+		btnThongKe.setColorBackground(new java.awt.Color(170, 238, 255));
+		btnThongKe.setColorBorder(new java.awt.Color(255, 255, 255));
+		btnThongKe.setColorClick(new java.awt.Color(119, 204, 255));
+		btnThongKe.setColorEnter(new java.awt.Color(119, 238, 255));
+		btnThongKe.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnThongKeActionPerformed(evt);
+			}
+		});
+
+		btnInBaoCao.setText("In Báo Cáo");
+		btnInBaoCao.setBorderRadius(30);
+		btnInBaoCao.setColorBackground(new java.awt.Color(170, 238, 255));
+		btnInBaoCao.setColorBorder(new java.awt.Color(255, 255, 255));
+		btnInBaoCao.setColorClick(new java.awt.Color(119, 204, 255));
+		btnInBaoCao.setColorEnter(new java.awt.Color(119, 238, 255));
+		btnInBaoCao.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnInBaoCaoActionPerformed(evt);
+			}
+		});
+
+		javax.swing.GroupLayout pnlThongKeLayout = new javax.swing.GroupLayout(pnlThongKe);
+		pnlThongKe.setLayout(pnlThongKeLayout);
+		pnlThongKeLayout.setHorizontalGroup(pnlThongKeLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(txtTongSoQuanAo, javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addGroup(pnlThongKeLayout.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addComponent(btnInBaoCao, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+								.addComponent(btnThongKe, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblTongSoQuanAo, javax.swing.GroupLayout.DEFAULT_SIZE, 278,
+										Short.MAX_VALUE))
+						.addContainerGap()));
+		pnlThongKeLayout.setVerticalGroup(pnlThongKeLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(pnlThongKeLayout.createSequentialGroup()
+						.addComponent(lblTongSoQuanAo)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(txtTongSoQuanAo, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 491, Short.MAX_VALUE)
+						.addComponent(btnThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addComponent(btnInBaoCao, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addContainerGap()));
+
+		add(pnlThongKe, java.awt.BorderLayout.EAST);
+	}// </editor-fold>//GEN-END:initComponents
+
+	private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnThongKeActionPerformed
+		updateTable();
+	}// GEN-LAST:event_btnThongKeActionPerformed
+
+	private void btnInBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnInBaoCaoActionPerformed
+		inBaoCaoThongKe();
+	}// GEN-LAST:event_btnInBaoCaoActionPerformed
+
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private extended_component.JButton_AllRound btnInBaoCao;
+	private extended_component.JButton_AllRound btnThongKe;
+	private javax.swing.JLabel lblTongSoQuanAo;
+	private javax.swing.JPanel pnlHoaDon;
+	private javax.swing.JPanel pnlThongKe;
+	private javax.swing.JScrollPane scrQuanAo;
+	private extended_component.JTable_LightMode tblQuanAo;
+	private extended_component.JTextField_AllRound txtTongSoQuanAo;
+	// End of variables declaration//GEN-END:variables
 
 }
