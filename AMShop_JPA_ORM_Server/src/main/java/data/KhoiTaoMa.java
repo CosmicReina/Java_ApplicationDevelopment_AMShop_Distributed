@@ -6,7 +6,11 @@ import java.rmi.RemoteException;
 import java.time.LocalDate;
 
 import configuration.ServiceInitiator;
+import entity.DonDatHang;
+import entity.HoaDon;
+import entity.KhachHang;
 import entity.NhanVien;
+import entity.QuanAo;
 
 public class KhoiTaoMa {
     public static String generateMaNhanVien(){
@@ -48,13 +52,13 @@ public class KhoiTaoMa {
 			
 			String prefix = "KH" + year;
 			
-			String maKhachHangCuoi = ServiceInitiator.getInstance().getServiceKhachHang().getKhachHangCuoi(prefix).getMaKhachHang();
-			if(maKhachHangCuoi == null){
+			KhachHang khachHangCuoi = ServiceInitiator.getInstance().getServiceKhachHang().getKhachHangCuoi(prefix);
+			if(khachHangCuoi == null){
 			    soKhachHang = 1;
 			    maKhachHang = prefix + String.format("%06d", soKhachHang);
 			}
 			else{
-			    soKhachHang = Integer.parseInt(maKhachHangCuoi.substring(4)) + 1;
+			    soKhachHang = Integer.parseInt(khachHangCuoi.getMaKhachHang().substring(4)) + 1;
 			    maKhachHang = prefix + String.format("%06d", soKhachHang);
 			}
 			return maKhachHang;
@@ -71,13 +75,13 @@ public class KhoiTaoMa {
 			
 			String prefix = "QA";
 			
-			String maQuanAoCuoi = ServiceInitiator.getInstance().getServiceQuanAo().getQuanAoCuoi().getMaQuanAo();
-			if(maQuanAoCuoi == null){
+			QuanAo quanAoCuoi = ServiceInitiator.getInstance().getServiceQuanAo().getQuanAoCuoi();
+			if(quanAoCuoi == null){
 			    soQuanAo = 1;
 			    maQuanAo = prefix + String.format("%06d", soQuanAo);
 			}
 			else{
-			    soQuanAo = Integer.parseInt(maQuanAoCuoi.substring(2)) + 1;
+			    soQuanAo = Integer.parseInt(quanAoCuoi.getMaQuanAo().substring(2)) + 1;
 			    maQuanAo = prefix + String.format("%06d", soQuanAo);
 			}
 			return maQuanAo;
@@ -99,13 +103,13 @@ public class KhoiTaoMa {
 			
 			String prefix = "HD" + year + month + day;
 			
-			String maHoaDonCuoi = ServiceInitiator.getInstance().getServiceHoaDon().getHoaDonCuoi(prefix).getMaHoaDon();
-			if(maHoaDonCuoi == null){
+			HoaDon hoaDon = ServiceInitiator.getInstance().getServiceHoaDon().getHoaDonCuoi(prefix);
+			if(hoaDon == null){
 			    soHoaDon = 1;
 			    maHoaDon = prefix + String.format("%04d", soHoaDon);
 			}
 			else{
-			    soHoaDon = Integer.parseInt(maHoaDonCuoi.substring(8)) + 1;
+			    soHoaDon = Integer.parseInt(hoaDon.getMaHoaDon().substring(8)) + 1;
 			    maHoaDon = prefix + String.format("%04d", soHoaDon);
 			}
 			return maHoaDon;
@@ -127,13 +131,13 @@ public class KhoiTaoMa {
 			
 			String prefix = "DD" + year + month + day;
 			
-			String maDonDatHangCuoi = ServiceInitiator.getInstance().getServiceDonDatHang().getDonDatHangCuoi(prefix).getMaDonDatHang();
-			if(maDonDatHangCuoi == null){
+			DonDatHang donDatHang = ServiceInitiator.getInstance().getServiceDonDatHang().getDonDatHangCuoi(prefix);
+			if(donDatHang == null){
 			    soDonDatHang = 1;
 			    maDonDatHang = prefix + String.format("%04d", soDonDatHang);
 			}
 			else{
-			    soDonDatHang = Integer.parseInt(maDonDatHangCuoi.substring(8)) + 1;
+			    soDonDatHang = Integer.parseInt(donDatHang.getMaDonDatHang().substring(8)) + 1;
 			    maDonDatHang = prefix + String.format("%04d", soDonDatHang);
 			}
 			return maDonDatHang;
