@@ -41,7 +41,7 @@ public class LichLamViec implements Serializable {
 	private LocalDate ngayLamViec;
 
 	@ToString.Exclude
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MaCaLamViec")
 	private CaLamViec caLamViec;
 
