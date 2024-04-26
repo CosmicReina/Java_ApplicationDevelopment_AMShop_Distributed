@@ -27,7 +27,7 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "HoaDon")
-@NamedQueries({@NamedQuery(name = "HoaDon.getAllHoaDon", query = "SELECT hd FROM HoaDon hd"),
+@NamedQueries({@NamedQuery(name = "HoaDon.getAllHoaDon", query = "SELECT hd FROM HoaDon hd ORDER BY hd.maHoaDon DESC"),
 		@NamedQuery(name = "HoaDon.getAllHoaDonTrongKhoangNgay", query = "SELECT hd FROM HoaDon hd WHERE hd.thoiGianTao BETWEEN :ngayBatDau AND :ngayKetThuc"),
 		@NamedQuery(name = "HoaDon.getHoaDonTheoMaHoaDon", query = "SELECT hd FROM HoaDon hd WHERE hd.maHoaDon =:maHoaDon"),
 		@NamedQuery(name = "HoaDon.getHoaDonCuoi", query = "SELECT hd FROM HoaDon hd WHERE hd.maHoaDon = (SELECT MAX(hd.maHoaDon) FROM HoaDon hd WHERE hd.maHoaDon Like :prefix) ORDER BY hd.maHoaDon DESC")})
