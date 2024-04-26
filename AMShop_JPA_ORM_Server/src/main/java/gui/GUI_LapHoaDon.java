@@ -129,7 +129,7 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
 		for (QuanAo thisQuanAo : list) {
 			model.addRow(new Object[]{thisQuanAo.getMaQuanAo(), thisQuanAo.getTenQuanAo(),
 					FormatDouble.toMoney(thisQuanAo.getDonGiaBan()), thisQuanAo.getSoLuongTrongKho(),
-					thisQuanAo.getNhaSanXuat(), thisQuanAo.getDanhMuc(), thisQuanAo.getGioiTinh(),
+					thisQuanAo.getNhaSanXuat().getTenNhaSanXuat(), thisQuanAo.getDanhMuc(), thisQuanAo.getGioiTinh(),
 					thisQuanAo.getMauSac(), thisQuanAo.getKichThuoc(), thisQuanAo.getChatLieu()});
 		}
 	}
@@ -166,6 +166,7 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
 			if (!txtTenQuanAo.getText().equals("Tên Quần Áo")) {
 				for (int i = 0; i < list.size(); i++) {
 					QuanAo thisQuanAo = list.get(i);
+					System.out.println(thisQuanAo.getTenQuanAo().toLowerCase() + " - " + txtTenQuanAo.getText().toLowerCase());
 					if (!thisQuanAo.getTenQuanAo().toLowerCase().contains(txtTenQuanAo.getText().toLowerCase()))
 						listRemove.add(thisQuanAo);
 				}
@@ -220,7 +221,10 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
 			}
 
 			list.removeAll(listRemove);
-			capNhatTblQuanAo(list);
+			if (list.isEmpty())
+				JOptionPane.showMessageDialog(null, "Không tìm thấy Quần Áo phù hợp.");
+			else
+				capNhatTblQuanAo(list);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			e.printStackTrace();
 		}
