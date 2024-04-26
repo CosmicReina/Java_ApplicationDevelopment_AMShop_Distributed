@@ -36,7 +36,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/AMShop_JPA_ORM_Server"/>
 	<classpathentry kind="lib" path="library/apache-log4j-2.21.0-bin-java/log4j-api-2.21.0.jar"/>
 	<classpathentry kind="lib" path="library/apache-log4j-2.21.0-bin-java/log4j-slf4j2-impl-2.21.0.jar"/>
 	<classpathentry kind="lib" path="library/apache-log4j-2.21.0-bin-java/log4j-to-jul-2.21.0.jar"/>
@@ -63,5 +62,6 @@
 	<classpathentry kind="lib" path="library/jna-5.5.0.jar"/>
 	<classpathentry kind="lib" path="library/jsign-jpedal-4.92.13.jar"/>
 	<classpathentry kind="lib" path="library/swing-jnafilechooser.jar"/>
+	<classpathentry kind="lib" path="library/Client.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
