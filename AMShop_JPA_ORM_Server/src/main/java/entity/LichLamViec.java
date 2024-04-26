@@ -27,7 +27,7 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "LichLamViec")
-@NamedQueries({@NamedQuery(name = "LichLamViec.getAllLichLamViec", query = "SELECT llv FROM LichLamViec llv"),
+@NamedQueries({@NamedQuery(name = "LichLamViec.getAllLichLamViec", query = "SELECT llv FROM LichLamViec llv ORDER BY llv.maLichLamViec DESC"),
 		@NamedQuery(name = "LichLamViec.getLichLamViecTheoMaLichLamViec", query = "SELECT llv FROM LichLamViec llv WHERE llv.maLichLamViec =:maLichLamViec")})
 public class LichLamViec implements Serializable {
 

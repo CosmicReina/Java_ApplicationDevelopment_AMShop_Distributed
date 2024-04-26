@@ -323,35 +323,39 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
 			    return;
 			}
 			String maNhanVien = tblDanhSachNhanVienTrongCa.getValueAt(i, 0).toString();
-			NhanVien nhanVien = ServiceInitiator.getInstance().getServiceNhanVien().getNhanVienTheoMaNhanVien(maNhanVien);
 			
 			int y = tblDanhSachLichLamViec.getSelectedRow();
 			if(y < 0) return;
 			String maLichLamViec = tblDanhSachLichLamViec.getValueAt(y, 0).toString();
-			LichLamViec lichLamViec = ServiceInitiator.getInstance().getServiceLichLamViec().getLichLamViecTheoMaLichLamViec(maLichLamViec);
 			
-			ChiTietPhanCong chiTietPhanCong = new ChiTietPhanCong(lichLamViec, nhanVien, null, null);
 			List<ChiTietPhanCong> listPC = ServiceInitiator.getInstance().getServiceChiTietPhanCong().getAllChiTietPhanCongTheoMaLichLamViec(maLichLamViec);
 			
-			ChiTietPhanCong chiTietPhanCongUpdate = null;
-			if(listPC.contains(chiTietPhanCong))
-			    chiTietPhanCongUpdate = listPC.get(listPC.indexOf(chiTietPhanCong));
-			if(chiTietPhanCongUpdate == null) return;
+			ChiTietPhanCong chiTietPhanCong = null;
+			for(ChiTietPhanCong thisChiTietPhanCong : listPC){
+                if(thisChiTietPhanCong.getNhanVien().getMaNhanVien().equals(maNhanVien) && 
+                		thisChiTietPhanCong.getLichLamViec().getMaLichLamViec().equals(maLichLamViec)){
+                    chiTietPhanCong = thisChiTietPhanCong;
+                    break;
+                }}
+			if(chiTietPhanCong == null) return;
 			
-			if(chiTietPhanCongUpdate.getThoiGianVaoCa() == null){
+			if(chiTietPhanCong.getThoiGianVaoCa() == null){
 			    JOptionPane.showMessageDialog(null, "Vui lòng chấm công vào ca cho nhân viên trước");
 			    return;
 			}
 			
 			LocalDateTime thoiGianRaCa = LocalDateTime.now();
 			try {
-			    chiTietPhanCongUpdate.setThoiGianRaCa(thoiGianRaCa);
+			    chiTietPhanCong.setThoiGianRaCa(thoiGianRaCa);
 			} catch (Exception ex) {
 			    ex.printStackTrace();
 			}
 
-			if(ServiceInitiator.getInstance().getServiceChiTietPhanCong().updateChiTietPhanCong(chiTietPhanCongUpdate)){
+			if(ServiceInitiator.getInstance().getServiceChiTietPhanCong().updateChiTietPhanCong(chiTietPhanCong)){
 			    updateSauCapNhat(maLichLamViec);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Chấm công ra ca thất bại.");
 			}
 			
 			tblDanhSachNhanVienTrongCa.clearSelection();
