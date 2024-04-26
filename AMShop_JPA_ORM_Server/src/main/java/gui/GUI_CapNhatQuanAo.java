@@ -1,8 +1,5 @@
 package gui;
 
-import entity.NhaSanXuat;
-import entity.QuanAo;
-
 import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
 import java.io.File;
@@ -13,15 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import configuration.Configuration_QuanAo;
 import configuration.ServiceInitiator;
 import data.FormatDouble;
 import data.UtilityImageIcon;
+import entity.NhaSanXuat;
+import entity.QuanAo;
+import jnafilechooser.api.JnaFileChooser;
 
 public class GUI_CapNhatQuanAo extends javax.swing.JPanel {
 
@@ -261,18 +259,14 @@ public class GUI_CapNhatQuanAo extends javax.swing.JPanel {
 	}
 
 	private void chonHinhAnh() {
-		JFileChooser fileChooser = new JFileChooser();
-		FileNameExtensionFilter executeFilter = new FileNameExtensionFilter("Image", "jpg", "png");
-		fileChooser.setFileFilter(executeFilter);
-		fileChooser.setMultiSelectionEnabled(false);
-
-		int prompt = fileChooser.showDialog(this, "Add");
-		if (prompt == JFileChooser.APPROVE_OPTION) {
-			File file = fileChooser.getSelectedFile();
-			imagePath = file.getAbsolutePath();
+		JnaFileChooser fileChooser = new JnaFileChooser();
+		File directory = new File("files//hinhAnh//");
+		fileChooser.setCurrentDirectory(directory.getAbsolutePath());
+		boolean action = fileChooser.showOpenDialog(null);
+		if (action) {
+			imagePath = fileChooser.getSelectedFile().getAbsolutePath();
 			lblIMG.setText("");
 			lblIMG.setIcon(UtilityImageIcon.fromStringPath(imagePath, 194, 270));
-			imageChanged = true;
 		}
 	}
 
