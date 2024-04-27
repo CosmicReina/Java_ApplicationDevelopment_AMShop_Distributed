@@ -48,7 +48,7 @@ public class GenerateScriptHoaDon {
 		// private double tienKhachDua;
 		// private LocalDateTime thoiGianTao;
 
-		LocalDate ngayBatDau = LocalDate.of(2024, 2, 1);
+		LocalDate ngayBatDau = LocalDate.of(2024, 3, 1);
 		LocalDate ngayKetThuc = LocalDate.now();
 
 		CuaHang cuaHang = DAO_CuaHang.getCuaHang("AMShopGV01");
@@ -59,7 +59,7 @@ public class GenerateScriptHoaDon {
 
 		for (LocalDate date = ngayBatDau; date.isBefore(ngayKetThuc); date = date.plusDays(1)) {
 			// Random số lượng hóa đơn trong ngày
-			int soLuongHoaDon = (int) (Math.random() * 5) + 1;
+			int soLuongHoaDon = (int) (Math.random() * 3) + 1;
 			for (int i = 0; i < soLuongHoaDon; i++) {
 				String maHoaDon = khoiTaoMaHoaDon(date);
 				NhanVien nhanVien = getRandomNhanVien(listNhanVien);
